@@ -43,12 +43,14 @@ public class Main extends Application {
         gridPane.add(textfield1, 0, 3);
 
         button1.setOnMouseClicked(k -> {
-            stage.close();
+            Calculator calc = new Calculator();
+            stage.setScene(calc.newCalc());
         });
 
         textfield1.setOnKeyPressed(k -> {
             if (k.getCode().equals(KeyCode.ENTER)) {
-
+                Calculator calc = new Calculator();
+                stage.setScene(calc.newCalc());
             }
         });
 
