@@ -1,15 +1,12 @@
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.GridPane;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 public class Main extends Application {
@@ -32,8 +29,8 @@ public class Main extends Application {
         gridPane.setVgap(10);
         gridPane.setPadding(new Insets(10));
 
-        Label label1 = new Label("Wählen Sie, ob Sie einen Verlauf laden oder ein neues Projekt erstellen wollen:");
-        Button button1 = new Button("neues Projekt");
+        Label label1 = new Label("Wählen Sie, ob Sie einen Verlauf laden oder eine neue Session erstellen wollen:");
+        Button button1 = new Button("neue Session");
         TextField textfield1 = new TextField();
         textfield1.setPromptText("Verlaufs-Pfad:");
 
@@ -46,10 +43,13 @@ public class Main extends Application {
         gridPane.add(textfield1, 0, 3);
 
         button1.setOnMouseClicked(k -> {
-
+            stage.close();
         });
 
         textfield1.setOnKeyPressed(k -> {
+            if (k.getCode().equals(KeyCode.ENTER)) {
+
+            }
         });
 
         stage.show();
