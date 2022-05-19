@@ -13,6 +13,8 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
+import java.nio.file.Path;
+
 public class Main extends Application {
     public static void main(String[] args) {
         launch(args);
@@ -21,7 +23,7 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         stage.setTitle("calculator");
-        stage.setMinWidth(480);
+        stage.setMinWidth(600);
         stage.setMinHeight(100);
 
         GridPane gridPane = new GridPane();
@@ -35,7 +37,7 @@ public class Main extends Application {
         gridPane.setPadding(new Insets(10));
 
 
-        Label label1 = new Label("Wählen Sie, ob Sie einen Verlauf laden oder eine neue Session erstellen wollen:");
+        Label label1 = new Label("Wählen Sie, ob Sie einen Verlauf laden (Enter zum bestätigen) oder eine neue Session erstellen wollen:");
         Button button1 = new Button("neue Session");
         TextField textField1 = new TextField();
         textField1.setPromptText("Verlaufs-Pfad:");
@@ -55,6 +57,7 @@ public class Main extends Application {
 
         textField1.setOnKeyPressed(k -> {
             if (k.getCode().equals(KeyCode.ENTER)) {
+                History history = new History(Path.of(textField1.getText()));
                 Calculator calc = new Calculator();
                 stage.setScene(calc.newCalc());
             }
