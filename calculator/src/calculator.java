@@ -9,7 +9,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Screen;
 
 public class Calculator {
-    History history = null;
+    History history;
 
     public void loadHistory() {
 
@@ -41,6 +41,10 @@ public class Calculator {
         Button button7 = new Button("7");
         Button button8 = new Button("8");
         Button button9 = new Button("9");
+        Button button10 = new Button("=");
+        Button button11 = new Button("+");
+        Button button12 = new Button("-");
+        Button button13 = new Button("9");
 
         Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
 

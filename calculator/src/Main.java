@@ -17,7 +17,7 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         stage.setTitle("calculator");
-        stage.setMinWidth(450);
+        stage.setMinWidth(480);
         stage.setMinHeight(100);
 
         GridPane gridPane = new GridPane();
