@@ -90,6 +90,90 @@ public class Calculator {
         gridPane.add(buttons[20], 4, 6);
         gridPane.add(verlaufText, 4, 1);
 
+        buttons[0].setOnMouseClicked(k -> {
+            //0
+        });
+
+        buttons[1].setOnMouseClicked(k -> {
+            //1
+        });
+
+        buttons[2].setOnMouseClicked(k -> {
+            //2
+        });
+
+        buttons[3].setOnMouseClicked(k -> {
+            //3
+        });
+
+        buttons[4].setOnMouseClicked(k -> {
+            //4
+        });
+
+        buttons[5].setOnMouseClicked(k -> {
+            //5
+        });
+
+        buttons[6].setOnMouseClicked(k -> {
+            //6
+        });
+
+        buttons[7].setOnMouseClicked(k -> {
+            //7
+        });
+
+        buttons[8].setOnMouseClicked(k -> {
+            //8
+        });
+
+        buttons[9].setOnMouseClicked(k -> {
+            //9
+        });
+
+        buttons[10].setOnMouseClicked(k -> {
+            //=
+        });
+
+        buttons[11].setOnMouseClicked(k -> {
+            //+
+        });
+
+        buttons[12].setOnMouseClicked(k -> {
+            //-
+        });
+
+        buttons[13].setOnMouseClicked(k -> {
+            ///
+        });
+
+        buttons[14].setOnMouseClicked(k -> {
+            //*
+        });
+
+        buttons[15].setOnMouseClicked(k -> {
+            //C
+        });
+
+        buttons[16].setOnMouseClicked(k -> {
+            //.
+        });
+
+        buttons[17].setOnMouseClicked(k -> {
+            //Back
+        });
+
+        buttons[18].setOnMouseClicked(k -> {
+            //+/-
+        });
+
+        buttons[19].setOnMouseClicked(k -> {
+            //CE
+        });
+
+        buttons[20].setOnMouseClicked(k -> {
+            //Save
+        });
+
         return scene;
     }
 }

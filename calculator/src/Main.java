@@ -62,7 +62,6 @@ public class Main extends Application {
                 stage.setScene(calc.newCalc());
             }
         });
-
         stage.show();
     }
 }
