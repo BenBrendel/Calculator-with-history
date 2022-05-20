@@ -9,18 +9,23 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Screen;
 
-public class Calculator{
-    History history;
-   public  Calculator(){
+import java.nio.file.Path;
 
-   }
-    public Calculator(History history){
+public class Calculator {
+    History history;
+
+    public Calculator() {
+    }
+
+    public Calculator(History history) {
         this.history = history;
     }
+
     public void loadHistory() {
 
     }
@@ -94,17 +99,6 @@ public class Calculator{
         gridPane.add(buttons[19], 0, 2);
         gridPane.add(buttons[20], 4, 6);
         gridPane.add(verlaufText, 4, 1);
-
-            for (int i = 0; i < this.history.linesOfPath.size(); i++) {
-                verlauf.appendText(this.history.linesOfPath.get(i) + "\n");
-            }
-
-
-
-
-
-
-
 
         buttons[0].setOnMouseClicked(k -> {
             //0
@@ -188,6 +182,9 @@ public class Calculator{
 
         buttons[20].setOnMouseClicked(k -> {
             //Save
+        });
+
+        gridPane.setOnKeyPressed(k -> {
         });
 
         return scene;
