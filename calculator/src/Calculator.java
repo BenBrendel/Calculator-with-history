@@ -13,9 +13,14 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Screen;
 
-public class Calculator {
+public class Calculator{
     History history;
+   public  Calculator(){
 
+   }
+    public Calculator(History history){
+        this.history = history;
+    }
     public void loadHistory() {
 
     }
@@ -89,6 +94,17 @@ public class Calculator {
         gridPane.add(buttons[19], 0, 2);
         gridPane.add(buttons[20], 4, 6);
         gridPane.add(verlaufText, 4, 1);
+
+            for (int i = 0; i < this.history.linesOfPath.size(); i++) {
+                verlauf.appendText(this.history.linesOfPath.get(i) + "\n");
+            }
+
+
+
+
+
+
+
 
         buttons[0].setOnMouseClicked(k -> {
             //0

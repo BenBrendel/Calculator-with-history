@@ -13,7 +13,11 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.List;
 
 public class Main extends Application {
     public static void main(String[] args) {
@@ -57,9 +61,17 @@ public class Main extends Application {
 
         textField1.setOnKeyPressed(k -> {
             if (k.getCode().equals(KeyCode.ENTER)) {
+
                 History history = new History(Path.of(textField1.getText()));
-                Calculator calc = new Calculator();
-                stage.setScene(calc.newCalc());
+                Calculator calc = new Calculator(history);
+                try {
+                        history.linesOfPath = Files.readAllLines(history.path);
+                        stage.setScene(calc.newCalc());
+
+                } catch (IOException e) {
+                    textField1.setText("Ungültiger Pfad! Versuche es nochmal!");
+                }
+
             }
         });
         stage.show();

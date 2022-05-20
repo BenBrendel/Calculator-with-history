@@ -1,7 +1,9 @@
 import java.nio.file.Path;
+import java.util.List;
 
 public class History {
     Path path;
+    List<String> linesOfPath;
 
     public History() {
     }
