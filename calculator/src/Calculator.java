@@ -36,7 +36,7 @@ public class Calculator {
 
         Label verlaufText = new Label("Verlauf:");
         Button[] buttons = new Button[]{new Button("0"), new Button("1"), new Button("2"), new Button("3"), new Button("4"), new Button("5"), new Button("6"), new Button("7"), new Button("8"), new Button("9"),
-                new Button("="), new Button("+"), new Button("-"), new Button("/"), new Button("*"), new Button("C"), new Button("."), new Button("Back"), new Button("+/-"), new Button("CE")
+                new Button("="), new Button("+"), new Button("-"), new Button("/"), new Button("*"), new Button("C"), new Button("."), new Button("Back"), new Button("+/-"), new Button("CE"), new Button("Save")
         };
         TextArea ausgabe = new TextArea();
         TextArea verlauf = new TextArea();
@@ -65,7 +65,7 @@ public class Calculator {
         GridPane.setHalignment(verlaufText, HPos.CENTER);
 
         gridPane.add(ausgabe, 0, 1, 4, 1);
-        gridPane.add(verlauf, 4, 2, 1, 5);
+        gridPane.add(verlauf, 4, 2, 1, 4);
         gridPane.add(comboBox, 0, 0);
         gridPane.add(buttons[0], 1, 6);
         gridPane.add(buttons[1], 0, 5);
@@ -87,6 +87,7 @@ public class Calculator {
         gridPane.add(buttons[17], 2, 2);
         gridPane.add(buttons[18], 0, 6);
         gridPane.add(buttons[19], 0, 2);
+        gridPane.add(buttons[20], 4, 6);
         gridPane.add(verlaufText, 4, 1);
 
         return scene;
