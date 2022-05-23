@@ -102,62 +102,120 @@ public class Calculator {
 
         buttons[0].setOnMouseClicked(k -> {
             //0
+            if(ausgabe.getText().startsWith("Ergebnis")){
+                ausgabe.clear();
+            }
+            ausgabe.appendText("0");
         });
 
         buttons[1].setOnMouseClicked(k -> {
             //1
+            if(ausgabe.getText().startsWith("=")){
+                ausgabe.clear();
+            }
+            ausgabe.appendText("1");
         });
 
         buttons[2].setOnMouseClicked(k -> {
             //2
+            if(ausgabe.getText().startsWith("=")){
+                ausgabe.clear();
+            }
+            ausgabe.appendText("2");
         });
 
         buttons[3].setOnMouseClicked(k -> {
             //3
+            if(ausgabe.getText().startsWith("=")){
+                ausgabe.clear();
+            }
+            ausgabe.appendText("3");
         });
 
         buttons[4].setOnMouseClicked(k -> {
             //4
+            if(ausgabe.getText().startsWith("=")){
+                ausgabe.clear();
+            }
+            ausgabe.appendText("4");
         });
 
         buttons[5].setOnMouseClicked(k -> {
             //5
+            if(ausgabe.getText().startsWith("=")){
+                ausgabe.clear();
+            }
+            ausgabe.appendText("5");
         });
 
         buttons[6].setOnMouseClicked(k -> {
             //6
+            if(ausgabe.getText().startsWith("=")){
+                ausgabe.clear();
+            }
+            ausgabe.appendText("6");
         });
 
         buttons[7].setOnMouseClicked(k -> {
             //7
+            if(ausgabe.getText().startsWith("=")){
+                ausgabe.clear();
+            }
+            ausgabe.appendText("7");
         });
 
         buttons[8].setOnMouseClicked(k -> {
             //8
+            if(ausgabe.getText().startsWith("=")){
+                ausgabe.clear();
+            }
+            ausgabe.appendText("8");
         });
 
         buttons[9].setOnMouseClicked(k -> {
             //9
+            if(ausgabe.getText().startsWith("=")){
+                ausgabe.clear();
+            }
+            ausgabe.appendText("9");
         });
 
         buttons[10].setOnMouseClicked(k -> {
             //=
+            if(!(ausgabe.getText().contains("=") || ausgabe.getText().length() == 0) && ausgabe.getText().charAt(ausgabe.getText().length() - 1) != ' ') {
+                verlauf.appendText(ausgabe.getText() + " = \n"); //Ergebnis einfügen
+                ausgabe.clear();
+            }
+            ausgabe.appendText("=");
+
         });
 
         buttons[11].setOnMouseClicked(k -> {
             //+
+            if(ausgabe.getText().length() != 0 && ausgabe.getText().charAt(ausgabe.getText().length() - 1) != ' ') {
+                ausgabe.appendText(" + ");
+            }
         });
 
         buttons[12].setOnMouseClicked(k -> {
             //-
+            if(ausgabe.getText().length() != 0 && ausgabe.getText().charAt(ausgabe.getText().length() - 1) != ' ') {
+                ausgabe.appendText(" - ");
+            }
         });
 
         buttons[13].setOnMouseClicked(k -> {
             ///
+            if(ausgabe.getText().length() != 0 && ausgabe.getText().charAt(ausgabe.getText().length() - 1) != ' ') {
+                ausgabe.appendText(" / ");
+            }
         });
 
         buttons[14].setOnMouseClicked(k -> {
             //*
+            if(ausgabe.getText().length() != 0 && ausgabe.getText().charAt(ausgabe.getText().length() - 1) != ' '){
+                ausgabe.appendText(" * ");
+            }
         });
 
         buttons[15].setOnMouseClicked(k -> {
@@ -166,18 +224,45 @@ public class Calculator {
 
         buttons[16].setOnMouseClicked(k -> {
             //.
+            if(ausgabe.getText().charAt(ausgabe.getText().length()-1) >= '0' && ausgabe.getText().charAt(ausgabe.getText().length()-1) <= '9' ) {
+                ausgabe.appendText(".");
+            }
         });
+
 
         buttons[17].setOnMouseClicked(k -> {
             //Back
+            if (ausgabe.getText().charAt(ausgabe.getText().length() - 1) != ' ') {
+
+                ausgabe.setText(ausgabe.getText().substring(0, ausgabe.getText().length() - 1));
+            }else{
+                ausgabe.setText(ausgabe.getText().substring(0, ausgabe.getText().length() - 3));
+            }
         });
 
         buttons[18].setOnMouseClicked(k -> {
             //+/-
+            String rechnung = ausgabe.getText();
+               int counter = 0;
+               String lastNumber = "";
+                for(int i = rechnung.length() -1; i > 0; --i){
+                    if(rechnung.charAt(rechnung.length() - 1) >= '0' && rechnung.charAt(rechnung.length() - 1) <= '9' || rechnung.charAt(i) == '.'){
+                        counter++;
+                        lastNumber += rechnung.charAt(i);
+                    }else{
+                        break;
+                    }
+                }
+                lastNumber = "-" + lastNumber;
+            rechnung = rechnung.substring(0, rechnung.length() - 1 -counter);
+            rechnung += lastNumber;
+            ausgabe.setText(rechnung);
+
         });
 
         buttons[19].setOnMouseClicked(k -> {
             //CE
+            ausgabe.clear();
         });
 
         buttons[20].setOnMouseClicked(k -> {
