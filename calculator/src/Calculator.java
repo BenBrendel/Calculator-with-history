@@ -16,9 +16,9 @@ import javafx.stage.Screen;
 
 import java.nio.file.Path;
 
+
 public class Calculator {
     History history;
-
     public Calculator() {
     }
 
@@ -34,6 +34,10 @@ public class Calculator {
 
     }
 
+    /**
+     * creates the scene of the calculator
+     * @return scene for the calculator
+     */
     public Scene newCalc() {
         GridPane gridPane = new GridPane();
         gridPane.setAlignment(Pos.CENTER);
@@ -100,6 +104,9 @@ public class Calculator {
         gridPane.add(buttons[20], 4, 6);
         gridPane.add(verlaufText, 4, 1);
 
+        /**
+         * evenListener for buttons
+         */
         buttons[0].setOnMouseClicked(k -> {
             //0
             if(ausgabe.getText().startsWith("Ergebnis")){

@@ -12,11 +12,19 @@ public class History {
         this.path = path;
     }
 
-    public void loadHistory() {
+    /**
+     *
+     * @param path Path of the History
+     */
+    public void loadHistory(Path path) {
 
     }
 
-    public void saveHistory() {
+    /**
+     *
+     * @param path path where to save the current history
+     */
+    public void saveHistory(Path path) {
 
     }
 }

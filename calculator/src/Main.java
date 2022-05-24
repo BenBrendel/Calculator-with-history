@@ -26,6 +26,9 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
+        /**
+         * creates starting scene
+         */
         stage.setTitle("calculator");
         stage.setMinWidth(600);
         stage.setMinHeight(100);
@@ -53,12 +56,16 @@ public class Main extends Application {
         gridPane.add(label1, 0, 0);
         gridPane.add(button1, 0, 1);
         gridPane.add(textField1, 0, 3);
-
+        /**
+         * if button pressed -> create a new button and load it
+         */
         button1.setOnMouseClicked(k -> {
             Calculator calc = new Calculator();
             stage.setScene(calc.newCalc());
         });
-
+        /**
+         * if enter is pressed in the textfield a Calculator is created with the path of the history
+         */
         textField1.setOnKeyPressed(k -> {
             if (k.getCode().equals(KeyCode.ENTER)) {
 
