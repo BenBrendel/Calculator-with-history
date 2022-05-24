@@ -182,11 +182,13 @@ public class Calculator {
 
         buttons[10].setOnMouseClicked(k -> {
             //=
-            if(!(ausgabe.getText().contains("=") || ausgabe.getText().length() == 0) && ausgabe.getText().charAt(ausgabe.getText().length() - 1) != ' ') {
+            String Rechnung = ausgabe.getText();
+            if(!(Rechnung.contains("=")) && Rechnung.length() != 0 && Rechnung.charAt(Rechnung.length() - 1) != ' ') {
                 verlauf.appendText(ausgabe.getText() + " = \n"); //Ergebnis einfügen
                 ausgabe.clear();
+                ausgabe.appendText("=");
             }
-            ausgabe.appendText("=");
+
 
         });
 
@@ -232,11 +234,13 @@ public class Calculator {
 
         buttons[17].setOnMouseClicked(k -> {
             //Back
-            if (ausgabe.getText().charAt(ausgabe.getText().length() - 1) != ' ') {
+            if(ausgabe.getText().length() != 0) {
+                if (ausgabe.getText().charAt(ausgabe.getText().length() - 1) != ' ') {
 
-                ausgabe.setText(ausgabe.getText().substring(0, ausgabe.getText().length() - 1));
-            }else{
-                ausgabe.setText(ausgabe.getText().substring(0, ausgabe.getText().length() - 3));
+                    ausgabe.setText(ausgabe.getText().substring(0, ausgabe.getText().length() - 1));
+                } else {
+                    ausgabe.setText(ausgabe.getText().substring(0, ausgabe.getText().length() - 3));
+                }
             }
         });
 
