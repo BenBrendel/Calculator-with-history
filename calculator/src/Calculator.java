@@ -254,20 +254,12 @@ public class Calculator {
         buttons[18].setOnMouseClicked(k -> {
             //+/-
             String rechnung = ausgabe.getText();
-               int counter = 0;
-               String lastNumber = "";
-                for(int i = rechnung.length() -1; i > 0; --i){
-                    if(rechnung.charAt(rechnung.length() - 1) >= '0' && rechnung.charAt(rechnung.length() - 1) <= '9' || rechnung.charAt(i) == '.'){
-                        counter++;
-                        lastNumber += rechnung.charAt(i);
-                    }else{
-                        break;
-                    }
-                }
-                lastNumber = "-" + lastNumber;
-            rechnung = rechnung.substring(0, rechnung.length() - 1 -counter);
-            rechnung += lastNumber;
-            ausgabe.setText(rechnung);
+            String [] numbers = rechnung.split(" ");
+            rechnung = rechnung.substring(0, rechnung.length() - numbers[numbers.length - 1].length());
+
+                numbers[numbers.length - 1] = "-" + numbers[numbers.length - 1];
+                ausgabe.setText(rechnung + numbers[numbers.length - 1]);
+
 
         });
 
