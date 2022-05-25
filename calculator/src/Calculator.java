@@ -19,6 +19,7 @@ import javafx.stage.Stage;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -41,14 +42,19 @@ public class Calculator {
     }
 
     public void save(List<String> linesOfHistory) throws IOException {
-        try (
-                BufferedWriter out = Files.newBufferedWriter((history.path), StandardCharsets.UTF_8, StandardOpenOption.APPEND);
-        ) {
+        try {
+            try (
+                    BufferedWriter out = Files.newBufferedWriter((history.path), StandardCharsets.UTF_8, StandardOpenOption.APPEND);
+            ) {
 
-            for (String s : linesOfHistory) {
-                out.write(s + System.lineSeparator());
+                for (String s : linesOfHistory) {
+                    out.write(s + System.lineSeparator());
+                }
             }
+        }catch (Exception ignored){
+
         }
+
     }
 
     public double calculate(String rechnung) {
@@ -177,6 +183,13 @@ public class Calculator {
         gridPane.add(buttons[19], 0, 2);
         gridPane.add(buttons[20], 4, 6);
         gridPane.add(verlaufText, 4, 1);
+        try {
+            for(int i = 0; i < history.linesOfPath.size(); i++){
+                verlauf.appendText(history.linesOfPath.get(i) + "\n");
+            }
+        }catch (Exception ignored){
+
+        }
 
         /**
          * evenListener for buttons
@@ -334,7 +347,7 @@ public class Calculator {
 
         buttons[18].setOnMouseClicked(k -> {
             //+/-
-            if (!(ausgabe.getText().startsWith("Error")) && !(ausgabe.getText().startsWith("Speichern"))) {
+            if (!(ausgabe.getText().startsWith("Error")) && !(ausgabe.getText().startsWith("Speichern")) && !(ausgabe.getText().contains("="))) {
                 String rechnung = ausgabe.getText();
                 String[] numbers = rechnung.split(" ");
                 rechnung = rechnung.substring(0, rechnung.length() - numbers[numbers.length - 1].length());
@@ -353,6 +366,8 @@ public class Calculator {
 
         buttons[20].setOnMouseClicked(k -> {
             //Save
+
+            List<String> allLineOfHistory = Arrays.asList(verlauf.getText().split("\n"));
             if (this.history == null) {
                 GridPane saveScreen = new GridPane();
                 saveScreen.setAlignment(Pos.CENTER);
@@ -376,6 +391,22 @@ public class Calculator {
 
                 save.setOnMouseClicked(e -> {
                     File verlaufsDatei = fileChooser.showSaveDialog(saveStage); //File mit Verlauf
+                    try {
+                        Files.createFile(Paths.get(verlaufsDatei.getPath()));
+                        try (
+                                BufferedWriter out = Files.newBufferedWriter(Path.of(verlaufsDatei.getPath()), StandardCharsets.UTF_8);
+                                ){
+                            for (String s : allLineOfHistory) {
+                                out.write(s);
+                            }
+
+                        }catch (Exception ignored){
+
+                        }
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
+                    System.out.println(verlaufsDatei);
                     saveStage.close();
                 });
 

@@ -73,12 +73,17 @@ public class Main extends Application {
             History history = new History();
             Calculator calc = new Calculator(history);
             try {
+                history.linesOfPath = Files.readAllLines(Path.of(selectedFile.getPath()));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            try {
                 history.linesOfPath = Files.readAllLines(history.path);
             } catch (Exception ignored) {
             }
-            if (history.path != null) {
+
                 stage.setScene(calc.newCalc());
-            }
+
         });
         stage.show();
     }
