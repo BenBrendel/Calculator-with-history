@@ -37,40 +37,22 @@ public class Calculator {
 
     }
     public double calculate(String rechnung){
-        double erg = 0;
         List<String> splittedRechnung = Arrays.asList(rechnung.split(" "));
+        double erg = Double.parseDouble(splittedRechnung.get(0));
         if((rechnung.contains("+") || rechnung.contains("-")) && (!(rechnung.contains("*") && rechnung.contains("/")))){
-            System.out.println(splittedRechnung.toString());
-            for(int i = 0; i < splittedRechnung.size(); i++){
-                if(i <= 2) {
-                    if (splittedRechnung.get(i).contains("+")) {
-                        erg = Double.parseDouble(splittedRechnung.get(i - 1)) + Double.parseDouble(splittedRechnung.get(i + 1));
-                    } else if (splittedRechnung.get(i).contains("-")) {
-                        erg = Double.parseDouble(splittedRechnung.get(i - 1)) - Double.parseDouble(splittedRechnung.get(i + 1));
-                    }
-                }else{
+            for(int i = 1; i < splittedRechnung.size(); i++){
                     if (splittedRechnung.get(i).contains("+")) {
                         erg += Double.parseDouble(splittedRechnung.get(i + 1));
                     } else if (splittedRechnung.get(i).contains("-")) {
                         erg -= Double.parseDouble(splittedRechnung.get(i + 1));
                     }
                 }
-            }
         }else if((rechnung.contains("*") || rechnung.contains("/")) && (!(rechnung.contains("-") && rechnung.contains("+")))){
-                System.out.println(splittedRechnung.toString());
-                for(int i = 0; i < splittedRechnung.size(); i++){
-                    if(i <= 2) {
-                        if (splittedRechnung.get(i).contains("*")) {
-                            erg = Double.parseDouble(splittedRechnung.get(i - 1)) * Double.parseDouble(splittedRechnung.get(i + 1));
-                        } else if (splittedRechnung.get(i).contains("/")) {
-                            erg = Double.parseDouble(splittedRechnung.get(i - 1)) / Double.parseDouble(splittedRechnung.get(i + 1));
-                        }
-                    }else{
-                        if (splittedRechnung.get(i).contains("*")) {
-                            erg *= Double.parseDouble(splittedRechnung.get(i + 1));
-                        } else if (splittedRechnung.get(i).contains("/")) {
-                            erg /= Double.parseDouble(splittedRechnung.get(i + 1));
-                        }
+                for(int i = 1; i < splittedRechnung.size(); i++) {
+                    if (splittedRechnung.get(i).contains("*")) {
+                        erg *= Double.parseDouble(splittedRechnung.get(i + 1));
+                    } else if (splittedRechnung.get(i).contains("/")) {
+                        erg /= Double.parseDouble(splittedRechnung.get(i + 1));
                     }
                 }
         }
