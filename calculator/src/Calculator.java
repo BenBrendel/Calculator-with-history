@@ -42,9 +42,19 @@ public class Calculator {
         if((rechnung.contains("+") || rechnung.contains("-")) && (!(rechnung.contains("*") && rechnung.contains("/")))){
             for(int i = 1; i < splittedRechnung.size(); i++){
                     if (splittedRechnung.get(i).contains("+")) {
-                        erg += Double.parseDouble(splittedRechnung.get(i + 1));
+                        try {
+                            erg += Double.parseDouble(splittedRechnung.get(i + 1));
+                        }catch (Exception ignored){
+
+                        }
+
                     } else if (splittedRechnung.get(i).contains("-")) {
-                        erg -= Double.parseDouble(splittedRechnung.get(i + 1));
+                        try {
+                            erg -= Double.parseDouble(splittedRechnung.get(i + 1));
+                        }catch (Exception ignored){
+
+                        }
+
                     }
                 }
         }else if((rechnung.contains("*") || rechnung.contains("/")) && (!(rechnung.contains("-") && rechnung.contains("+")))){
@@ -269,10 +279,10 @@ public class Calculator {
         buttons[17].setOnMouseClicked(k -> {
             //Back
             if(ausgabe.getText().length() != 0) {
-                if (ausgabe.getText().charAt(ausgabe.getText().length() - 1) != ' ') {
+                if (ausgabe.getText().charAt(ausgabe.getText().length() - 1) != ' ' && !(ausgabe.getText().contains("="))) {
 
                     ausgabe.setText(ausgabe.getText().substring(0, ausgabe.getText().length() - 1));
-                } else {
+                } else if(!(ausgabe.getText().contains("="))){
                     ausgabe.setText(ausgabe.getText().substring(0, ausgabe.getText().length() - 3));
                 }
             }
