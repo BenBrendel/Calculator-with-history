@@ -375,7 +375,7 @@ public class Calculator {
                 saveScreen.add(save, 1, 1);
 
                 save.setOnMouseClicked(e -> {
-                    File verlaufsDatei = fileChooser.showSaveDialog(saveStage);
+                    File verlaufsDatei = fileChooser.showSaveDialog(saveStage); //File mit Verlauf
                     saveStage.close();
                 });
 

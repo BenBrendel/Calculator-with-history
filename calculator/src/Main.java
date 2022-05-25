@@ -11,8 +11,10 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -41,19 +43,21 @@ public class Main extends Application {
         gridPane.setVgap(10);
         gridPane.setPadding(new Insets(10));
 
-
-        Label label1 = new Label("Wählen Sie, ob Sie einen Verlauf laden (Enter zum bestätigen) oder eine neue Session erstellen wollen:");
+        Label label1 = new Label("Wählen Sie, ob Sie einen Verlauf laden oder eine neue Session erstellen wollen:");
         Button button1 = new Button("neue Session");
-        TextField textField1 = new TextField();
-        textField1.setPromptText("Verlaufs-Pfad:");
+        Button button2 = new Button("Verlaufs-Pfad");
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Text Files", "*.txt")
+        );
 
         label1.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
         button1.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-        textField1.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+        button2.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
 
         gridPane.add(label1, 0, 0);
         gridPane.add(button1, 0, 1);
-        gridPane.add(textField1, 0, 3);
+        gridPane.add(button2, 0, 3);
         /**
          * if button pressed -> create a new button and load it
          */
@@ -64,19 +68,16 @@ public class Main extends Application {
         /**
          * if enter is pressed in the textfield a Calculator is created with the path of the history
          */
-        textField1.setOnKeyPressed(k -> {
-            if (k.getCode().equals(KeyCode.ENTER)) {
-                History history = new History(Path.of(textField1.getText()));
-                Calculator calc = new Calculator(history);
-                try {
-                    history.linesOfPath = Files.readAllLines(history.path);
-                    stage.setScene(calc.newCalc());
-                } catch (IOException e) {
-                    textField1.clear();
-                    gridPane.requestFocus();
-                    textField1.setPromptText("Ungültiger Pfad! Versuche es nochmal!");
-                }
-
+        button2.setOnMouseClicked(k -> {
+            File selectedFile = fileChooser.showOpenDialog(stage);
+            History history = new History();
+            Calculator calc = new Calculator(history);
+            try {
+                history.linesOfPath = Files.readAllLines(history.path);
+            } catch (Exception ignored) {
+            }
+            if (history.path != null) {
+                stage.setScene(calc.newCalc());
             }
         });
         stage.show();
