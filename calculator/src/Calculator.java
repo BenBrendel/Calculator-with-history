@@ -14,7 +14,14 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Screen;
 
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -29,17 +36,51 @@ public class Calculator {
         this.history = history;
     }
 
-    public void loadHistory() {
+    public void save(List<String> linesOfHistory) throws IOException {
+        try (
+                BufferedWriter out = Files.newBufferedWriter((history.path), StandardCharsets.UTF_8, StandardOpenOption.APPEND);
+                ){
 
-    }
-
-    public void saveHistory() {
-
+            for (String s : linesOfHistory) {
+                out.write(s + System.lineSeparator());
+            }
+        }
     }
     public double calculate(String rechnung){
-        List<String> splittedRechnung = Arrays.asList(rechnung.split(" "));
-        double erg = Double.parseDouble(splittedRechnung.get(0));
+        String [] splittedRechnungArray = rechnung.split(" ");
+        List<String> splittedRechnung = new ArrayList<>(splittedRechnungArray.length);
+        for(int i = 0; i < splittedRechnungArray.length; i++){
+            splittedRechnung.add(splittedRechnungArray[i]);
+        }
+        System.out.println(splittedRechnung.toString());
+        double erg = 0;
+        double zwischenErgebnis = 0;
+        for(int i = 0; i < splittedRechnung.size(); i++){
+            if(splittedRechnung.get(i).contains("*")){
+
+                zwischenErgebnis = Double.parseDouble(splittedRechnung.get(i - 1)) * Double.parseDouble(splittedRechnung.get(i+1));
+                splittedRechnung.set(i, zwischenErgebnis + "");
+                splittedRechnung.remove(i + 1);
+                splittedRechnung.remove(i - 1);
+
+
+            } else if(splittedRechnung.get(i).contains("/")){
+
+                zwischenErgebnis = Double.parseDouble(splittedRechnung.get(i - 1)) / Double.parseDouble(splittedRechnung.get(i+1));
+                splittedRechnung.set(i, zwischenErgebnis + "");
+                splittedRechnung.remove(i + 1);
+                splittedRechnung.remove(i - 1);
+
+
+            }
+        }
+
+        if(splittedRechnung.size() == 1){
+            return Double.parseDouble(splittedRechnung.get(0));
+        }
+
         if((rechnung.contains("+") || rechnung.contains("-")) && (!(rechnung.contains("*") && rechnung.contains("/")))){
+            erg = Double.parseDouble(splittedRechnung.get(0));
             for(int i = 1; i < splittedRechnung.size(); i++){
                     if (splittedRechnung.get(i).contains("+")) {
                         try {
@@ -54,17 +95,8 @@ public class Calculator {
                         }catch (Exception ignored){
 
                         }
-
                     }
-                }
-        }else if((rechnung.contains("*") || rechnung.contains("/")) && (!(rechnung.contains("-") && rechnung.contains("+")))){
-                for(int i = 1; i < splittedRechnung.size(); i++) {
-                    if (splittedRechnung.get(i).contains("*")) {
-                        erg *= Double.parseDouble(splittedRechnung.get(i + 1));
-                    } else if (splittedRechnung.get(i).contains("/")) {
-                        erg /= Double.parseDouble(splittedRechnung.get(i + 1));
-                    }
-                }
+            }
         }
 
         return  erg;
@@ -145,7 +177,7 @@ public class Calculator {
          */
         buttons[0].setOnMouseClicked(k -> {
             //0
-            if(ausgabe.getText().startsWith("Ergebnis")){
+            if(ausgabe.getText().startsWith("=") || ausgabe.getText().startsWith("Error")){
                 ausgabe.clear();
             }
             ausgabe.appendText("0");
@@ -153,7 +185,7 @@ public class Calculator {
 
         buttons[1].setOnMouseClicked(k -> {
             //1
-            if(ausgabe.getText().startsWith("=")){
+            if(ausgabe.getText().startsWith("=") || ausgabe.getText().startsWith("Error")){
                 ausgabe.clear();
             }
             ausgabe.appendText("1");
@@ -161,7 +193,7 @@ public class Calculator {
 
         buttons[2].setOnMouseClicked(k -> {
             //2
-            if(ausgabe.getText().startsWith("=")){
+            if(ausgabe.getText().startsWith("=") || ausgabe.getText().startsWith("Error")){
                 ausgabe.clear();
             }
             ausgabe.appendText("2");
@@ -169,7 +201,7 @@ public class Calculator {
 
         buttons[3].setOnMouseClicked(k -> {
             //3
-            if(ausgabe.getText().startsWith("=")){
+            if(ausgabe.getText().startsWith("=") || ausgabe.getText().startsWith("Error")){
                 ausgabe.clear();
             }
             ausgabe.appendText("3");
@@ -177,7 +209,7 @@ public class Calculator {
 
         buttons[4].setOnMouseClicked(k -> {
             //4
-            if(ausgabe.getText().startsWith("=")){
+            if(ausgabe.getText().startsWith("=") || ausgabe.getText().startsWith("Error")){
                 ausgabe.clear();
             }
             ausgabe.appendText("4");
@@ -185,7 +217,7 @@ public class Calculator {
 
         buttons[5].setOnMouseClicked(k -> {
             //5
-            if(ausgabe.getText().startsWith("=")){
+            if(ausgabe.getText().startsWith("=") || ausgabe.getText().startsWith("Error")){
                 ausgabe.clear();
             }
             ausgabe.appendText("5");
@@ -193,7 +225,7 @@ public class Calculator {
 
         buttons[6].setOnMouseClicked(k -> {
             //6
-            if(ausgabe.getText().startsWith("=")){
+            if(ausgabe.getText().startsWith("=") || ausgabe.getText().startsWith("Error")){
                 ausgabe.clear();
             }
             ausgabe.appendText("6");
@@ -201,7 +233,7 @@ public class Calculator {
 
         buttons[7].setOnMouseClicked(k -> {
             //7
-            if(ausgabe.getText().startsWith("=")){
+            if(ausgabe.getText().startsWith("=") || ausgabe.getText().startsWith("Error")){
                 ausgabe.clear();
             }
             ausgabe.appendText("7");
@@ -209,7 +241,7 @@ public class Calculator {
 
         buttons[8].setOnMouseClicked(k -> {
             //8
-            if(ausgabe.getText().startsWith("=")){
+            if(ausgabe.getText().startsWith("=") || ausgabe.getText().startsWith("Error")){
                 ausgabe.clear();
             }
             ausgabe.appendText("8");
@@ -217,7 +249,7 @@ public class Calculator {
 
         buttons[9].setOnMouseClicked(k -> {
             //9
-            if(ausgabe.getText().startsWith("=")){
+            if(ausgabe.getText().startsWith("=") || ausgabe.getText().startsWith("Error")){
                 ausgabe.clear();
             }
             ausgabe.appendText("9");
@@ -227,10 +259,14 @@ public class Calculator {
             //=
             String Rechnung = ausgabe.getText();
             if(!(Rechnung.contains("=")) && Rechnung.length() != 0 && Rechnung.charAt(Rechnung.length() - 1) != ' ') {
-
-                verlauf.appendText(ausgabe.getText() + " = " + this.calculate(Rechnung) + "\n"); //Ergebnis einfügen
-                ausgabe.clear();
-                ausgabe.appendText("= " + this.calculate(Rechnung));
+                if(this.calculate(Rechnung) == Double.POSITIVE_INFINITY || this.calculate(Rechnung) == Double.NEGATIVE_INFINITY){
+                    verlauf.clear();
+                    ausgabe.setText("Error! Division durch 0");
+                }else {
+                    verlauf.appendText(ausgabe.getText() + " = " + this.calculate(Rechnung) + "\n"); //Ergebnis einfügen
+                    ausgabe.clear();
+                    ausgabe.appendText("= " + this.calculate(Rechnung));
+                }
             }
 
 
@@ -238,39 +274,41 @@ public class Calculator {
 
         buttons[11].setOnMouseClicked(k -> {
             //+
-            if(ausgabe.getText().length() != 0 && ausgabe.getText().charAt(ausgabe.getText().length() - 1) != ' ') {
+            if(ausgabe.getText().length() != 0 && ausgabe.getText().charAt(ausgabe.getText().length() - 1) != ' ' && !(ausgabe.getText().startsWith("Error"))) {
                 ausgabe.appendText(" + ");
             }
         });
 
         buttons[12].setOnMouseClicked(k -> {
             //-
-            if(ausgabe.getText().length() != 0 && ausgabe.getText().charAt(ausgabe.getText().length() - 1) != ' ') {
+            if(ausgabe.getText().length() != 0 && ausgabe.getText().charAt(ausgabe.getText().length() - 1) != ' ' && !(ausgabe.getText().startsWith("Error"))) {
                 ausgabe.appendText(" - ");
             }
         });
 
         buttons[13].setOnMouseClicked(k -> {
             ///
-            if(ausgabe.getText().length() != 0 && ausgabe.getText().charAt(ausgabe.getText().length() - 1) != ' ') {
+            if(ausgabe.getText().length() != 0 && ausgabe.getText().charAt(ausgabe.getText().length() - 1) != ' ' && !(ausgabe.getText().startsWith("Error"))) {
                 ausgabe.appendText(" / ");
             }
         });
 
         buttons[14].setOnMouseClicked(k -> {
             //*
-            if(ausgabe.getText().length() != 0 && ausgabe.getText().charAt(ausgabe.getText().length() - 1) != ' '){
+            if(ausgabe.getText().length() != 0 && ausgabe.getText().charAt(ausgabe.getText().length() - 1) != ' ' && !(ausgabe.getText().startsWith("Error"))){
                 ausgabe.appendText(" * ");
             }
         });
 
         buttons[15].setOnMouseClicked(k -> {
             //C
+            ausgabe.clear();
         });
 
         buttons[16].setOnMouseClicked(k -> {
             //.
-            if(ausgabe.getText().charAt(ausgabe.getText().length()-1) >= '0' && ausgabe.getText().charAt(ausgabe.getText().length()-1) <= '9' ) {
+
+            if(ausgabe.getText().charAt(ausgabe.getText().length()-1) >= '0' && ausgabe.getText().charAt(ausgabe.getText().length()-1) <= '9' && !(ausgabe.getText().startsWith("Error")) ) {
                 ausgabe.appendText(".");
             }
         });
@@ -278,7 +316,7 @@ public class Calculator {
 
         buttons[17].setOnMouseClicked(k -> {
             //Back
-            if(ausgabe.getText().length() != 0) {
+            if(ausgabe.getText().length() != 0 && !(ausgabe.getText().startsWith("Error"))) {
                 if (ausgabe.getText().charAt(ausgabe.getText().length() - 1) != ' ' && !(ausgabe.getText().contains("="))) {
 
                     ausgabe.setText(ausgabe.getText().substring(0, ausgabe.getText().length() - 1));
@@ -290,27 +328,36 @@ public class Calculator {
 
         buttons[18].setOnMouseClicked(k -> {
             //+/-
-            String rechnung = ausgabe.getText();
-            String [] numbers = rechnung.split(" ");
-            rechnung = rechnung.substring(0, rechnung.length() - numbers[numbers.length - 1].length());
+            if(!(ausgabe.getText().startsWith("Error"))){
+                String rechnung = ausgabe.getText();
+                String[] numbers = rechnung.split(" ");
+                rechnung = rechnung.substring(0, rechnung.length() - numbers[numbers.length - 1].length());
 
                 numbers[numbers.length - 1] = "-" + numbers[numbers.length - 1];
                 ausgabe.setText(rechnung + numbers[numbers.length - 1]);
 
-
+            }
         });
 
         buttons[19].setOnMouseClicked(k -> {
             //CE
-            ausgabe.clear();
+           ausgabe.clear();
+           verlauf.clear();
         });
 
         buttons[20].setOnMouseClicked(k -> {
             //Save
             if(this.history == null){
-
+                //Abfrage für Speicherort
             }else{
-
+                List<String> linesOfHistory = Arrays.asList(verlauf.getText().split("\n"));
+                try {
+                    this.save(linesOfHistory);
+                    ausgabe.clear();
+                    ausgabe.setText("Speichern erfolgreich!");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         });
 
