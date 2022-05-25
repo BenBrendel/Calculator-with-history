@@ -15,6 +15,9 @@ import javafx.scene.paint.Color;
 import javafx.stage.Screen;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 
 public class Calculator {
@@ -32,6 +35,47 @@ public class Calculator {
 
     public void saveHistory() {
 
+    }
+    public double calculate(String rechnung){
+        double erg = 0;
+        List<String> splittedRechnung = Arrays.asList(rechnung.split(" "));
+        if((rechnung.contains("+") || rechnung.contains("-")) && (!(rechnung.contains("*") && rechnung.contains("/")))){
+            System.out.println(splittedRechnung.toString());
+            for(int i = 0; i < splittedRechnung.size(); i++){
+                if(i <= 2) {
+                    if (splittedRechnung.get(i).contains("+")) {
+                        erg = Double.parseDouble(splittedRechnung.get(i - 1)) + Double.parseDouble(splittedRechnung.get(i + 1));
+                    } else if (splittedRechnung.get(i).contains("-")) {
+                        erg = Double.parseDouble(splittedRechnung.get(i - 1)) - Double.parseDouble(splittedRechnung.get(i + 1));
+                    }
+                }else{
+                    if (splittedRechnung.get(i).contains("+")) {
+                        erg += Double.parseDouble(splittedRechnung.get(i + 1));
+                    } else if (splittedRechnung.get(i).contains("-")) {
+                        erg -= Double.parseDouble(splittedRechnung.get(i + 1));
+                    }
+                }
+            }
+        }else if((rechnung.contains("*") || rechnung.contains("/")) && (!(rechnung.contains("-") && rechnung.contains("+")))){
+                System.out.println(splittedRechnung.toString());
+                for(int i = 0; i < splittedRechnung.size(); i++){
+                    if(i <= 2) {
+                        if (splittedRechnung.get(i).contains("*")) {
+                            erg = Double.parseDouble(splittedRechnung.get(i - 1)) * Double.parseDouble(splittedRechnung.get(i + 1));
+                        } else if (splittedRechnung.get(i).contains("/")) {
+                            erg = Double.parseDouble(splittedRechnung.get(i - 1)) / Double.parseDouble(splittedRechnung.get(i + 1));
+                        }
+                    }else{
+                        if (splittedRechnung.get(i).contains("*")) {
+                            erg *= Double.parseDouble(splittedRechnung.get(i + 1));
+                        } else if (splittedRechnung.get(i).contains("/")) {
+                            erg /= Double.parseDouble(splittedRechnung.get(i + 1));
+                        }
+                    }
+                }
+        }
+
+        return  erg;
     }
 
     /**
@@ -191,9 +235,10 @@ public class Calculator {
             //=
             String Rechnung = ausgabe.getText();
             if(!(Rechnung.contains("=")) && Rechnung.length() != 0 && Rechnung.charAt(Rechnung.length() - 1) != ' ') {
-                verlauf.appendText(ausgabe.getText() + " = \n"); //Ergebnis einfügen
+
+                verlauf.appendText(ausgabe.getText() + " = " + this.calculate(Rechnung) + "\n"); //Ergebnis einfügen
                 ausgabe.clear();
-                ausgabe.appendText("=");
+                ausgabe.appendText("= " + this.calculate(Rechnung));
             }
 
 
@@ -270,6 +315,11 @@ public class Calculator {
 
         buttons[20].setOnMouseClicked(k -> {
             //Save
+            if(this.history == null){
+
+            }else{
+
+            }
         });
 
         gridPane.setOnKeyPressed(k -> {
