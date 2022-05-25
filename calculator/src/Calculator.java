@@ -183,7 +183,7 @@ public class Calculator {
          */
         buttons[0].setOnMouseClicked(k -> {
             //0
-            if (ausgabe.getText().startsWith("=") || ausgabe.getText().startsWith("Error")) {
+            if (ausgabe.getText().startsWith("=") || ausgabe.getText().startsWith("Error") || ausgabe.getText().startsWith("Speichern")) {
                 ausgabe.clear();
             }
             ausgabe.appendText("0");
@@ -191,7 +191,7 @@ public class Calculator {
 
         buttons[1].setOnMouseClicked(k -> {
             //1
-            if (ausgabe.getText().startsWith("=") || ausgabe.getText().startsWith("Error")) {
+            if (ausgabe.getText().startsWith("=") || ausgabe.getText().startsWith("Error") || ausgabe.getText().startsWith("Speichern")) {
                 ausgabe.clear();
             }
             ausgabe.appendText("1");
@@ -199,7 +199,7 @@ public class Calculator {
 
         buttons[2].setOnMouseClicked(k -> {
             //2
-            if (ausgabe.getText().startsWith("=") || ausgabe.getText().startsWith("Error")) {
+            if (ausgabe.getText().startsWith("=") || ausgabe.getText().startsWith("Error") || ausgabe.getText().startsWith("Speichern")) {
                 ausgabe.clear();
             }
             ausgabe.appendText("2");
@@ -207,7 +207,7 @@ public class Calculator {
 
         buttons[3].setOnMouseClicked(k -> {
             //3
-            if (ausgabe.getText().startsWith("=") || ausgabe.getText().startsWith("Error")) {
+            if (ausgabe.getText().startsWith("=") || ausgabe.getText().startsWith("Error") || ausgabe.getText().startsWith("Speichern")) {
                 ausgabe.clear();
             }
             ausgabe.appendText("3");
@@ -215,7 +215,7 @@ public class Calculator {
 
         buttons[4].setOnMouseClicked(k -> {
             //4
-            if (ausgabe.getText().startsWith("=") || ausgabe.getText().startsWith("Error")) {
+            if (ausgabe.getText().startsWith("=") || ausgabe.getText().startsWith("Error") || ausgabe.getText().startsWith("Speichern")) {
                 ausgabe.clear();
             }
             ausgabe.appendText("4");
@@ -223,7 +223,7 @@ public class Calculator {
 
         buttons[5].setOnMouseClicked(k -> {
             //5
-            if (ausgabe.getText().startsWith("=") || ausgabe.getText().startsWith("Error")) {
+            if (ausgabe.getText().startsWith("=") || ausgabe.getText().startsWith("Error") || ausgabe.getText().startsWith("Speichern")) {
                 ausgabe.clear();
             }
             ausgabe.appendText("5");
@@ -231,7 +231,7 @@ public class Calculator {
 
         buttons[6].setOnMouseClicked(k -> {
             //6
-            if (ausgabe.getText().startsWith("=") || ausgabe.getText().startsWith("Error")) {
+            if (ausgabe.getText().startsWith("=") || ausgabe.getText().startsWith("Error") || ausgabe.getText().startsWith("Speichern")) {
                 ausgabe.clear();
             }
             ausgabe.appendText("6");
@@ -239,7 +239,7 @@ public class Calculator {
 
         buttons[7].setOnMouseClicked(k -> {
             //7
-            if (ausgabe.getText().startsWith("=") || ausgabe.getText().startsWith("Error")) {
+            if (ausgabe.getText().startsWith("=") || ausgabe.getText().startsWith("Error") || ausgabe.getText().startsWith("Speichern")) {
                 ausgabe.clear();
             }
             ausgabe.appendText("7");
@@ -247,7 +247,7 @@ public class Calculator {
 
         buttons[8].setOnMouseClicked(k -> {
             //8
-            if (ausgabe.getText().startsWith("=") || ausgabe.getText().startsWith("Error")) {
+            if (ausgabe.getText().startsWith("=") || ausgabe.getText().startsWith("Error") || ausgabe.getText().startsWith("Speichern")) {
                 ausgabe.clear();
             }
             ausgabe.appendText("8");
@@ -255,7 +255,7 @@ public class Calculator {
 
         buttons[9].setOnMouseClicked(k -> {
             //9
-            if (ausgabe.getText().startsWith("=") || ausgabe.getText().startsWith("Error")) {
+            if (ausgabe.getText().startsWith("=") || ausgabe.getText().startsWith("Error") || ausgabe.getText().startsWith("Speichern")) {
                 ausgabe.clear();
             }
             ausgabe.appendText("9");
@@ -280,28 +280,28 @@ public class Calculator {
 
         buttons[11].setOnMouseClicked(k -> {
             //+
-            if (ausgabe.getText().length() != 0 && ausgabe.getText().charAt(ausgabe.getText().length() - 1) != ' ' && !(ausgabe.getText().startsWith("Error"))) {
+            if (ausgabe.getText().length() != 0 && ausgabe.getText().charAt(ausgabe.getText().length() - 1) != ' ' && !(ausgabe.getText().startsWith("Error")) && !(ausgabe.getText().startsWith("Speichern"))) {
                 ausgabe.appendText(" + ");
             }
         });
 
         buttons[12].setOnMouseClicked(k -> {
             //-
-            if (ausgabe.getText().length() != 0 && ausgabe.getText().charAt(ausgabe.getText().length() - 1) != ' ' && !(ausgabe.getText().startsWith("Error"))) {
+            if (ausgabe.getText().length() != 0 && ausgabe.getText().charAt(ausgabe.getText().length() - 1) != ' ' && !(ausgabe.getText().startsWith("Error")) && !(ausgabe.getText().startsWith("Speichern"))) {
                 ausgabe.appendText(" - ");
             }
         });
 
         buttons[13].setOnMouseClicked(k -> {
             ///
-            if (ausgabe.getText().length() != 0 && ausgabe.getText().charAt(ausgabe.getText().length() - 1) != ' ' && !(ausgabe.getText().startsWith("Error"))) {
+            if (ausgabe.getText().length() != 0 && ausgabe.getText().charAt(ausgabe.getText().length() - 1) != ' ' && !(ausgabe.getText().startsWith("Error")) && !(ausgabe.getText().startsWith("Speichern"))) {
                 ausgabe.appendText(" / ");
             }
         });
 
         buttons[14].setOnMouseClicked(k -> {
             //*
-            if (ausgabe.getText().length() != 0 && ausgabe.getText().charAt(ausgabe.getText().length() - 1) != ' ' && !(ausgabe.getText().startsWith("Error"))) {
+            if (ausgabe.getText().length() != 0 && ausgabe.getText().charAt(ausgabe.getText().length() - 1) != ' ' && !(ausgabe.getText().startsWith("Error")) && !(ausgabe.getText().startsWith("Speichern"))) {
                 ausgabe.appendText(" * ");
             }
         });
@@ -314,7 +314,7 @@ public class Calculator {
         buttons[16].setOnMouseClicked(k -> {
             //.
 
-            if (ausgabe.getText().charAt(ausgabe.getText().length() - 1) >= '0' && ausgabe.getText().charAt(ausgabe.getText().length() - 1) <= '9' && !(ausgabe.getText().startsWith("Error"))) {
+            if (ausgabe.getText().charAt(ausgabe.getText().length() - 1) >= '0' && ausgabe.getText().charAt(ausgabe.getText().length() - 1) <= '9' && !(ausgabe.getText().startsWith("Error")) && !(ausgabe.getText().startsWith("Speichern"))) {
                 ausgabe.appendText(".");
             }
         });
@@ -322,7 +322,7 @@ public class Calculator {
 
         buttons[17].setOnMouseClicked(k -> {
             //Back
-            if (ausgabe.getText().length() != 0 && !(ausgabe.getText().startsWith("Error"))) {
+            if (ausgabe.getText().length() != 0 && !(ausgabe.getText().startsWith("Error")) && !(ausgabe.getText().startsWith("Speichern"))) {
                 if (ausgabe.getText().charAt(ausgabe.getText().length() - 1) != ' ' && !(ausgabe.getText().contains("="))) {
 
                     ausgabe.setText(ausgabe.getText().substring(0, ausgabe.getText().length() - 1));
@@ -334,7 +334,7 @@ public class Calculator {
 
         buttons[18].setOnMouseClicked(k -> {
             //+/-
-            if (!(ausgabe.getText().startsWith("Error"))) {
+            if (!(ausgabe.getText().startsWith("Error")) && !(ausgabe.getText().startsWith("Speichern"))) {
                 String rechnung = ausgabe.getText();
                 String[] numbers = rechnung.split(" ");
                 rechnung = rechnung.substring(0, rechnung.length() - numbers[numbers.length - 1].length());
