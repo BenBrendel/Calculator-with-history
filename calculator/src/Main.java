@@ -59,7 +59,7 @@ public class Main extends Application {
         gridPane.add(button1, 0, 1);
         gridPane.add(button2, 0, 3);
         /**
-         * if button pressed -> create a new button and load it
+         * if button pressed -> create a new calculator and load it
          */
         button1.setOnMouseClicked(k -> {
             Calculator calc = new Calculator();

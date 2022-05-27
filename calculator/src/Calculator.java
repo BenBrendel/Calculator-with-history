@@ -63,12 +63,14 @@ public class Calculator {
         for (int i = 0; i < splittedRechnungArray.length; i++) {
             splittedRechnung.add(splittedRechnungArray[i]);
         }
-        System.out.println(splittedRechnung.toString());
+
         double erg = 0;
         double zwischenErgebnis = 0;
-        for (int i = 0; i < splittedRechnung.size(); i++) {
+        for (int i = 0; splittedRechnung.contains("*") || splittedRechnung.contains("/"); i++) {
+            if(i == splittedRechnung.size() - 1){
+                i = 0;
+            }
             if (splittedRechnung.get(i).contains("*")) {
-
                 zwischenErgebnis = Double.parseDouble(splittedRechnung.get(i - 1)) * Double.parseDouble(splittedRechnung.get(i + 1));
                 splittedRechnung.set(i, zwischenErgebnis + "");
                 splittedRechnung.remove(i + 1);
@@ -77,6 +79,7 @@ public class Calculator {
 
             } else if (splittedRechnung.get(i).contains("/")) {
 
+
                 zwischenErgebnis = Double.parseDouble(splittedRechnung.get(i - 1)) / Double.parseDouble(splittedRechnung.get(i + 1));
                 splittedRechnung.set(i, zwischenErgebnis + "");
                 splittedRechnung.remove(i + 1);
@@ -84,13 +87,15 @@ public class Calculator {
 
 
             }
+
         }
+
 
         if (splittedRechnung.size() == 1) {
             return Double.parseDouble(splittedRechnung.get(0));
         }
 
-        if ((rechnung.contains("+") || rechnung.contains("-")) && (!(rechnung.contains("*") && rechnung.contains("/")))) {
+        if ((rechnung.contains("+") || rechnung.contains("-"))) {
             erg = Double.parseDouble(splittedRechnung.get(0));
             for (int i = 1; i < splittedRechnung.size(); i++) {
                 if (splittedRechnung.get(i).contains("+")) {
@@ -347,7 +352,7 @@ public class Calculator {
 
         buttons[18].setOnMouseClicked(k -> {
             //+/-
-            if (!(ausgabe.getText().startsWith("Error")) && !(ausgabe.getText().startsWith("Speichern")) && !(ausgabe.getText().contains("="))) {
+            if (!(ausgabe.getText().startsWith("Error")) && !(ausgabe.getText().startsWith("Speichern")) && !(ausgabe.getText().contains("=")) && ausgabe.getText().charAt(ausgabe.getText().length() -1) >= '0' && ausgabe.getText().charAt(ausgabe.getText().length() -1) <= '9') {
                 String rechnung = ausgabe.getText();
                 String[] numbers = rechnung.split(" ");
                 rechnung = rechnung.substring(0, rechnung.length() - numbers[numbers.length - 1].length());
@@ -406,7 +411,7 @@ public class Calculator {
                     } catch (IOException ex) {
                         ex.printStackTrace();
                     }
-                    System.out.println(verlaufsDatei);
+
                     saveStage.close();
                 });
 
