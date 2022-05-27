@@ -352,7 +352,7 @@ public class Calculator {
 
         buttons[18].setOnMouseClicked(k -> {
             //+/-
-            if (!(ausgabe.getText().startsWith("Error")) && !(ausgabe.getText().startsWith("Speichern")) && !(ausgabe.getText().contains("=")) && ausgabe.getText().charAt(ausgabe.getText().length() -1) >= '0' && ausgabe.getText().charAt(ausgabe.getText().length() -1) <= '9') {
+            if (!(ausgabe.getText().startsWith("Error")) && !(ausgabe.getText().contains("=")) && ausgabe.getText().charAt(ausgabe.getText().length() -1) >= '0' && ausgabe.getText().charAt(ausgabe.getText().length() -1) <= '9') {
                 String rechnung = ausgabe.getText();
                 String[] numbers = rechnung.split(" ");
                 rechnung = rechnung.substring(0, rechnung.length() - numbers[numbers.length - 1].length());
