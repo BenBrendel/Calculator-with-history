@@ -57,6 +57,11 @@ public class Calculator {
 
     }
 
+    /**
+     *
+     * @param rechnung rechnung als String
+     * @return das fertige Ergebnis
+     */
     public double calculate(String rechnung) {
         String[] splittedRechnungArray = rechnung.split(" ");
         List<String> splittedRechnung = new ArrayList<>(splittedRechnungArray.length);
@@ -84,12 +89,9 @@ public class Calculator {
                 splittedRechnung.set(i, zwischenErgebnis + "");
                 splittedRechnung.remove(i + 1);
                 splittedRechnung.remove(i - 1);
-
-
             }
 
         }
-
 
         if (splittedRechnung.size() == 1) {
             return Double.parseDouble(splittedRechnung.get(0));
@@ -117,6 +119,7 @@ public class Calculator {
 
         return erg;
     }
+
 
     /**
      * creates the scene of the calculator
@@ -427,7 +430,6 @@ public class Calculator {
                 }
             }
         });
-
         gridPane.setOnKeyPressed(k -> {
         });
 
