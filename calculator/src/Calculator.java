@@ -16,6 +16,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
+import javax.lang.model.util.ElementScanner14;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;
@@ -48,7 +49,9 @@ public class Calculator {
             ) {
 
                 for (String s : linesOfHistory) {
+
                     out.write(s + System.lineSeparator());
+
                 }
             }
         }catch (Exception ignored){
@@ -290,9 +293,16 @@ public class Calculator {
                     verlauf.clear();
                     ausgabe.setText("Error! Division durch 0");
                 } else {
-                    verlauf.appendText(ausgabe.getText() + " = " + this.calculate(Rechnung) + "\n"); //Ergebnis einfügen
-                    ausgabe.clear();
-                    ausgabe.appendText("= " + this.calculate(Rechnung));
+                    String [] splittedErg = (" " + this.calculate(Rechnung)).split("\\.");
+                    if(Integer.parseInt(splittedErg[1]) == 0){
+                        verlauf.appendText(ausgabe.getText() + " = " + splittedErg[0] + "\n");
+                        ausgabe.clear();
+                        ausgabe.appendText("= " + splittedErg[0]);
+                    }else {
+                        verlauf.appendText(ausgabe.getText() + " = " + this.calculate(Rechnung) + "\n"); //Ergebnis einfügen
+                        ausgabe.clear();
+                        ausgabe.appendText("= " + this.calculate(Rechnung));
+                    }
                 }
             }
 
@@ -358,9 +368,13 @@ public class Calculator {
             if (!(ausgabe.getText().startsWith("Error")) && !(ausgabe.getText().contains("=")) && ausgabe.getText().charAt(ausgabe.getText().length() -1) >= '0' && ausgabe.getText().charAt(ausgabe.getText().length() -1) <= '9') {
                 String rechnung = ausgabe.getText();
                 String[] numbers = rechnung.split(" ");
-                rechnung = rechnung.substring(0, rechnung.length() - numbers[numbers.length - 1].length());
 
-                numbers[numbers.length - 1] = "-" + numbers[numbers.length - 1];
+                rechnung = rechnung.substring(0, rechnung.length() - numbers[numbers.length - 1].length());
+                if(numbers[numbers.length-1].charAt(0) != '-') {
+                    numbers[numbers.length - 1] = "-" + numbers[numbers.length - 1];
+                }else {
+                    numbers[numbers.length - 1] = numbers[numbers.length - 1].substring(1);
+                }
                 ausgabe.setText(rechnung + numbers[numbers.length - 1]);
 
             }
@@ -405,14 +419,16 @@ public class Calculator {
                                 BufferedWriter out = Files.newBufferedWriter(Path.of(verlaufsDatei.getPath()), StandardCharsets.UTF_8);
                                 ){
                             for (String s : allLineOfHistory) {
-                                out.write(s);
+
+                                out.write(s + System.lineSeparator());
+                                ausgabe.setText("Speichern erfolgreich!");
                             }
 
                         }catch (Exception ignored){
 
                         }
-                    } catch (IOException ex) {
-                        ex.printStackTrace();
+                    } catch (Exception ignored) {
+
                     }
 
                     saveStage.close();
