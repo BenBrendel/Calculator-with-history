@@ -61,14 +61,14 @@ public class Main extends Application {
         /**
          * if button pressed -> create a new calculator and load it
          */
-        button1.setOnMouseClicked(k -> {
+        button1.setOnAction(k -> {
             Calculator calc = new Calculator();
             stage.setScene(calc.newCalc());
         });
         /**
          * if enter is pressed in the textfield a Calculator is created with the path of the history
          */
-        button2.setOnMouseClicked(k -> {
+        button2.setOnAction(k -> {
             File selectedFile = fileChooser.showOpenDialog(stage);
             History history = new History();
             Calculator calc = new Calculator(history);
@@ -82,7 +82,7 @@ public class Main extends Application {
             } catch (Exception ignored) {
             }
 
-                stage.setScene(calc.newCalc());
+            stage.setScene(calc.newCalc());
 
         });
         stage.show();

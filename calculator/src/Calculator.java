@@ -16,12 +16,9 @@ import javafx.stage.FileChooser;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
-import javax.lang.model.util.ElementScanner14;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -54,14 +51,13 @@ public class Calculator {
 
                 }
             }
-        }catch (Exception ignored){
+        } catch (Exception ignored) {
 
         }
 
     }
 
     /**
-     *
      * @param rechnung rechnung als String
      * @return das fertige Ergebnis
      */
@@ -75,7 +71,7 @@ public class Calculator {
         double erg = 0;
         double zwischenErgebnis = 0;
         for (int i = 0; splittedRechnung.contains("*") || splittedRechnung.contains("/"); i++) {
-            if(i == splittedRechnung.size() - 1){
+            if (i == splittedRechnung.size() - 1) {
                 i = 0;
             }
             if (splittedRechnung.get(i).contains("*")) {
@@ -169,6 +165,8 @@ public class Calculator {
         verlaufText.setStyle("-fx-font-size:25");
         GridPane.setHalignment(verlaufText, HPos.CENTER);
 
+        gridPane.requestFocus();
+
         gridPane.add(ausgabe, 0, 1, 4, 1);
         gridPane.add(verlauf, 4, 2, 1, 4);
         gridPane.add(comboBox, 0, 0);
@@ -194,18 +192,18 @@ public class Calculator {
         gridPane.add(buttons[19], 0, 2);
         gridPane.add(buttons[20], 4, 6);
         gridPane.add(verlaufText, 4, 1);
+
         try {
-            for(int i = 0; i < history.linesOfPath.size(); i++){
+            for (int i = 0; i < history.linesOfPath.size(); i++) {
                 verlauf.appendText(history.linesOfPath.get(i) + "\n");
             }
-        }catch (Exception ignored){
-
+        } catch (Exception ignored) {
         }
 
         /**
          * evenListener for buttons
          */
-        buttons[0].setOnMouseClicked(k -> {
+        buttons[0].setOnAction(k -> {
             //0
             if (ausgabe.getText().startsWith("=") || ausgabe.getText().startsWith("Error") || ausgabe.getText().startsWith("Speichern")) {
                 ausgabe.clear();
@@ -213,7 +211,7 @@ public class Calculator {
             ausgabe.appendText("0");
         });
 
-        buttons[1].setOnMouseClicked(k -> {
+        buttons[1].setOnAction(k -> {
             //1
             if (ausgabe.getText().startsWith("=") || ausgabe.getText().startsWith("Error") || ausgabe.getText().startsWith("Speichern")) {
                 ausgabe.clear();
@@ -221,7 +219,7 @@ public class Calculator {
             ausgabe.appendText("1");
         });
 
-        buttons[2].setOnMouseClicked(k -> {
+        buttons[2].setOnAction(k -> {
             //2
             if (ausgabe.getText().startsWith("=") || ausgabe.getText().startsWith("Error") || ausgabe.getText().startsWith("Speichern")) {
                 ausgabe.clear();
@@ -229,7 +227,7 @@ public class Calculator {
             ausgabe.appendText("2");
         });
 
-        buttons[3].setOnMouseClicked(k -> {
+        buttons[3].setOnAction(k -> {
             //3
             if (ausgabe.getText().startsWith("=") || ausgabe.getText().startsWith("Error") || ausgabe.getText().startsWith("Speichern")) {
                 ausgabe.clear();
@@ -237,7 +235,7 @@ public class Calculator {
             ausgabe.appendText("3");
         });
 
-        buttons[4].setOnMouseClicked(k -> {
+        buttons[4].setOnAction(k -> {
             //4
             if (ausgabe.getText().startsWith("=") || ausgabe.getText().startsWith("Error") || ausgabe.getText().startsWith("Speichern")) {
                 ausgabe.clear();
@@ -245,7 +243,7 @@ public class Calculator {
             ausgabe.appendText("4");
         });
 
-        buttons[5].setOnMouseClicked(k -> {
+        buttons[5].setOnAction(k -> {
             //5
             if (ausgabe.getText().startsWith("=") || ausgabe.getText().startsWith("Error") || ausgabe.getText().startsWith("Speichern")) {
                 ausgabe.clear();
@@ -253,7 +251,7 @@ public class Calculator {
             ausgabe.appendText("5");
         });
 
-        buttons[6].setOnMouseClicked(k -> {
+        buttons[6].setOnAction(k -> {
             //6
             if (ausgabe.getText().startsWith("=") || ausgabe.getText().startsWith("Error") || ausgabe.getText().startsWith("Speichern")) {
                 ausgabe.clear();
@@ -261,7 +259,7 @@ public class Calculator {
             ausgabe.appendText("6");
         });
 
-        buttons[7].setOnMouseClicked(k -> {
+        buttons[7].setOnAction(k -> {
             //7
             if (ausgabe.getText().startsWith("=") || ausgabe.getText().startsWith("Error") || ausgabe.getText().startsWith("Speichern")) {
                 ausgabe.clear();
@@ -269,7 +267,7 @@ public class Calculator {
             ausgabe.appendText("7");
         });
 
-        buttons[8].setOnMouseClicked(k -> {
+        buttons[8].setOnAction(k -> {
             //8
             if (ausgabe.getText().startsWith("=") || ausgabe.getText().startsWith("Error") || ausgabe.getText().startsWith("Speichern")) {
                 ausgabe.clear();
@@ -277,7 +275,7 @@ public class Calculator {
             ausgabe.appendText("8");
         });
 
-        buttons[9].setOnMouseClicked(k -> {
+        buttons[9].setOnAction(k -> {
             //9
             if (ausgabe.getText().startsWith("=") || ausgabe.getText().startsWith("Error") || ausgabe.getText().startsWith("Speichern")) {
                 ausgabe.clear();
@@ -285,7 +283,7 @@ public class Calculator {
             ausgabe.appendText("9");
         });
 
-        buttons[10].setOnMouseClicked(k -> {
+        buttons[10].setOnAction(k -> {
             //=
             String Rechnung = ausgabe.getText();
             if (!(Rechnung.contains("=")) && Rechnung.length() != 0 && Rechnung.charAt(Rechnung.length() - 1) != ' ') {
@@ -293,12 +291,12 @@ public class Calculator {
                     verlauf.clear();
                     ausgabe.setText("Error! Division durch 0");
                 } else {
-                    String [] splittedErg = (" " + this.calculate(Rechnung)).split("\\.");
-                    if(Integer.parseInt(splittedErg[1]) == 0){
+                    String[] splittedErg = (" " + this.calculate(Rechnung)).split("\\.");
+                    if (Integer.parseInt(splittedErg[1]) == 0) {
                         verlauf.appendText(ausgabe.getText() + " = " + splittedErg[0] + "\n");
                         ausgabe.clear();
                         ausgabe.appendText("= " + splittedErg[0]);
-                    }else {
+                    } else {
                         verlauf.appendText(ausgabe.getText() + " = " + this.calculate(Rechnung) + "\n"); //Ergebnis einfügen
                         ausgabe.clear();
                         ausgabe.appendText("= " + this.calculate(Rechnung));
@@ -309,40 +307,40 @@ public class Calculator {
 
         });
 
-        buttons[11].setOnMouseClicked(k -> {
+        buttons[11].setOnAction(k -> {
             //+
             if (ausgabe.getText().length() != 0 && ausgabe.getText().charAt(ausgabe.getText().length() - 1) != ' ' && !(ausgabe.getText().startsWith("Error")) && !(ausgabe.getText().startsWith("Speichern"))) {
                 ausgabe.appendText(" + ");
             }
         });
 
-        buttons[12].setOnMouseClicked(k -> {
+        buttons[12].setOnAction(k -> {
             //-
             if (ausgabe.getText().length() != 0 && ausgabe.getText().charAt(ausgabe.getText().length() - 1) != ' ' && !(ausgabe.getText().startsWith("Error")) && !(ausgabe.getText().startsWith("Speichern"))) {
                 ausgabe.appendText(" - ");
             }
         });
 
-        buttons[13].setOnMouseClicked(k -> {
+        buttons[13].setOnAction(k -> {
             ///
             if (ausgabe.getText().length() != 0 && ausgabe.getText().charAt(ausgabe.getText().length() - 1) != ' ' && !(ausgabe.getText().startsWith("Error")) && !(ausgabe.getText().startsWith("Speichern"))) {
                 ausgabe.appendText(" / ");
             }
         });
 
-        buttons[14].setOnMouseClicked(k -> {
+        buttons[14].setOnAction(k -> {
             //*
             if (ausgabe.getText().length() != 0 && ausgabe.getText().charAt(ausgabe.getText().length() - 1) != ' ' && !(ausgabe.getText().startsWith("Error")) && !(ausgabe.getText().startsWith("Speichern"))) {
                 ausgabe.appendText(" * ");
             }
         });
 
-        buttons[15].setOnMouseClicked(k -> {
+        buttons[15].setOnAction(k -> {
             //C
             ausgabe.clear();
         });
 
-        buttons[16].setOnMouseClicked(k -> {
+        buttons[16].setOnAction(k -> {
             //.
 
             if (ausgabe.getText().charAt(ausgabe.getText().length() - 1) >= '0' && ausgabe.getText().charAt(ausgabe.getText().length() - 1) <= '9' && !(ausgabe.getText().startsWith("Error")) && !(ausgabe.getText().startsWith("Speichern"))) {
@@ -351,7 +349,7 @@ public class Calculator {
         });
 
 
-        buttons[17].setOnMouseClicked(k -> {
+        buttons[17].setOnAction(k -> {
             //Back
             if (ausgabe.getText().length() != 0 && !(ausgabe.getText().startsWith("Error")) && !(ausgabe.getText().startsWith("Speichern"))) {
                 if (ausgabe.getText().charAt(ausgabe.getText().length() - 1) != ' ' && !(ausgabe.getText().contains("="))) {
@@ -363,16 +361,16 @@ public class Calculator {
             }
         });
 
-        buttons[18].setOnMouseClicked(k -> {
+        buttons[18].setOnAction(k -> {
             //+/-
-            if (!(ausgabe.getText().startsWith("Error")) && !(ausgabe.getText().contains("=")) && ausgabe.getText().charAt(ausgabe.getText().length() -1) >= '0' && ausgabe.getText().charAt(ausgabe.getText().length() -1) <= '9') {
+            if (!(ausgabe.getText().startsWith("Error")) && !(ausgabe.getText().contains("=")) && ausgabe.getText().charAt(ausgabe.getText().length() - 1) >= '0' && ausgabe.getText().charAt(ausgabe.getText().length() - 1) <= '9') {
                 String rechnung = ausgabe.getText();
                 String[] numbers = rechnung.split(" ");
 
                 rechnung = rechnung.substring(0, rechnung.length() - numbers[numbers.length - 1].length());
-                if(numbers[numbers.length-1].charAt(0) != '-') {
+                if (numbers[numbers.length - 1].charAt(0) != '-') {
                     numbers[numbers.length - 1] = "-" + numbers[numbers.length - 1];
-                }else {
+                } else {
                     numbers[numbers.length - 1] = numbers[numbers.length - 1].substring(1);
                 }
                 ausgabe.setText(rechnung + numbers[numbers.length - 1]);
@@ -380,15 +378,14 @@ public class Calculator {
             }
         });
 
-        buttons[19].setOnMouseClicked(k -> {
+        buttons[19].setOnAction(k -> {
             //CE
             ausgabe.clear();
             verlauf.clear();
         });
 
-        buttons[20].setOnMouseClicked(k -> {
+        buttons[20].setOnAction(k -> {
             //Save
-
             List<String> allLineOfHistory = Arrays.asList(verlauf.getText().split("\n"));
             if (this.history == null) {
                 GridPane saveScreen = new GridPane();
@@ -411,20 +408,20 @@ public class Calculator {
                 saveScreen.add(label, 1, 0);
                 saveScreen.add(save, 1, 1);
 
-                save.setOnMouseClicked(e -> {
+                save.setOnAction(e -> {
                     File verlaufsDatei = fileChooser.showSaveDialog(saveStage); //File mit Verlauf
                     try {
                         Files.createFile(Paths.get(verlaufsDatei.getPath()));
                         try (
                                 BufferedWriter out = Files.newBufferedWriter(Path.of(verlaufsDatei.getPath()), StandardCharsets.UTF_8);
-                                ){
+                        ) {
                             for (String s : allLineOfHistory) {
 
                                 out.write(s + System.lineSeparator());
                                 ausgabe.setText("Speichern erfolgreich!");
                             }
 
-                        }catch (Exception ignored){
+                        } catch (Exception ignored) {
 
                         }
                     } catch (Exception ignored) {
@@ -446,7 +443,120 @@ public class Calculator {
                 }
             }
         });
-        gridPane.setOnKeyPressed(k -> {
+
+        /**
+         * activating buttons with keys
+         */
+        scene.setOnKeyPressed(k -> {
+            if (k.getCode() == KeyCode.NUMPAD0) {
+                buttons[0].fire();
+            }
+        });
+
+        scene.setOnKeyPressed(k -> {
+            if (k.getCode() == KeyCode.NUMPAD1) {
+                buttons[1].fire();
+            }
+        });
+
+        scene.setOnKeyPressed(k -> {
+            if (k.getCode() == KeyCode.NUMPAD2) {
+                buttons[2].fire();
+            }
+        });
+
+        scene.setOnKeyPressed(k -> {
+            if (k.getCode() == KeyCode.NUMPAD3) {
+                buttons[3].fire();
+            }
+        });
+
+        scene.setOnKeyPressed(k -> {
+            if (k.getCode() == KeyCode.NUMPAD4) {
+                buttons[4].fire();
+            }
+        });
+
+        scene.setOnKeyPressed(k -> {
+            if (k.getCode() == KeyCode.NUMPAD5) {
+                buttons[5].fire();
+            }
+        });
+
+        scene.setOnKeyPressed(k -> {
+            if (k.getCode() == KeyCode.NUMPAD6) {
+                buttons[6].fire();
+            }
+        });
+
+        scene.setOnKeyPressed(k -> {
+            if (k.getCode() == KeyCode.NUMPAD7) {
+                buttons[7].fire();
+            }
+        });
+
+        scene.setOnKeyPressed(k -> {
+            if (k.getCode() == KeyCode.NUMPAD8) {
+                buttons[8].fire();
+            }
+        });
+
+        scene.setOnKeyPressed(k -> {
+            if (k.getCode() == KeyCode.NUMPAD9) {
+                buttons[9].fire();
+            }
+        });
+
+        scene.setOnKeyPressed(k -> {
+            if (k.getCode() == KeyCode.PLUS) {
+                buttons[11].fire();
+            }
+        });
+
+        scene.setOnKeyPressed(k -> {
+            if (k.getCode() == KeyCode.MINUS) {
+                buttons[12].fire();
+            }
+        });
+
+        scene.setOnKeyPressed(k -> {
+            if (k.getCode() == KeyCode.MULTIPLY) {
+                buttons[14].fire();
+            }
+        });
+
+        scene.setOnKeyPressed(k -> {
+            if (k.getCode() == KeyCode.DIVIDE) {
+                buttons[13].fire();
+            }
+        });
+
+        scene.setOnKeyPressed(k -> {
+            if (k.getCode() == KeyCode.COMMA) {
+                buttons[16].fire();
+            }
+        });
+
+        scene.setOnKeyPressed(k -> {
+            if (k.getCode() == KeyCode.EQUALS) {
+                buttons[10].fire();
+            }
+        });
+
+        scene.setOnKeyPressed(k -> {
+            if (k.getCode() == KeyCode.BACK_SPACE) {
+                buttons[17].fire();
+            }
+        });
+
+        comboBox.setOnAction(k -> {
+            if (comboBox.getValue().equals("Binärrechner")) {
+                System.out.println("test");
+            } else if (comboBox.getValue().equals("Einheiten-Umwandler")) {
+                System.out.println("test2");
+            } else if (comboBox.getValue().equals("Standardrechner")) {
+                System.out.println("test3");
+            }
         });
 
         return scene;
