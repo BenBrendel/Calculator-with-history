@@ -10,6 +10,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
@@ -28,7 +29,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-
 public class Calculator {
     History history;
     TextArea ausgabe = new TextArea();
@@ -41,18 +41,19 @@ public class Calculator {
         this.history = history;
     }
 
-    public void pressNumber(char Number){
+    public void pressNumber(char Number) {
         if (ausgabe.getText().startsWith("=") || ausgabe.getText().startsWith("Error") || ausgabe.getText().startsWith("Speichern")) {
             ausgabe.clear();
         }
         ausgabe.appendText("" + Number);
     }
 
-    public void pressOperationSign(char Sign){
+    public void pressOperationSign(char Sign) {
         if (ausgabe.getText().length() != 0 && ausgabe.getText().charAt(ausgabe.getText().length() - 1) != ' ' && !(ausgabe.getText().startsWith("Error")) && !(ausgabe.getText().startsWith("Speichern"))) {
             ausgabe.appendText(String.format(" %c ", Sign));
         }
     }
+
     public void save(List<String> linesOfHistory) throws IOException {
         try {
             try (
@@ -218,7 +219,7 @@ public class Calculator {
          */
         buttons[0].setOnAction(k -> {
             //0
-           pressNumber('0');
+            pressNumber('0');
         });
 
         buttons[1].setOnAction(k -> {
@@ -289,7 +290,7 @@ public class Calculator {
         });
         buttons[11].setOnAction(k -> {
             //+
-          pressOperationSign('+');
+            pressOperationSign('+');
         });
 
         buttons[12].setOnAction(k -> {
@@ -459,7 +460,6 @@ public class Calculator {
             if (k.getCode() == KeyCode.BACK_SPACE) {
                 buttons[17].fire();
             } else if (k.getCode() == KeyCode.ENTER) {
-                buttons[10].disarm();
                 buttons[10].fire();
             }
         });
