@@ -1,15 +1,15 @@
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
-import javafx.scene.layout.GridPane;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -30,12 +30,12 @@ public class Main extends Application {
          * creates starting scene
          */
         stage.setTitle("calculator");
-        stage.setMinWidth(600);
+        stage.setMinWidth(200);
         stage.setMinHeight(100);
 
         GridPane gridPane = new GridPane();
         gridPane.setAlignment(Pos.CENTER);
-        Scene scene = new Scene(gridPane, 250, 150);
+        Scene scene = new Scene(gridPane, 600, 150);
         stage.setScene(scene);
 
         gridPane.setBackground(new Background(new BackgroundFill(Color.rgb(200, 200, 200), CornerRadii.EMPTY, Insets.EMPTY)));
@@ -62,41 +62,64 @@ public class Main extends Application {
          * if button pressed -> create a new calculator and load it
          */
         button1.setOnAction(k -> {
-            Calculator calc = new Calculator();
-            stage.setScene(calc.newCalc());
+            VBox vbox = new VBox();
+            Scene modeSelection = new Scene(vbox, 300, 100);
 
+            vbox.setBackground(new Background(new BackgroundFill(Color.rgb(200, 200, 200), CornerRadii.EMPTY, Insets.EMPTY)));
+            vbox.setSpacing(10);
+            vbox.setPadding(new Insets(15));
+            vbox.setAlignment(Pos.CENTER);
+
+            ObservableList<String> options =
+                    FXCollections.observableArrayList(
+                            "Standardrechner",
+                            "Binärrechner",
+                            "Einheiten-Umwandler"
+                    );
+            final ComboBox comboBox = new ComboBox(options);
+            Label label = new Label("Wählen Sie Ihren Modus aus:");
+
+            vbox.getChildren().add(label);
+            vbox.getChildren().add(comboBox);
+
+            stage.setScene(modeSelection);
+
+            comboBox.setOnAction(e -> {
+                if (comboBox.getValue().equals("Standardrechner")) {
+                    Calculator calc = new Calculator();
+                    stage.setScene(calc.newCalc());
+                } else if (comboBox.getValue().equals("Binärrechner")) {
+                    System.out.println("test");
+                } else if (comboBox.getValue().equals("Einheiten-Umwandler")) {
+                    System.out.println("test2");
+                }
+            });
         });
         /**
          * if enter is pressed in the textfield a Calculator is created with the path of the history
          */
 
+        button2.setOnAction(k -> {
+
+            File selectedFile = fileChooser.showOpenDialog(stage);
+            History history = new History();
+            Calculator calc = new Calculator(history);
 
 
-            button2.setOnAction(k -> {
-
-                File selectedFile = fileChooser.showOpenDialog(stage);
-                History history = new History();
-                Calculator calc = new Calculator(history);
+            try {
+                history.linesOfPath = Files.readAllLines(Path.of(selectedFile.getPath()));
 
 
-                try {
-                    history.linesOfPath = Files.readAllLines(Path.of(selectedFile.getPath()));
+                history.linesOfPath = Files.readAllLines(history.path);
 
 
-                    history.linesOfPath = Files.readAllLines(history.path);
+                stage.setScene(calc.newCalc());
 
+            } catch (Exception ignored) {
 
-                    stage.setScene(calc.newCalc());
+            }
+        });
 
-                }catch (Exception ignored){
-
-                }
-
-            });
         stage.show();
-
-
-
     }
-
 }

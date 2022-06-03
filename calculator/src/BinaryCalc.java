@@ -10,8 +10,10 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.*;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Screen;
@@ -29,15 +31,15 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class Calculator {
+public class BinaryCalc {
     History history;
     TextArea ausgabe = new TextArea();
     TextArea verlauf = new TextArea();
 
-    public Calculator() {
+    public BinaryCalc() {
     }
 
-    public Calculator(History history) {
+    public BinaryCalc(History history) {
         this.history = history;
     }
 
@@ -314,9 +316,9 @@ public class Calculator {
 
         buttons[16].setOnAction(k -> {
             //.
-            String [] splitRechnung = ausgabe.getText().split(" ");
+            String[] splitRechnung = ausgabe.getText().split(" ");
             if (ausgabe.getText().charAt(ausgabe.getText().length() - 1) >= '0' && ausgabe.getText().charAt(ausgabe.getText().length() - 1) <= '9' && !(ausgabe.getText().startsWith("Error")) && !(ausgabe.getText().startsWith("Speichern"))) {
-                if(!(splitRechnung[splitRechnung.length-1].contains("."))) {
+                if (!(splitRechnung[splitRechnung.length - 1].contains("."))) {
                     ausgabe.appendText(".");
                 }
             }
