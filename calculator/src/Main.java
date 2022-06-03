@@ -102,24 +102,27 @@ public class Main extends Application {
         button2.setOnAction(k -> {
 
             File selectedFile = fileChooser.showOpenDialog(stage);
-            History history = new History();
-            Calculator calc = new Calculator(history);
+                try {
+                    History history = new History(Path.of(selectedFile.getPath()));
+                    Calculator calc = new Calculator(history);
 
 
-            try {
-                history.linesOfPath = Files.readAllLines(Path.of(selectedFile.getPath()));
+                    try {
+                        history.linesOfPath = Files.readAllLines(Path.of(selectedFile.getPath()));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    try {
+                        history.linesOfPath = Files.readAllLines(history.path);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    stage.setScene(calc.newCalc());
 
+                }catch (Exception ignored){
 
-                history.linesOfPath = Files.readAllLines(history.path);
-
-
-                stage.setScene(calc.newCalc());
-
-            } catch (Exception ignored) {
-
-            }
+                }
         });
-
         stage.show();
     }
 }
