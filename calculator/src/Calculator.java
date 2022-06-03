@@ -448,105 +448,45 @@ public class Calculator {
          * activating buttons with keys
          */
         scene.setOnKeyTyped(k -> {
-            if (k.getCode() == KeyCode.SOFTKEY_0) {
+            if (k.getCharacter().equals("0")) {
                 buttons[0].fire();
-            }
-            System.out.println(k.getCode());
-        });
-
-        scene.setOnKeyPressed(k -> {
-            if (k.getCode() == KeyCode.NUMPAD1) {
+            } else if (k.getCharacter().equals("1")) {
                 buttons[1].fire();
-            }
-        });
-
-        scene.setOnKeyPressed(k -> {
-            if (k.getCode() == KeyCode.NUMPAD2) {
+            } else if (k.getCharacter().equals("2")) {
                 buttons[2].fire();
-            }
-        });
-
-        scene.setOnKeyPressed(k -> {
-            if (k.getCode() == KeyCode.NUMPAD3) {
+            } else if (k.getCharacter().equals("3")) {
                 buttons[3].fire();
-            }
-        });
-
-        scene.setOnKeyPressed(k -> {
-            if (k.getCode() == KeyCode.NUMPAD4) {
+            } else if (k.getCharacter().equals("4")) {
                 buttons[4].fire();
-            }
-        });
-
-        scene.setOnKeyPressed(k -> {
-            if (k.getCode() == KeyCode.NUMPAD5) {
+            } else if (k.getCharacter().equals("5")) {
                 buttons[5].fire();
-            }
-        });
-
-        scene.setOnKeyPressed(k -> {
-            if (k.getCode() == KeyCode.NUMPAD6) {
+            } else if (k.getCharacter().equals("6")) {
                 buttons[6].fire();
-            }
-        });
-
-        scene.setOnKeyPressed(k -> {
-            if (k.getCode() == KeyCode.NUMPAD7) {
+            } else if (k.getCharacter().equals("7")) {
                 buttons[7].fire();
-            }
-        });
-
-        scene.setOnKeyPressed(k -> {
-            if (k.getCode() == KeyCode.NUMPAD8) {
+            } else if (k.getCharacter().equals("8")) {
                 buttons[8].fire();
-            }
-        });
-
-        scene.setOnKeyPressed(k -> {
-            if (k.getCode() == KeyCode.NUMPAD9) {
+            } else if (k.getCharacter().equals("9")) {
                 buttons[9].fire();
-            }
-        });
-
-        scene.setOnKeyPressed(k -> {
-            if (k.getCode() == KeyCode.PLUS) {
+            } else if (k.getCharacter().equals("+")) {
                 buttons[11].fire();
-            }
-        });
-
-        scene.setOnKeyPressed(k -> {
-            if (k.getCode() == KeyCode.MINUS) {
+            } else if (k.getCharacter().equals("-")) {
                 buttons[12].fire();
-            }
-        });
-
-        scene.setOnKeyPressed(k -> {
-            if (k.getCode() == KeyCode.MULTIPLY) {
+            } else if (k.getCharacter().equals("*")) {
                 buttons[14].fire();
-            }
-        });
-
-        scene.setOnKeyPressed(k -> {
-            if (k.getCode() == KeyCode.DIVIDE) {
+            } else if (k.getCharacter().equals("/")) {
                 buttons[13].fire();
-            }
-        });
-
-        scene.setOnKeyPressed(k -> {
-            if (k.getCode() == KeyCode.COMMA) {
+            } else if (k.getCharacter().equals(".") || k.getCharacter().equals(",")) {
                 buttons[16].fire();
-            }
-        });
-
-        scene.setOnKeyPressed(k -> {
-            if (k.getCode() == KeyCode.EQUALS) {
-                buttons[10].fire();
             }
         });
 
         scene.setOnKeyPressed(k -> {
             if (k.getCode() == KeyCode.BACK_SPACE) {
                 buttons[17].fire();
+            } else if (k.getCode() == KeyCode.ENTER) {
+                buttons[10].disarm();
+                buttons[10].fire();
             }
         });
 
