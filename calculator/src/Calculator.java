@@ -270,12 +270,12 @@ public class Calculator {
             //=
             String Rechnung = ausgabe.getText();
             if (!(Rechnung.contains("=")) && Rechnung.length() != 0 && Rechnung.charAt(Rechnung.length() - 1) != ' ') {
-                if (this.calculate(Rechnung) == Double.POSITIVE_INFINITY || this.calculate(Rechnung) == Double.NEGATIVE_INFINITY) {
+                if (this.calculate(Rechnung) == Double.POSITIVE_INFINITY || this.calculate(Rechnung) == Double.NEGATIVE_INFINITY || Double.isNaN(this.calculate(Rechnung))) {
                     verlauf.clear();
                     ausgabe.setText("Error! Division durch 0");
                 } else {
                     String[] splittedErg = (" " + this.calculate(Rechnung)).split("\\.");
-                    if (Integer.parseInt(splittedErg[1]) == 0) {
+                    if (Double.parseDouble(splittedErg[1]) == 0) {
                         verlauf.appendText(ausgabe.getText() + " = " + splittedErg[0] + "\n");
                         ausgabe.clear();
                         ausgabe.appendText("= " + splittedErg[0]);
@@ -286,10 +286,7 @@ public class Calculator {
                     }
                 }
             }
-
-
         });
-
         buttons[11].setOnAction(k -> {
             //+
           pressOperationSign('+');
@@ -317,9 +314,11 @@ public class Calculator {
 
         buttons[16].setOnAction(k -> {
             //.
-
+            String [] splitRechnung = ausgabe.getText().split(" ");
             if (ausgabe.getText().charAt(ausgabe.getText().length() - 1) >= '0' && ausgabe.getText().charAt(ausgabe.getText().length() - 1) <= '9' && !(ausgabe.getText().startsWith("Error")) && !(ausgabe.getText().startsWith("Speichern"))) {
-                ausgabe.appendText(".");
+                if(!(splitRechnung[splitRechnung.length-1].contains("."))) {
+                    ausgabe.appendText(".");
+                }
             }
         });
 

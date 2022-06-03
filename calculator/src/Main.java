@@ -64,27 +64,39 @@ public class Main extends Application {
         button1.setOnAction(k -> {
             Calculator calc = new Calculator();
             stage.setScene(calc.newCalc());
+
         });
         /**
          * if enter is pressed in the textfield a Calculator is created with the path of the history
          */
-        button2.setOnAction(k -> {
-            File selectedFile = fileChooser.showOpenDialog(stage);
-            History history = new History();
-            Calculator calc = new Calculator(history);
-            try {
-                history.linesOfPath = Files.readAllLines(Path.of(selectedFile.getPath()));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            try {
-                history.linesOfPath = Files.readAllLines(history.path);
-            } catch (Exception ignored) {
-            }
 
-            stage.setScene(calc.newCalc());
 
-        });
+
+            button2.setOnAction(k -> {
+
+                File selectedFile = fileChooser.showOpenDialog(stage);
+                History history = new History();
+                Calculator calc = new Calculator(history);
+
+
+                try {
+                    history.linesOfPath = Files.readAllLines(Path.of(selectedFile.getPath()));
+
+
+                    history.linesOfPath = Files.readAllLines(history.path);
+
+
+                    stage.setScene(calc.newCalc());
+
+                }catch (Exception ignored){
+
+                }
+
+            });
         stage.show();
+
+
+
     }
+
 }
