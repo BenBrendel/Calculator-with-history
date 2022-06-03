@@ -447,10 +447,11 @@ public class Calculator {
         /**
          * activating buttons with keys
          */
-        scene.setOnKeyPressed(k -> {
-            if (k.getCode() == KeyCode.NUMPAD0) {
+        scene.setOnKeyTyped(k -> {
+            if (k.getCode() == KeyCode.SOFTKEY_0) {
                 buttons[0].fire();
             }
+            System.out.println(k.getCode());
         });
 
         scene.setOnKeyPressed(k -> {
