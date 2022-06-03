@@ -31,6 +31,8 @@ import java.util.List;
 
 public class Calculator {
     History history;
+    TextArea ausgabe = new TextArea();
+    TextArea verlauf = new TextArea();
 
     public Calculator() {
     }
@@ -39,6 +41,18 @@ public class Calculator {
         this.history = history;
     }
 
+    public void pressNumber(char Number){
+        if (ausgabe.getText().startsWith("=") || ausgabe.getText().startsWith("Error") || ausgabe.getText().startsWith("Speichern")) {
+            ausgabe.clear();
+        }
+        ausgabe.appendText("" + Number);
+    }
+
+    public void pressOperationSign(char Sign){
+        if (ausgabe.getText().length() != 0 && ausgabe.getText().charAt(ausgabe.getText().length() - 1) != ' ' && !(ausgabe.getText().startsWith("Error")) && !(ausgabe.getText().startsWith("Speichern"))) {
+            ausgabe.appendText(String.format(" %c ", Sign));
+        }
+    }
     public void save(List<String> linesOfHistory) throws IOException {
         try {
             try (
@@ -139,8 +153,7 @@ public class Calculator {
         Button[] buttons = new Button[]{new Button("0"), new Button("1"), new Button("2"), new Button("3"), new Button("4"), new Button("5"), new Button("6"), new Button("7"), new Button("8"), new Button("9"),
                 new Button("="), new Button("+"), new Button("-"), new Button("/"), new Button("*"), new Button("C"), new Button("."), new Button("Back"), new Button("+/-"), new Button("CE"), new Button("Save")
         };
-        TextArea ausgabe = new TextArea();
-        TextArea verlauf = new TextArea();
+
         ObservableList<String> options =
                 FXCollections.observableArrayList(
                         "Standardrechner",
@@ -205,82 +218,52 @@ public class Calculator {
          */
         buttons[0].setOnAction(k -> {
             //0
-            if (ausgabe.getText().startsWith("=") || ausgabe.getText().startsWith("Error") || ausgabe.getText().startsWith("Speichern")) {
-                ausgabe.clear();
-            }
-            ausgabe.appendText("0");
+           pressNumber('0');
         });
 
         buttons[1].setOnAction(k -> {
             //1
-            if (ausgabe.getText().startsWith("=") || ausgabe.getText().startsWith("Error") || ausgabe.getText().startsWith("Speichern")) {
-                ausgabe.clear();
-            }
-            ausgabe.appendText("1");
+            pressNumber('1');
         });
 
         buttons[2].setOnAction(k -> {
             //2
-            if (ausgabe.getText().startsWith("=") || ausgabe.getText().startsWith("Error") || ausgabe.getText().startsWith("Speichern")) {
-                ausgabe.clear();
-            }
-            ausgabe.appendText("2");
+            pressNumber('2');
         });
 
         buttons[3].setOnAction(k -> {
             //3
-            if (ausgabe.getText().startsWith("=") || ausgabe.getText().startsWith("Error") || ausgabe.getText().startsWith("Speichern")) {
-                ausgabe.clear();
-            }
-            ausgabe.appendText("3");
+            pressNumber('3');
         });
 
         buttons[4].setOnAction(k -> {
             //4
-            if (ausgabe.getText().startsWith("=") || ausgabe.getText().startsWith("Error") || ausgabe.getText().startsWith("Speichern")) {
-                ausgabe.clear();
-            }
-            ausgabe.appendText("4");
+            pressNumber('4');
         });
 
         buttons[5].setOnAction(k -> {
             //5
-            if (ausgabe.getText().startsWith("=") || ausgabe.getText().startsWith("Error") || ausgabe.getText().startsWith("Speichern")) {
-                ausgabe.clear();
-            }
-            ausgabe.appendText("5");
+            pressNumber('5');
         });
 
         buttons[6].setOnAction(k -> {
             //6
-            if (ausgabe.getText().startsWith("=") || ausgabe.getText().startsWith("Error") || ausgabe.getText().startsWith("Speichern")) {
-                ausgabe.clear();
-            }
-            ausgabe.appendText("6");
+            pressNumber('6');
         });
 
         buttons[7].setOnAction(k -> {
             //7
-            if (ausgabe.getText().startsWith("=") || ausgabe.getText().startsWith("Error") || ausgabe.getText().startsWith("Speichern")) {
-                ausgabe.clear();
-            }
-            ausgabe.appendText("7");
+            pressNumber('7');
         });
 
         buttons[8].setOnAction(k -> {
             //8
-            if (ausgabe.getText().startsWith("=") || ausgabe.getText().startsWith("Error") || ausgabe.getText().startsWith("Speichern")) {
-                ausgabe.clear();
-            }
-            ausgabe.appendText("8");
+            pressNumber('8');
         });
 
         buttons[9].setOnAction(k -> {
             //9
-            if (ausgabe.getText().startsWith("=") || ausgabe.getText().startsWith("Error") || ausgabe.getText().startsWith("Speichern")) {
-                ausgabe.clear();
-            }
-            ausgabe.appendText("9");
+            pressNumber('9');
         });
 
         buttons[10].setOnAction(k -> {
@@ -309,30 +292,22 @@ public class Calculator {
 
         buttons[11].setOnAction(k -> {
             //+
-            if (ausgabe.getText().length() != 0 && ausgabe.getText().charAt(ausgabe.getText().length() - 1) != ' ' && !(ausgabe.getText().startsWith("Error")) && !(ausgabe.getText().startsWith("Speichern"))) {
-                ausgabe.appendText(" + ");
-            }
+          pressOperationSign('+');
         });
 
         buttons[12].setOnAction(k -> {
             //-
-            if (ausgabe.getText().length() != 0 && ausgabe.getText().charAt(ausgabe.getText().length() - 1) != ' ' && !(ausgabe.getText().startsWith("Error")) && !(ausgabe.getText().startsWith("Speichern"))) {
-                ausgabe.appendText(" - ");
-            }
+            pressOperationSign('-');
         });
 
         buttons[13].setOnAction(k -> {
             ///
-            if (ausgabe.getText().length() != 0 && ausgabe.getText().charAt(ausgabe.getText().length() - 1) != ' ' && !(ausgabe.getText().startsWith("Error")) && !(ausgabe.getText().startsWith("Speichern"))) {
-                ausgabe.appendText(" / ");
-            }
+            pressOperationSign('/');
         });
 
         buttons[14].setOnAction(k -> {
             //*
-            if (ausgabe.getText().length() != 0 && ausgabe.getText().charAt(ausgabe.getText().length() - 1) != ' ' && !(ausgabe.getText().startsWith("Error")) && !(ausgabe.getText().startsWith("Speichern"))) {
-                ausgabe.appendText(" * ");
-            }
+            pressOperationSign('*');
         });
 
         buttons[15].setOnAction(k -> {
