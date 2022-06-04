@@ -153,18 +153,8 @@ public class BinaryCalc {
         gridPane.setPadding(new Insets(5));
 
         Label verlaufText = new Label("Verlauf:");
-        Button[] buttons = new Button[]{new Button("0"), new Button("1"), new Button("2"), new Button("3"), new Button("4"), new Button("5"), new Button("6"), new Button("7"), new Button("8"), new Button("9"),
-                new Button("="), new Button("+"), new Button("-"), new Button("/"), new Button("*"), new Button("C"), new Button("."), new Button("Back"), new Button("+/-"), new Button("CE"), new Button("Save")
+        Button[] buttons = new Button[]{new Button("0"), new Button("1"), new Button("="), new Button("+"), new Button("-"), new Button("/"), new Button("*"), new Button("C"), new Button("Back"), new Button("+/-"), new Button("CE"), new Button("Save")
         };
-
-        ObservableList<String> options =
-                FXCollections.observableArrayList(
-                        "Standardrechner",
-                        "Binärrechner",
-                        "Einheiten-Umwandler"
-                );
-        final ComboBox comboBox = new ComboBox(options);
-        comboBox.getSelectionModel().select(0);
 
         Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
 
@@ -185,27 +175,18 @@ public class BinaryCalc {
 
         gridPane.add(ausgabe, 0, 1, 4, 1);
         gridPane.add(verlauf, 4, 2, 1, 4);
-        gridPane.add(buttons[0], 1, 6);
-        gridPane.add(buttons[1], 0, 5);
+        gridPane.add(buttons[0], 0, 3, 3, 1);
+        gridPane.add(buttons[1], 0, 4, 3, 1);
         gridPane.add(buttons[2], 1, 5);
-        gridPane.add(buttons[3], 2, 5);
-        gridPane.add(buttons[4], 0, 4);
-        gridPane.add(buttons[5], 1, 4);
-        gridPane.add(buttons[6], 2, 4);
-        gridPane.add(buttons[7], 0, 3);
-        gridPane.add(buttons[8], 1, 3);
-        gridPane.add(buttons[9], 2, 3);
-        gridPane.add(buttons[10], 3, 6);
-        gridPane.add(buttons[11], 3, 5);
-        gridPane.add(buttons[12], 3, 4);
-        gridPane.add(buttons[13], 3, 2);
-        gridPane.add(buttons[14], 3, 3);
-        gridPane.add(buttons[15], 1, 2);
-        gridPane.add(buttons[16], 2, 6);
-        gridPane.add(buttons[17], 2, 2);
-        gridPane.add(buttons[18], 0, 6);
-        gridPane.add(buttons[19], 0, 2);
-        gridPane.add(buttons[20], 4, 6);
+        gridPane.add(buttons[3], 3, 5);
+        gridPane.add(buttons[4], 3, 4);
+        gridPane.add(buttons[5], 3, 2);
+        gridPane.add(buttons[6], 3, 3);
+        gridPane.add(buttons[7], 1, 2);
+        gridPane.add(buttons[8], 2, 2);
+        gridPane.add(buttons[9], 0, 5);
+        gridPane.add(buttons[10], 0, 2);
+        gridPane.add(buttons[11], 2, 5);
         gridPane.add(verlaufText, 4, 1);
 
         try {
@@ -229,46 +210,6 @@ public class BinaryCalc {
         });
 
         buttons[2].setOnAction(k -> {
-            //2
-            pressNumber('2');
-        });
-
-        buttons[3].setOnAction(k -> {
-            //3
-            pressNumber('3');
-        });
-
-        buttons[4].setOnAction(k -> {
-            //4
-            pressNumber('4');
-        });
-
-        buttons[5].setOnAction(k -> {
-            //5
-            pressNumber('5');
-        });
-
-        buttons[6].setOnAction(k -> {
-            //6
-            pressNumber('6');
-        });
-
-        buttons[7].setOnAction(k -> {
-            //7
-            pressNumber('7');
-        });
-
-        buttons[8].setOnAction(k -> {
-            //8
-            pressNumber('8');
-        });
-
-        buttons[9].setOnAction(k -> {
-            //9
-            pressNumber('9');
-        });
-
-        buttons[10].setOnAction(k -> {
             //=
             String Rechnung = ausgabe.getText();
             if (!(Rechnung.contains("=")) && Rechnung.length() != 0 && Rechnung.charAt(Rechnung.length() - 1) != ' ') {
@@ -289,43 +230,33 @@ public class BinaryCalc {
                 }
             }
         });
-        buttons[11].setOnAction(k -> {
+        buttons[3].setOnAction(k -> {
             //+
             pressOperationSign('+');
         });
 
-        buttons[12].setOnAction(k -> {
+        buttons[4].setOnAction(k -> {
             //-
             pressOperationSign('-');
         });
 
-        buttons[13].setOnAction(k -> {
+        buttons[5].setOnAction(k -> {
             ///
             pressOperationSign('/');
         });
 
-        buttons[14].setOnAction(k -> {
+        buttons[6].setOnAction(k -> {
             //*
             pressOperationSign('*');
         });
 
-        buttons[15].setOnAction(k -> {
+        buttons[7].setOnAction(k -> {
             //C
             ausgabe.clear();
         });
 
-        buttons[16].setOnAction(k -> {
-            //.
-            String[] splitRechnung = ausgabe.getText().split(" ");
-            if (ausgabe.getText().charAt(ausgabe.getText().length() - 1) >= '0' && ausgabe.getText().charAt(ausgabe.getText().length() - 1) <= '9' && !(ausgabe.getText().startsWith("Error")) && !(ausgabe.getText().startsWith("Speichern"))) {
-                if (!(splitRechnung[splitRechnung.length - 1].contains("."))) {
-                    ausgabe.appendText(".");
-                }
-            }
-        });
 
-
-        buttons[17].setOnAction(k -> {
+        buttons[8].setOnAction(k -> {
             //Back
             if (ausgabe.getText().length() != 0 && !(ausgabe.getText().startsWith("Error")) && !(ausgabe.getText().startsWith("Speichern"))) {
                 if (ausgabe.getText().charAt(ausgabe.getText().length() - 1) != ' ' && !(ausgabe.getText().contains("="))) {
@@ -337,7 +268,7 @@ public class BinaryCalc {
             }
         });
 
-        buttons[18].setOnAction(k -> {
+        buttons[9].setOnAction(k -> {
             //+/-
             if (!(ausgabe.getText().startsWith("Error")) && !(ausgabe.getText().contains("=")) && ausgabe.getText().charAt(ausgabe.getText().length() - 1) >= '0' && ausgabe.getText().charAt(ausgabe.getText().length() - 1) <= '9') {
                 String rechnung = ausgabe.getText();
@@ -354,13 +285,13 @@ public class BinaryCalc {
             }
         });
 
-        buttons[19].setOnAction(k -> {
+        buttons[10].setOnAction(k -> {
             //CE
             ausgabe.clear();
             verlauf.clear();
         });
 
-        buttons[20].setOnAction(k -> {
+        buttons[11].setOnAction(k -> {
             //Save
             List<String> allLineOfHistory = Arrays.asList(verlauf.getText().split("\n"));
             if (this.history == null) {
@@ -428,40 +359,24 @@ public class BinaryCalc {
                 buttons[0].fire();
             } else if (k.getCharacter().equals("1")) {
                 buttons[1].fire();
-            } else if (k.getCharacter().equals("2")) {
-                buttons[2].fire();
-            } else if (k.getCharacter().equals("3")) {
-                buttons[3].fire();
-            } else if (k.getCharacter().equals("4")) {
-                buttons[4].fire();
-            } else if (k.getCharacter().equals("5")) {
-                buttons[5].fire();
-            } else if (k.getCharacter().equals("6")) {
-                buttons[6].fire();
-            } else if (k.getCharacter().equals("7")) {
-                buttons[7].fire();
-            } else if (k.getCharacter().equals("8")) {
-                buttons[8].fire();
-            } else if (k.getCharacter().equals("9")) {
-                buttons[9].fire();
             } else if (k.getCharacter().equals("+")) {
-                buttons[11].fire();
+                buttons[3].fire();
             } else if (k.getCharacter().equals("-")) {
-                buttons[12].fire();
+                buttons[4].fire();
             } else if (k.getCharacter().equals("*")) {
-                buttons[14].fire();
+                buttons[5].fire();
             } else if (k.getCharacter().equals("/")) {
-                buttons[13].fire();
+                buttons[6].fire();
             } else if (k.getCharacter().equals(".") || k.getCharacter().equals(",")) {
-                buttons[16].fire();
+                buttons[7].fire();
             }
         });
 
         scene.setOnKeyPressed(k -> {
             if (k.getCode() == KeyCode.BACK_SPACE) {
-                buttons[17].fire();
+                buttons[8].fire();
             } else if (k.getCode() == KeyCode.ENTER) {
-                buttons[10].fire();
+                buttons[2].fire();
             }
         });
 

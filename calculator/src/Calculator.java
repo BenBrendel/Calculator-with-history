@@ -155,15 +155,6 @@ public class Calculator {
                 new Button("="), new Button("+"), new Button("-"), new Button("/"), new Button("*"), new Button("C"), new Button("."), new Button("Back"), new Button("+/-"), new Button("CE"), new Button("Save")
         };
 
-        ObservableList<String> options =
-                FXCollections.observableArrayList(
-                        "Standardrechner",
-                        "Binärrechner",
-                        "Einheiten-Umwandler"
-                );
-        final ComboBox comboBox = new ComboBox(options);
-        comboBox.getSelectionModel().select(0);
-
         Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
 
         for (int i = 0; i < buttons.length; i++) {

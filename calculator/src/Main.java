@@ -24,6 +24,56 @@ public class Main extends Application {
         launch(args);
     }
 
+    public void modeSelection(Stage stage, History history) {
+        VBox vbox = new VBox();
+        Scene modeSelection = new Scene(vbox, 300, 100);
+
+        vbox.setBackground(new Background(new BackgroundFill(Color.rgb(200, 200, 200), CornerRadii.EMPTY, Insets.EMPTY)));
+        vbox.setSpacing(10);
+        vbox.setPadding(new Insets(15));
+        vbox.setAlignment(Pos.CENTER);
+
+        ObservableList<String> options =
+                FXCollections.observableArrayList(
+                        "Standardrechner",
+                        "Binärrechner",
+                        "Einheiten-Umwandler"
+                );
+        final ComboBox comboBox = new ComboBox(options);
+        Label label = new Label("Wählen Sie Ihren Modus aus:");
+
+        vbox.getChildren().add(label);
+        vbox.getChildren().add(comboBox);
+
+        stage.setScene(modeSelection);
+
+        comboBox.setOnAction(e -> {
+            if (history != null) {
+                if (comboBox.getValue().equals("Standardrechner")) {
+                    Calculator calc = new Calculator(history);
+                    stage.setScene(calc.newCalc());
+                } else if (comboBox.getValue().equals("Binärrechner")) {
+                    BinaryCalc binaryCalc = new BinaryCalc(history);
+                    stage.setScene(binaryCalc.newCalc());
+                } else if (comboBox.getValue().equals("Einheiten-Umwandler")) {
+                    EinheitenUmwandler einheitenUmwandler = new EinheitenUmwandler(history);
+                    stage.setScene(einheitenUmwandler.newCalc());
+                }
+            } else {
+                if (comboBox.getValue().equals("Standardrechner")) {
+                    Calculator calc = new Calculator();
+                    stage.setScene(calc.newCalc());
+                } else if (comboBox.getValue().equals("Binärrechner")) {
+                    BinaryCalc binaryCalc = new BinaryCalc();
+                    stage.setScene(binaryCalc.newCalc());
+                } else if (comboBox.getValue().equals("Einheiten-Umwandler")) {
+                    EinheitenUmwandler einheitenUmwandler = new EinheitenUmwandler();
+                    stage.setScene(einheitenUmwandler.newCalc());
+                }
+            }
+        });
+    }
+
     @Override
     public void start(Stage stage) throws Exception {
         /**
@@ -62,67 +112,31 @@ public class Main extends Application {
          * if button pressed -> create a new calculator and load it
          */
         button1.setOnAction(k -> {
-            VBox vbox = new VBox();
-            Scene modeSelection = new Scene(vbox, 300, 100);
-
-            vbox.setBackground(new Background(new BackgroundFill(Color.rgb(200, 200, 200), CornerRadii.EMPTY, Insets.EMPTY)));
-            vbox.setSpacing(10);
-            vbox.setPadding(new Insets(15));
-            vbox.setAlignment(Pos.CENTER);
-
-            ObservableList<String> options =
-                    FXCollections.observableArrayList(
-                            "Standardrechner",
-                            "Binärrechner",
-                            "Einheiten-Umwandler"
-                    );
-            final ComboBox comboBox = new ComboBox(options);
-            Label label = new Label("Wählen Sie Ihren Modus aus:");
-
-            vbox.getChildren().add(label);
-            vbox.getChildren().add(comboBox);
-
-            stage.setScene(modeSelection);
-
-            comboBox.setOnAction(e -> {
-                if (comboBox.getValue().equals("Standardrechner")) {
-                    Calculator calc = new Calculator();
-                    stage.setScene(calc.newCalc());
-                } else if (comboBox.getValue().equals("Binärrechner")) {
-                    System.out.println("test");
-                } else if (comboBox.getValue().equals("Einheiten-Umwandler")) {
-                    System.out.println("test2");
-                }
-            });
+            modeSelection(stage, null);
         });
         /**
          * if enter is pressed in the textfield a Calculator is created with the path of the history
          */
 
         button2.setOnAction(k -> {
-
             File selectedFile = fileChooser.showOpenDialog(stage);
+            try {
+                History history = new History(Path.of(selectedFile.getPath()));
                 try {
-                    History history = new History(Path.of(selectedFile.getPath()));
-                    Calculator calc = new Calculator(history);
-
-
-                    try {
-                        history.linesOfPath = Files.readAllLines(Path.of(selectedFile.getPath()));
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    try {
-                        history.linesOfPath = Files.readAllLines(history.path);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    stage.setScene(calc.newCalc());
-
-                }catch (Exception ignored){
-
+                    history.linesOfPath = Files.readAllLines(Path.of(selectedFile.getPath()));
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
+                try {
+                    history.linesOfPath = Files.readAllLines(history.path);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                modeSelection(stage, history);
+            } catch (Exception ignored) {
+            }
         });
+
         stage.show();
     }
 }
