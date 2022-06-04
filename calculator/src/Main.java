@@ -80,7 +80,7 @@ public class Main extends Application {
          * creates starting scene
          */
         stage.setTitle("calculator");
-        stage.setMinWidth(200);
+        stage.setMinWidth(300);
         stage.setMinHeight(100);
 
         GridPane gridPane = new GridPane();
