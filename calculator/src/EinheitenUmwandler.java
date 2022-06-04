@@ -96,6 +96,10 @@ public class EinheitenUmwandler {
         final ComboBox ausgabeEinheit = new ComboBox(options);
         TextField eingabe = new TextField();
         TextField ausgabe = new TextField();
+        Label eingabeLabel = new Label("Eingabe:");
+        Label ausgabeLabel = new Label("Ausgabe:");
+        Label einheit1 = new Label("Einheit:");
+        Label einheit2 = new Label("Einheit:");
 
         Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
 
@@ -108,6 +112,10 @@ public class EinheitenUmwandler {
         verlauf.setStyle("-fx-font-size:20");
         verlauf.setEditable(false);
         verlaufText.setStyle("-fx-font-size:25");
+        einheit1.setStyle("-fx-font-size:20");
+        einheit2.setStyle("-fx-font-size:20");
+        eingabeLabel.setStyle("-fx-font-size:20");
+        ausgabeLabel.setStyle("-fx-font-size:20");
         GridPane.setHalignment(verlaufText, HPos.CENTER);
 
         gridPane.requestFocus();
@@ -122,6 +130,10 @@ public class EinheitenUmwandler {
         gridPane.add(eingabeEinheit, 1, 2);
         gridPane.add(ausgabeEinheit, 3, 2);
         gridPane.add(verlaufText, 4, 1);
+        gridPane.add(einheit1, 1, 1);
+        gridPane.add(einheit2, 3, 1);
+        gridPane.add(eingabeLabel, 0, 1);
+        gridPane.add(ausgabeLabel, 2, 1);
 
         try {
             for (int i = 0; i < history.linesOfPath.size(); i++) {
