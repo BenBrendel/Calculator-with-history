@@ -63,69 +63,75 @@ public class BinaryCalc {
             ) {
 
                 for (String s : linesOfHistory) {
-
                     out.write(s + System.lineSeparator());
-
                 }
             }
         } catch (Exception ignored) {
 
         }
-
     }
 
     /**
      * @param rechnung rechnung als String
      * @return das fertige Ergebnis
      */
-    public double calculate(String rechnung) {
+    public String calculate(String rechnung){
+
         String[] splittedRechnungArray = rechnung.split(" ");
         List<String> splittedRechnung = new ArrayList<>(splittedRechnungArray.length);
         for (int i = 0; i < splittedRechnungArray.length; i++) {
             splittedRechnung.add(splittedRechnungArray[i]);
         }
-
-        double erg = 0;
-        double zwischenErgebnis = 0;
+        int erg = 0;
+        int zwischenErgebnis = 0;
         for (int i = 0; splittedRechnung.contains("*") || splittedRechnung.contains("/"); i++) {
             if (i == splittedRechnung.size() - 1) {
                 i = 0;
             }
             if (splittedRechnung.get(i).contains("*")) {
-                zwischenErgebnis = Double.parseDouble(splittedRechnung.get(i - 1)) * Double.parseDouble(splittedRechnung.get(i + 1));
-                splittedRechnung.set(i, zwischenErgebnis + "");
+                int firstNumber = Integer.parseInt(splittedRechnung.get(i-1), 2);
+                int secondNumber = Integer.parseInt(splittedRechnung.get(i+1), 2);
+                zwischenErgebnis = firstNumber * secondNumber;
+                splittedRechnung.set(i, Integer.toBinaryString(zwischenErgebnis));
                 splittedRechnung.remove(i + 1);
                 splittedRechnung.remove(i - 1);
 
 
             } else if (splittedRechnung.get(i).contains("/")) {
+                int firstNumber = Integer.parseInt(splittedRechnung.get(i-1), 2);
+                int secondNumber = Integer.parseInt(splittedRechnung.get(i+1), 2);
+                try {
+                    zwischenErgebnis = firstNumber / secondNumber;
+                    splittedRechnung.set(i, Integer.toBinaryString(zwischenErgebnis));
+                    System.out.println(splittedRechnung.get(i));
+                    splittedRechnung.remove(i + 1);
+                    splittedRechnung.remove(i - 1);
+                }catch (ArithmeticException e){
+                    throw new ArithmeticException();
+                }
 
 
-                zwischenErgebnis = Double.parseDouble(splittedRechnung.get(i - 1)) / Double.parseDouble(splittedRechnung.get(i + 1));
-                splittedRechnung.set(i, zwischenErgebnis + "");
-                splittedRechnung.remove(i + 1);
-                splittedRechnung.remove(i - 1);
             }
 
         }
 
         if (splittedRechnung.size() == 1) {
-            return Double.parseDouble(splittedRechnung.get(0));
+            return "" + Integer.toBinaryString(Integer.parseInt(splittedRechnung.get(0),2));
         }
 
         if ((rechnung.contains("+") || rechnung.contains("-"))) {
-            erg = Double.parseDouble(splittedRechnung.get(0));
+            erg = (int) Integer.parseInt(splittedRechnung.get(0), 2);
             for (int i = 1; i < splittedRechnung.size(); i++) {
                 if (splittedRechnung.get(i).contains("+")) {
                     try {
-                        erg += Double.parseDouble(splittedRechnung.get(i + 1));
+                        erg += Integer.parseInt(splittedRechnung.get(i+1), 2);
                     } catch (Exception ignored) {
 
                     }
 
                 } else if (splittedRechnung.get(i).contains("-")) {
                     try {
-                        erg -= Double.parseDouble(splittedRechnung.get(i + 1));
+                        erg -= Integer.parseInt(splittedRechnung.get(i+1), 2);
                     } catch (Exception ignored) {
 
                     }
@@ -133,7 +139,7 @@ public class BinaryCalc {
             }
         }
 
-        return erg;
+        return Integer.toBinaryString(erg);
     }
 
 
@@ -213,21 +219,15 @@ public class BinaryCalc {
             //=
             String Rechnung = ausgabe.getText();
             if (!(Rechnung.contains("=")) && Rechnung.length() != 0 && Rechnung.charAt(Rechnung.length() - 1) != ' ') {
-                if (this.calculate(Rechnung) == Double.POSITIVE_INFINITY || this.calculate(Rechnung) == Double.NEGATIVE_INFINITY || Double.isNaN(this.calculate(Rechnung))) {
-                    verlauf.clear();
+                try {
+                    verlauf.appendText(ausgabe.getText() + " = " + this.calculate(Rechnung) + "\n"); //Ergebnis einfügen
+                    ausgabe.clear();
+                    ausgabe.appendText("= " + this.calculate(Rechnung));
+                }catch (ArithmeticException e){
+                    ausgabe.clear();
                     ausgabe.setText("Error! Division durch 0");
-                } else {
-                    String[] splittedErg = (" " + this.calculate(Rechnung)).split("\\.");
-                    if (Double.parseDouble(splittedErg[1]) == 0) {
-                        verlauf.appendText(ausgabe.getText() + " = " + splittedErg[0] + "\n");
-                        ausgabe.clear();
-                        ausgabe.appendText("= " + splittedErg[0]);
-                    } else {
-                        verlauf.appendText(ausgabe.getText() + " = " + this.calculate(Rechnung) + "\n"); //Ergebnis einfügen
-                        ausgabe.clear();
-                        ausgabe.appendText("= " + this.calculate(Rechnung));
-                    }
                 }
+
             }
         });
         buttons[3].setOnAction(k -> {
