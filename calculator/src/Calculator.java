@@ -16,7 +16,6 @@ import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;

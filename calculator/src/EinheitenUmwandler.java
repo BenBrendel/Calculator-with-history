@@ -405,12 +405,30 @@ public class EinheitenUmwandler {
         buttons[0].setOnAction(k -> {
             //=
             //muss angepasst werden, weil es ja kein calculate mehr gibt
-
-            System.out.println(!eingabe.getText().equals("") && eingabeEinheit.getValue() != null && ausgabeEinheit.getValue() != null);
                 if(!eingabe.getText().equals("") && eingabeEinheit.getValue() != null && ausgabeEinheit.getValue() != null) {
+                    int commaCounter = 0;
+                    String eingabeText = eingabe.getText();
+                    for(int i = 0; i < eingabeText.length(); i++){
+                        if(eingabe.getText().charAt(i) == ','){
+                            commaCounter++;
+                          eingabeText =  eingabeText.replace(',', '.');
+                        }else if(eingabe.getText().charAt(i) == '.'){
+                            commaCounter++;
+                        }
+                    }
 
-                    ausgabe.setText(calculate(String.valueOf(eingabeEinheit.getValue()), Integer.parseInt(eingabe.getText()), String.valueOf(ausgabeEinheit.getValue())));
-                    verlauf.appendText("" + eingabe.getText() + " " + eingabeEinheit.getValue() + " = " + ausgabe.getText() + " " + ausgabeEinheit.getValue() + "\n");
+                    try {
+                        ausgabe.setText(calculate(String.valueOf(eingabeEinheit.getValue()), Double.parseDouble(eingabeText), String.valueOf(ausgabeEinheit.getValue())));
+                        verlauf.appendText("" + eingabeText + " " + eingabeEinheit.getValue() + " = " + ausgabe.getText() + " " + ausgabeEinheit.getValue() + "\n");
+                    }catch (Exception e){
+                        eingabe.clear();
+                        eingabe.setText("Error! Ungültige Eingabe");
+                    }
+
+                }else if(eingabe.getText().equals("")){
+                    eingabe.setText("Bitte Zahlen eingeben!");
+                }else if(eingabeEinheit.getValue() == null && ausgabeEinheit.getValue() == null){
+                    eingabe.setText("Bitte Einheiten auswählen!");
                 }
             });
 
