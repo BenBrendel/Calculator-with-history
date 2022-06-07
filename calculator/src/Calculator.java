@@ -327,6 +327,9 @@ public class Calculator {
 
         buttons[18].setOnAction(k -> {
             //+/-
+            try {
+
+
             if (!(ausgabe.getText().startsWith("Error")) && !(ausgabe.getText().contains("=")) && ausgabe.getText().charAt(ausgabe.getText().length() - 1) >= '0' && ausgabe.getText().charAt(ausgabe.getText().length() - 1) <= '9') {
                 String rechnung = ausgabe.getText();
                 String[] numbers = rechnung.split(" ");
@@ -338,6 +341,9 @@ public class Calculator {
                     numbers[numbers.length - 1] = numbers[numbers.length - 1].substring(1);
                 }
                 ausgabe.setText(rechnung + numbers[numbers.length - 1]);
+
+            }
+            }catch (Exception ignored){
 
             }
         });

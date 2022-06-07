@@ -270,17 +270,23 @@ public class BinaryCalc {
 
         buttons[9].setOnAction(k -> {
             //+/-
-            if (!(ausgabe.getText().startsWith("Error")) && !(ausgabe.getText().contains("=")) && ausgabe.getText().charAt(ausgabe.getText().length() - 1) >= '0' && ausgabe.getText().charAt(ausgabe.getText().length() - 1) <= '9') {
-                String rechnung = ausgabe.getText();
-                String[] numbers = rechnung.split(" ");
+            try {
 
-                rechnung = rechnung.substring(0, rechnung.length() - numbers[numbers.length - 1].length());
-                if (numbers[numbers.length - 1].charAt(0) != '-') {
-                    numbers[numbers.length - 1] = "-" + numbers[numbers.length - 1];
-                } else {
-                    numbers[numbers.length - 1] = numbers[numbers.length - 1].substring(1);
+
+                if (!(ausgabe.getText().startsWith("Error")) && !(ausgabe.getText().contains("=")) && ausgabe.getText().charAt(ausgabe.getText().length() - 1) >= '0' && ausgabe.getText().charAt(ausgabe.getText().length() - 1) <= '9') {
+                    String rechnung = ausgabe.getText();
+                    String[] numbers = rechnung.split(" ");
+
+                    rechnung = rechnung.substring(0, rechnung.length() - numbers[numbers.length - 1].length());
+                    if (numbers[numbers.length - 1].charAt(0) != '-') {
+                        numbers[numbers.length - 1] = "-" + numbers[numbers.length - 1];
+                    } else {
+                        numbers[numbers.length - 1] = numbers[numbers.length - 1].substring(1);
+                    }
+                    ausgabe.setText(rechnung + numbers[numbers.length - 1]);
+
                 }
-                ausgabe.setText(rechnung + numbers[numbers.length - 1]);
+            }catch (Exception ignored){
 
             }
         });
