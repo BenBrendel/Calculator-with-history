@@ -406,6 +406,8 @@ public class EinheitenUmwandler {
             //=
             //muss angepasst werden, weil es ja kein calculate mehr gibt
                 if(!eingabe.getText().equals("") && eingabeEinheit.getValue() != null && ausgabeEinheit.getValue() != null) {
+                    System.out.println("test");
+                    try{
                     int commaCounter = 0;
                     String eingabeText = eingabe.getText();
                     for(int i = 0; i < eingabeText.length(); i++){
@@ -417,18 +419,19 @@ public class EinheitenUmwandler {
                         }
                     }
 
-                    try {
+
                         ausgabe.setText(calculate(String.valueOf(eingabeEinheit.getValue()), Double.parseDouble(eingabeText), String.valueOf(ausgabeEinheit.getValue())));
                         verlauf.appendText("" + eingabeText + " " + eingabeEinheit.getValue() + " = " + ausgabe.getText() + " " + ausgabeEinheit.getValue() + "\n");
                     }catch (Exception e){
                         eingabe.clear();
-                        eingabe.setText("Error! Ungültige Eingabe");
+                        eingabe.setPromptText("Error! Ungültige Eingabe");
                     }
 
                 }else if(eingabe.getText().equals("")){
-                    eingabe.setText("Bitte Zahlen eingeben!");
+                    eingabe.clear();
+                    eingabe.setPromptText("Bitte Zahlen eingeben!");
                 }else if(eingabeEinheit.getValue() == null && ausgabeEinheit.getValue() == null){
-                    eingabe.setText("Bitte Einheiten auswählen!");
+                    eingabe.setPromptText("Bitte Einheiten auswählen!");
                 }
             });
 
