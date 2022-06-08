@@ -51,7 +51,8 @@ public class Calculator {
     }
 
     public void pressOperationSign(char Sign, Button button) {
-        if (ausgabe.getText().length() != 0 && ausgabe.getText().charAt(ausgabe.getText().length() - 1) != ' ' && !(ausgabe.getText().startsWith("Error")) && !(ausgabe.getText().startsWith("Speichern"))) {
+
+        if (ausgabe.getText().length() != 0 && ausgabe.getText().charAt(ausgabe.getText().length() - 1) != ' ' && !(ausgabe.getText().startsWith("Error")) && !(ausgabe.getText().startsWith("Speichern")) && !ausgabe.getText().contains("=")) {
             ausgabe.appendText(String.format(" %c ", Sign));
         }
         button.requestFocus();
