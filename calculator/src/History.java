@@ -8,6 +8,7 @@ public class History {
 
     public History() {
     }
+
     public History(File file) {
         path = Path.of(file.getPath());
     }
@@ -17,7 +18,6 @@ public class History {
     }
 
     /**
-     *
      * @param path Path of the History
      */
     public void loadHistory(Path path) {
@@ -25,7 +25,6 @@ public class History {
     }
 
     /**
-     *
      * @param path path where to save the current history
      */
     public void saveHistory(Path path) {

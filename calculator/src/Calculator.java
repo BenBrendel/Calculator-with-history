@@ -16,6 +16,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;
@@ -27,6 +28,7 @@ import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 public class Calculator {
     History history;
@@ -40,17 +42,19 @@ public class Calculator {
         this.history = history;
     }
 
-    public void pressNumber(char Number) {
+    public void pressNumber(char Number, Button button) {
         if (ausgabe.getText().startsWith("=") || ausgabe.getText().startsWith("Error") || ausgabe.getText().startsWith("Speichern")) {
             ausgabe.clear();
         }
         ausgabe.appendText("" + Number);
+        button.requestFocus();
     }
 
-    public void pressOperationSign(char Sign) {
+    public void pressOperationSign(char Sign, Button button) {
         if (ausgabe.getText().length() != 0 && ausgabe.getText().charAt(ausgabe.getText().length() - 1) != ' ' && !(ausgabe.getText().startsWith("Error")) && !(ausgabe.getText().startsWith("Speichern"))) {
             ausgabe.appendText(String.format(" %c ", Sign));
         }
+        button.requestFocus();
     }
 
     public void save(List<String> linesOfHistory) throws IOException {
@@ -66,9 +70,7 @@ public class Calculator {
                 }
             }
         } catch (Exception ignored) {
-
         }
-
     }
 
     /**
@@ -144,6 +146,8 @@ public class Calculator {
         gridPane.setAlignment(Pos.CENTER);
         Scene scene = new Scene(gridPane, 820, 500);
 
+        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("style.css")).toExternalForm());
+
         gridPane.setBackground(new Background(new BackgroundFill(Color.rgb(200, 200, 200), CornerRadii.EMPTY, Insets.EMPTY)));
         gridPane.setHgap(5);
         gridPane.setVgap(5);
@@ -196,6 +200,8 @@ public class Calculator {
         gridPane.add(buttons[20], 4, 6);
         gridPane.add(verlaufText, 4, 1);
 
+        gridPane.getStyleClass().add("button");
+
         try {
             for (int i = 0; i < history.linesOfPath.size(); i++) {
                 verlauf.appendText(history.linesOfPath.get(i) + "\n");
@@ -208,52 +214,52 @@ public class Calculator {
          */
         buttons[0].setOnAction(k -> {
             //0
-            pressNumber('0');
+            pressNumber('0', buttons[10]);
         });
 
         buttons[1].setOnAction(k -> {
             //1
-            pressNumber('1');
+            pressNumber('1', buttons[10]);
         });
 
         buttons[2].setOnAction(k -> {
             //2
-            pressNumber('2');
+            pressNumber('2', buttons[10]);
         });
 
         buttons[3].setOnAction(k -> {
             //3
-            pressNumber('3');
+            pressNumber('3', buttons[10]);
         });
 
         buttons[4].setOnAction(k -> {
             //4
-            pressNumber('4');
+            pressNumber('4', buttons[10]);
         });
 
         buttons[5].setOnAction(k -> {
             //5
-            pressNumber('5');
+            pressNumber('5', buttons[10]);
         });
 
         buttons[6].setOnAction(k -> {
             //6
-            pressNumber('6');
+            pressNumber('6', buttons[10]);
         });
 
         buttons[7].setOnAction(k -> {
             //7
-            pressNumber('7');
+            pressNumber('7', buttons[10]);
         });
 
         buttons[8].setOnAction(k -> {
             //8
-            pressNumber('8');
+            pressNumber('8', buttons[10]);
         });
 
         buttons[9].setOnAction(k -> {
             //9
-            pressNumber('9');
+            pressNumber('9', buttons[10]);
         });
 
         buttons[10].setOnAction(k -> {
@@ -279,37 +285,39 @@ public class Calculator {
         });
         buttons[11].setOnAction(k -> {
             //+
-            pressOperationSign('+');
+            pressOperationSign('+', buttons[10]);
         });
 
         buttons[12].setOnAction(k -> {
             //-
-            pressOperationSign('-');
+            pressOperationSign('-', buttons[10]);
         });
 
         buttons[13].setOnAction(k -> {
             ///
-            pressOperationSign('/');
+            pressOperationSign('/', buttons[10]);
         });
 
         buttons[14].setOnAction(k -> {
             //*
-            pressOperationSign('*');
+            pressOperationSign('*', buttons[10]);
         });
 
         buttons[15].setOnAction(k -> {
             //C
             ausgabe.clear();
+            buttons[10].requestFocus();
         });
 
         buttons[16].setOnAction(k -> {
             //.
-            String [] splitRechnung = ausgabe.getText().split(" ");
+            String[] splitRechnung = ausgabe.getText().split(" ");
             if (ausgabe.getText().charAt(ausgabe.getText().length() - 1) >= '0' && ausgabe.getText().charAt(ausgabe.getText().length() - 1) <= '9' && !(ausgabe.getText().startsWith("Error")) && !(ausgabe.getText().startsWith("Speichern"))) {
-                if(!(splitRechnung[splitRechnung.length-1].contains("."))) {
+                if (!(splitRechnung[splitRechnung.length - 1].contains("."))) {
                     ausgabe.appendText(".");
                 }
             }
+            buttons[10].requestFocus();
         });
 
 
@@ -323,6 +331,7 @@ public class Calculator {
                     ausgabe.setText(ausgabe.getText().substring(0, ausgabe.getText().length() - 3));
                 }
             }
+            buttons[10].requestFocus();
         });
 
         buttons[18].setOnAction(k -> {
@@ -330,28 +339,29 @@ public class Calculator {
             try {
 
 
-            if (!(ausgabe.getText().startsWith("Error")) && !(ausgabe.getText().contains("=")) && ausgabe.getText().charAt(ausgabe.getText().length() - 1) >= '0' && ausgabe.getText().charAt(ausgabe.getText().length() - 1) <= '9') {
-                String rechnung = ausgabe.getText();
-                String[] numbers = rechnung.split(" ");
+                if (!(ausgabe.getText().startsWith("Error")) && !(ausgabe.getText().contains("=")) && ausgabe.getText().charAt(ausgabe.getText().length() - 1) >= '0' && ausgabe.getText().charAt(ausgabe.getText().length() - 1) <= '9') {
+                    String rechnung = ausgabe.getText();
+                    String[] numbers = rechnung.split(" ");
 
-                rechnung = rechnung.substring(0, rechnung.length() - numbers[numbers.length - 1].length());
-                if (numbers[numbers.length - 1].charAt(0) != '-') {
-                    numbers[numbers.length - 1] = "-" + numbers[numbers.length - 1];
-                } else {
-                    numbers[numbers.length - 1] = numbers[numbers.length - 1].substring(1);
+                    rechnung = rechnung.substring(0, rechnung.length() - numbers[numbers.length - 1].length());
+                    if (numbers[numbers.length - 1].charAt(0) != '-') {
+                        numbers[numbers.length - 1] = "-" + numbers[numbers.length - 1];
+                    } else {
+                        numbers[numbers.length - 1] = numbers[numbers.length - 1].substring(1);
+                    }
+                    ausgabe.setText(rechnung + numbers[numbers.length - 1]);
                 }
-                ausgabe.setText(rechnung + numbers[numbers.length - 1]);
+            } catch (Exception ignored) {
 
             }
-            }catch (Exception ignored){
-
-            }
+            buttons[10].requestFocus();
         });
 
         buttons[19].setOnAction(k -> {
             //CE
             ausgabe.clear();
             verlauf.clear();
+            buttons[10].requestFocus();
         });
 
         buttons[20].setOnAction(k -> {
@@ -458,6 +468,16 @@ public class Calculator {
                 buttons[10].fire();
             }
         });
+
+        ausgabe.setOnMouseClicked(k -> {
+                    buttons[10].requestFocus();
+                }
+        );
+
+        verlauf.setOnMouseClicked(k -> {
+                    buttons[10].requestFocus();
+                }
+        );
 
         return scene;
     }

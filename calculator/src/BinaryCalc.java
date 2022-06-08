@@ -30,6 +30,7 @@ import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 public class BinaryCalc {
     History history;
@@ -43,17 +44,19 @@ public class BinaryCalc {
         this.history = history;
     }
 
-    public void pressNumber(char Number) {
+    public void pressNumber(char Number, Button button) {
         if (ausgabe.getText().startsWith("=") || ausgabe.getText().startsWith("Error") || ausgabe.getText().startsWith("Speichern")) {
             ausgabe.clear();
         }
         ausgabe.appendText("" + Number);
+        button.requestFocus();
     }
 
-    public void pressOperationSign(char Sign) {
+    public void pressOperationSign(char Sign, Button button) {
         if (ausgabe.getText().length() != 0 && ausgabe.getText().charAt(ausgabe.getText().length() - 1) != ' ' && !(ausgabe.getText().startsWith("Error")) && !(ausgabe.getText().startsWith("Speichern"))) {
             ausgabe.appendText(String.format(" %c ", Sign));
         }
+        button.requestFocus();
     }
 
     public void save(List<String> linesOfHistory) throws IOException {
@@ -75,7 +78,7 @@ public class BinaryCalc {
      * @param rechnung rechnung als String
      * @return das fertige Ergebnis
      */
-    public String calculate(String rechnung){
+    public String calculate(String rechnung) {
 
         String[] splittedRechnungArray = rechnung.split(" ");
         List<String> splittedRechnung = new ArrayList<>(splittedRechnungArray.length);
@@ -89,8 +92,8 @@ public class BinaryCalc {
                 i = 0;
             }
             if (splittedRechnung.get(i).contains("*")) {
-                int firstNumber = Integer.parseInt(splittedRechnung.get(i-1), 2);
-                int secondNumber = Integer.parseInt(splittedRechnung.get(i+1), 2);
+                int firstNumber = Integer.parseInt(splittedRechnung.get(i - 1), 2);
+                int secondNumber = Integer.parseInt(splittedRechnung.get(i + 1), 2);
                 zwischenErgebnis = firstNumber * secondNumber;
                 splittedRechnung.set(i, Integer.toBinaryString(zwischenErgebnis));
                 splittedRechnung.remove(i + 1);
@@ -98,15 +101,15 @@ public class BinaryCalc {
 
 
             } else if (splittedRechnung.get(i).contains("/")) {
-                int firstNumber = Integer.parseInt(splittedRechnung.get(i-1), 2);
-                int secondNumber = Integer.parseInt(splittedRechnung.get(i+1), 2);
+                int firstNumber = Integer.parseInt(splittedRechnung.get(i - 1), 2);
+                int secondNumber = Integer.parseInt(splittedRechnung.get(i + 1), 2);
                 try {
                     zwischenErgebnis = firstNumber / secondNumber;
                     splittedRechnung.set(i, Integer.toBinaryString(zwischenErgebnis));
                     System.out.println(splittedRechnung.get(i));
                     splittedRechnung.remove(i + 1);
                     splittedRechnung.remove(i - 1);
-                }catch (ArithmeticException e){
+                } catch (ArithmeticException e) {
                     throw new ArithmeticException();
                 }
 
@@ -116,7 +119,7 @@ public class BinaryCalc {
         }
 
         if (splittedRechnung.size() == 1) {
-            return "" + Integer.toBinaryString(Integer.parseInt(splittedRechnung.get(0),2));
+            return "" + Integer.toBinaryString(Integer.parseInt(splittedRechnung.get(0), 2));
         }
 
         if ((rechnung.contains("+") || rechnung.contains("-"))) {
@@ -124,14 +127,14 @@ public class BinaryCalc {
             for (int i = 1; i < splittedRechnung.size(); i++) {
                 if (splittedRechnung.get(i).contains("+")) {
                     try {
-                        erg += Integer.parseInt(splittedRechnung.get(i+1), 2);
+                        erg += Integer.parseInt(splittedRechnung.get(i + 1), 2);
                     } catch (Exception ignored) {
 
                     }
 
                 } else if (splittedRechnung.get(i).contains("-")) {
                     try {
-                        erg -= Integer.parseInt(splittedRechnung.get(i+1), 2);
+                        erg -= Integer.parseInt(splittedRechnung.get(i + 1), 2);
                     } catch (Exception ignored) {
 
                     }
@@ -152,6 +155,7 @@ public class BinaryCalc {
         GridPane gridPane = new GridPane();
         gridPane.setAlignment(Pos.CENTER);
         Scene scene = new Scene(gridPane, 820, 500);
+        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("style.css")).toExternalForm());
 
         gridPane.setBackground(new Background(new BackgroundFill(Color.rgb(200, 200, 200), CornerRadii.EMPTY, Insets.EMPTY)));
         gridPane.setHgap(5);
@@ -195,6 +199,8 @@ public class BinaryCalc {
         gridPane.add(buttons[11], 2, 5);
         gridPane.add(verlaufText, 4, 1);
 
+        gridPane.getStyleClass().add("button");
+
         try {
             for (int i = 0; i < history.linesOfPath.size(); i++) {
                 verlauf.appendText(history.linesOfPath.get(i) + "\n");
@@ -207,12 +213,12 @@ public class BinaryCalc {
          */
         buttons[0].setOnAction(k -> {
             //0
-            pressNumber('0');
+            pressNumber('0', buttons[2]);
         });
 
         buttons[1].setOnAction(k -> {
             //1
-            pressNumber('1');
+            pressNumber('1', buttons[2]);
         });
 
         buttons[2].setOnAction(k -> {
@@ -223,7 +229,7 @@ public class BinaryCalc {
                     verlauf.appendText(ausgabe.getText() + " = " + this.calculate(Rechnung) + "\n"); //Ergebnis einfügen
                     ausgabe.clear();
                     ausgabe.appendText("= " + this.calculate(Rechnung));
-                }catch (ArithmeticException e){
+                } catch (ArithmeticException e) {
                     ausgabe.clear();
                     ausgabe.setText("Error! Division durch 0");
                 }
@@ -232,27 +238,28 @@ public class BinaryCalc {
         });
         buttons[3].setOnAction(k -> {
             //+
-            pressOperationSign('+');
+            pressOperationSign('+', buttons[2]);
         });
 
         buttons[4].setOnAction(k -> {
             //-
-            pressOperationSign('-');
+            pressOperationSign('-', buttons[2]);
         });
 
         buttons[5].setOnAction(k -> {
             ///
-            pressOperationSign('/');
+            pressOperationSign('/', buttons[2]);
         });
 
         buttons[6].setOnAction(k -> {
             //*
-            pressOperationSign('*');
+            pressOperationSign('*', buttons[2]);
         });
 
         buttons[7].setOnAction(k -> {
             //C
             ausgabe.clear();
+            buttons[2].requestFocus();
         });
 
 
@@ -266,6 +273,7 @@ public class BinaryCalc {
                     ausgabe.setText(ausgabe.getText().substring(0, ausgabe.getText().length() - 3));
                 }
             }
+            buttons[2].requestFocus();
         });
 
         buttons[9].setOnAction(k -> {
@@ -286,15 +294,17 @@ public class BinaryCalc {
                     ausgabe.setText(rechnung + numbers[numbers.length - 1]);
 
                 }
-            }catch (Exception ignored){
+            } catch (Exception ignored) {
 
             }
+            buttons[2].requestFocus();
         });
 
         buttons[10].setOnAction(k -> {
             //CE
             ausgabe.clear();
             verlauf.clear();
+            buttons[2].requestFocus();
         });
 
         buttons[11].setOnAction(k -> {
@@ -385,6 +395,16 @@ public class BinaryCalc {
                 buttons[2].fire();
             }
         });
+
+        ausgabe.setOnMouseClicked(k -> {
+                    buttons[2].requestFocus();
+                }
+        );
+
+        verlauf.setOnMouseClicked(k -> {
+                    buttons[2].requestFocus();
+                }
+        );
 
         return scene;
     }

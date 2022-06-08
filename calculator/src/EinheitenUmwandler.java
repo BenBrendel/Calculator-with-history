@@ -35,172 +35,173 @@ public class EinheitenUmwandler {
     public EinheitenUmwandler() {
     }
 
-    public String removeDecimalPoint (String doubleNumber){
-        String [] splitDoubleNumber = doubleNumber.split("\\.");
-        if(Double.parseDouble(splitDoubleNumber[1]) > 0){
+    public String removeDecimalPoint(String doubleNumber) {
+        String[] splitDoubleNumber = doubleNumber.split("\\.");
+        if (Double.parseDouble(splitDoubleNumber[1]) > 0) {
             return doubleNumber;
-        }else{
+        } else {
             return splitDoubleNumber[0];
         }
     }
-    public String  calculate(String ausgangsEinheit, double Wert, String endEinheit){
+
+    public String calculate(String ausgangsEinheit, double Wert, String endEinheit) {
         String erg = "";
-        if(ausgangsEinheit.equals("kg")){
+        if (ausgangsEinheit.equals("kg")) {
             erg += removeDecimalPoint(String.valueOf(Wert * 2.20462));
-        }else if(ausgangsEinheit.equals("lb")){
+        } else if (ausgangsEinheit.equals("lb")) {
             erg += removeDecimalPoint(String.valueOf(Wert / 2.20462));
-        }else if(ausgangsEinheit.equals("Meter")){
-            if(endEinheit.equals("ft")){
+        } else if (ausgangsEinheit.equals("Meter")) {
+            if (endEinheit.equals("ft")) {
                 erg += removeDecimalPoint(String.valueOf(Wert * 3.28084));
-            }else if(endEinheit.equals("inches")){
+            } else if (endEinheit.equals("inches")) {
                 erg += removeDecimalPoint(String.valueOf(Wert * 39.3701));
             }
 
-        }else if(ausgangsEinheit.equals("ft")){
-            if(endEinheit.equals("Meter")){
+        } else if (ausgangsEinheit.equals("ft")) {
+            if (endEinheit.equals("Meter")) {
                 erg += removeDecimalPoint(String.valueOf(Wert / 3.28084));
-            }else if(endEinheit.equals("inches")){
+            } else if (endEinheit.equals("inches")) {
                 erg += removeDecimalPoint(String.valueOf(Wert * 12));
             }
 
-        }else if(ausgangsEinheit.equals("inches")){
-            if(endEinheit.equals("Meter")){
+        } else if (ausgangsEinheit.equals("inches")) {
+            if (endEinheit.equals("Meter")) {
                 erg += removeDecimalPoint(String.valueOf(Wert / 39.3701));
-            }else if(endEinheit.equals("ft")){
+            } else if (endEinheit.equals("ft")) {
                 erg += removeDecimalPoint(String.valueOf(Wert / 12));
             }
 
-        }else if(ausgangsEinheit.equals("Sekunden")){
-            if(endEinheit.equals("Minuten")){
+        } else if (ausgangsEinheit.equals("Sekunden")) {
+            if (endEinheit.equals("Minuten")) {
                 erg += removeDecimalPoint(String.valueOf(Wert / 60));
 
-            }else if(endEinheit.equals("Stunden")){
+            } else if (endEinheit.equals("Stunden")) {
                 erg += removeDecimalPoint(String.valueOf(Wert / 3600));
 
-            }else if(endEinheit.equals("Tage")){
-                erg += removeDecimalPoint(String.valueOf(Wert * (1.1574 * Math.pow(10,-5))));
+            } else if (endEinheit.equals("Tage")) {
+                erg += removeDecimalPoint(String.valueOf(Wert * (1.1574 * Math.pow(10, -5))));
 
-            }else if(endEinheit.equals("Wochen")){
-                erg += removeDecimalPoint(String.valueOf(Wert * (1.6534 * Math.pow(10,-6))));
+            } else if (endEinheit.equals("Wochen")) {
+                erg += removeDecimalPoint(String.valueOf(Wert * (1.6534 * Math.pow(10, -6))));
 
-            }else if(endEinheit.equals("Monate")){
-                erg += removeDecimalPoint(String.valueOf(Wert * (3.80517 * Math.pow(10,-7))));
-            }else if(endEinheit.equals("Jahre")){
-                erg += removeDecimalPoint(String.valueOf(Wert * (3.17098 * Math.pow(10,-8))));
+            } else if (endEinheit.equals("Monate")) {
+                erg += removeDecimalPoint(String.valueOf(Wert * (3.80517 * Math.pow(10, -7))));
+            } else if (endEinheit.equals("Jahre")) {
+                erg += removeDecimalPoint(String.valueOf(Wert * (3.17098 * Math.pow(10, -8))));
             }
 
         } else if (ausgangsEinheit.equals("Minuten")) {
-            if(endEinheit.equals("Sekunden")){
+            if (endEinheit.equals("Sekunden")) {
                 erg += removeDecimalPoint(String.valueOf(Wert * 60));
-            }else if(endEinheit.equals("Stunden")){
+            } else if (endEinheit.equals("Stunden")) {
                 erg += removeDecimalPoint(String.valueOf(Wert / 60));
-            }else if(endEinheit.equals("Tage")){
+            } else if (endEinheit.equals("Tage")) {
                 erg += removeDecimalPoint(String.valueOf(Wert / 1440));
-            }else if(endEinheit.equals("Wochen")){
+            } else if (endEinheit.equals("Wochen")) {
                 erg += removeDecimalPoint(String.valueOf(Wert / 10080));
-            }else if(endEinheit.equals("Monate")){
+            } else if (endEinheit.equals("Monate")) {
                 erg += removeDecimalPoint(String.valueOf(Wert / 43800));
-            }else if(endEinheit.equals("Jahre")){
+            } else if (endEinheit.equals("Jahre")) {
                 erg += removeDecimalPoint(String.valueOf(Wert / 525600));
             }
 
-        }else if(ausgangsEinheit.equals("Stunden")){
-            if(endEinheit.equals("Sekunden")){
+        } else if (ausgangsEinheit.equals("Stunden")) {
+            if (endEinheit.equals("Sekunden")) {
                 erg += removeDecimalPoint(String.valueOf(Wert * 3600));
 
-            }else if(endEinheit.equals("Minuten")){
+            } else if (endEinheit.equals("Minuten")) {
                 erg += removeDecimalPoint(String.valueOf(Wert * 60));
 
-            }else if(endEinheit.equals("Tage")){
+            } else if (endEinheit.equals("Tage")) {
                 erg += removeDecimalPoint(String.valueOf(Wert / 24));
-            }else if(endEinheit.equals("Wochen")){
+            } else if (endEinheit.equals("Wochen")) {
                 erg += removeDecimalPoint(String.valueOf(Wert * 168));
-            }else if(endEinheit.equals("Monate")){
+            } else if (endEinheit.equals("Monate")) {
                 erg += removeDecimalPoint(String.valueOf(Wert * 730));
 
-            }else if(endEinheit.equals("Jahre")){
+            } else if (endEinheit.equals("Jahre")) {
                 erg += removeDecimalPoint(String.valueOf(Wert * 8760));
 
             }
 
-        }else if(ausgangsEinheit.equals("Tage")){
-            if(endEinheit.equals("Sekunden")){
+        } else if (ausgangsEinheit.equals("Tage")) {
+            if (endEinheit.equals("Sekunden")) {
                 erg += removeDecimalPoint(String.valueOf(Wert * 86400));
-            }else if(endEinheit.equals("Minuten")){
+            } else if (endEinheit.equals("Minuten")) {
                 erg += removeDecimalPoint(String.valueOf(Wert * 1440));
 
-            }else if(endEinheit.equals("Stunden")){
+            } else if (endEinheit.equals("Stunden")) {
                 erg += removeDecimalPoint(String.valueOf(Wert * 24));
 
-            }else if(endEinheit.equals("Wochen")){
+            } else if (endEinheit.equals("Wochen")) {
                 erg += removeDecimalPoint(String.valueOf(Wert / 7));
 
-            }else if(endEinheit.equals("Monate")){
+            } else if (endEinheit.equals("Monate")) {
                 erg += removeDecimalPoint(String.valueOf(Wert / 30.417));
 
-            }else if(endEinheit.equals("Jahre")){
+            } else if (endEinheit.equals("Jahre")) {
                 erg += removeDecimalPoint(String.valueOf(Wert / 365));
 
             }
 
-        }else if(ausgangsEinheit.equals("Wochen")){
-            if(endEinheit.equals("Sekunden")){
+        } else if (ausgangsEinheit.equals("Wochen")) {
+            if (endEinheit.equals("Sekunden")) {
                 erg += removeDecimalPoint(String.valueOf(Wert * 604800));
 
-            }else if(endEinheit.equals("Minuten")){
+            } else if (endEinheit.equals("Minuten")) {
                 erg += removeDecimalPoint(String.valueOf(Wert * 10080));
 
-            }else if(endEinheit.equals("Stunden")){
+            } else if (endEinheit.equals("Stunden")) {
                 erg += removeDecimalPoint(String.valueOf(Wert * 168));
 
-            }else if(endEinheit.equals("Tage")){
+            } else if (endEinheit.equals("Tage")) {
                 erg += removeDecimalPoint(String.valueOf(Wert * 7));
 
-            }else if(endEinheit.equals("Monate")){
+            } else if (endEinheit.equals("Monate")) {
                 erg += removeDecimalPoint(String.valueOf(Wert / 4.345));
 
-            }else if(endEinheit.equals("Jahre")){
+            } else if (endEinheit.equals("Jahre")) {
                 erg += removeDecimalPoint(String.valueOf(Wert / 52));
             }
 
-        }else if(ausgangsEinheit.equals("Monate")){
+        } else if (ausgangsEinheit.equals("Monate")) {
 
-            if(endEinheit.equals("Sekunden")){
-                erg += removeDecimalPoint(String.valueOf(Wert * (2.628 * Math.pow(10,6))));
+            if (endEinheit.equals("Sekunden")) {
+                erg += removeDecimalPoint(String.valueOf(Wert * (2.628 * Math.pow(10, 6))));
 
-            }else if(endEinheit.equals("Minuten")){
-                erg += removeDecimalPoint(String.valueOf(Wert *  43800));
+            } else if (endEinheit.equals("Minuten")) {
+                erg += removeDecimalPoint(String.valueOf(Wert * 43800));
 
-            }else if(endEinheit.equals("Stunden")){
+            } else if (endEinheit.equals("Stunden")) {
                 erg += removeDecimalPoint(String.valueOf(Wert * 730));
 
-            }else if(endEinheit.equals("Tage")){
+            } else if (endEinheit.equals("Tage")) {
                 erg += removeDecimalPoint(String.valueOf(Wert * 30.417));
 
-            }else if(endEinheit.equals("Wochen")){
-                erg += removeDecimalPoint(String.valueOf(Wert * 4.345 ));
+            } else if (endEinheit.equals("Wochen")) {
+                erg += removeDecimalPoint(String.valueOf(Wert * 4.345));
 
-            }else if(endEinheit.equals("Jahre")){
+            } else if (endEinheit.equals("Jahre")) {
                 erg += removeDecimalPoint(String.valueOf(Wert / 12));
 
             }
-        }else if(ausgangsEinheit.equals("Jahre")){
-            if(endEinheit.equals("Sekunden")){
-                erg += removeDecimalPoint(String.valueOf(Wert * (3.154 * Math.pow(10,7))));
+        } else if (ausgangsEinheit.equals("Jahre")) {
+            if (endEinheit.equals("Sekunden")) {
+                erg += removeDecimalPoint(String.valueOf(Wert * (3.154 * Math.pow(10, 7))));
 
-            }else if(endEinheit.equals("Minuten")){
+            } else if (endEinheit.equals("Minuten")) {
                 erg += removeDecimalPoint(String.valueOf(Wert * 525600));
 
-            }else if(endEinheit.equals("Stunden")){
+            } else if (endEinheit.equals("Stunden")) {
                 erg += removeDecimalPoint(String.valueOf(Wert * 87600));
 
-            }else if(endEinheit.equals("Tage")){
+            } else if (endEinheit.equals("Tage")) {
                 erg += removeDecimalPoint(String.valueOf(Wert * 365));
 
-            }else if(endEinheit.equals("Wochen")){
+            } else if (endEinheit.equals("Wochen")) {
                 erg += removeDecimalPoint(String.valueOf(Wert * 52));
 
-            }else if(endEinheit.equals("Monate")){
+            } else if (endEinheit.equals("Monate")) {
                 erg += removeDecimalPoint(String.valueOf(Wert * 12));
             }
 
@@ -208,6 +209,7 @@ public class EinheitenUmwandler {
 
         return erg;
     }
+
     public EinheitenUmwandler(History history) {
         this.history = history;
     }
@@ -267,7 +269,7 @@ public class EinheitenUmwandler {
                 );
         ObservableList<String> AusgabeOptions =
                 FXCollections.observableArrayList(
-                     " "
+                        " "
                 );
         final ComboBox eingabeEinheit = new ComboBox(EingabeOptions);
         final ComboBox ausgabeEinheit = new ComboBox(AusgabeOptions);
@@ -324,76 +326,77 @@ public class EinheitenUmwandler {
          * evenListener for buttons
          */
 
-        eingabeEinheit.setOnAction(k ->{
-            ausgabe.clear();;
+        eingabeEinheit.setOnAction(k -> {
+            ausgabe.clear();
+            ;
             String auswahl = (String) eingabeEinheit.getValue();
-            if(auswahl.equals("kg")){
+            if (auswahl.equals("kg")) {
                 ObservableList<String> ausgabeOptions =
                         FXCollections.observableArrayList(
                                 "lb"
                         );
                 ausgabeEinheit.setItems(ausgabeOptions);
-            }else if(auswahl.equals("lb")){
+            } else if (auswahl.equals("lb")) {
                 ObservableList<String> ausgabeOptions =
                         FXCollections.observableArrayList(
                                 "kg"
                         );
                 ausgabeEinheit.setItems(ausgabeOptions);
-            }else if(auswahl.equals("Stunden")){
+            } else if (auswahl.equals("Stunden")) {
                 ObservableList<String> ausgabeOptions =
                         FXCollections.observableArrayList(
                                 "Sekunden", "Minuten", "Tage", "Wochen", "Monate", "Jahre"
                         );
                 ausgabeEinheit.setItems(ausgabeOptions);
-            }else if(auswahl.equals("Meter")){
+            } else if (auswahl.equals("Meter")) {
                 ObservableList<String> ausgabeOptions =
-                FXCollections.observableArrayList(
-                        "ft", "inches"
-                );
+                        FXCollections.observableArrayList(
+                                "ft", "inches"
+                        );
                 ausgabeEinheit.setItems(ausgabeOptions);
-            }else if(auswahl.equals("Sekunden")){
+            } else if (auswahl.equals("Sekunden")) {
                 ObservableList<String> ausgabeOptions =
-                FXCollections.observableArrayList(
-                        "Minuten", "Stunden", "Tage", "Wochen", "Monate", "Jahre"
-                );
+                        FXCollections.observableArrayList(
+                                "Minuten", "Stunden", "Tage", "Wochen", "Monate", "Jahre"
+                        );
                 ausgabeEinheit.setItems(ausgabeOptions);
-            }else if(auswahl.equals("Minuten")){
+            } else if (auswahl.equals("Minuten")) {
                 ObservableList<String> ausgabeOptions =
-                FXCollections.observableArrayList(
-                        "Sekunden", "Stunden", "Tage", "Wochen", "Monate", "Jahre"
-                );
+                        FXCollections.observableArrayList(
+                                "Sekunden", "Stunden", "Tage", "Wochen", "Monate", "Jahre"
+                        );
                 ausgabeEinheit.setItems(ausgabeOptions);
-            }else if(auswahl.equals("Tage")){
+            } else if (auswahl.equals("Tage")) {
                 ObservableList<String> ausgabeOptions =
-                FXCollections.observableArrayList(
-                        "Sekunden", "Minuten", "Stunden", "Wochen", "Monate", "Jahre"
-                );
+                        FXCollections.observableArrayList(
+                                "Sekunden", "Minuten", "Stunden", "Wochen", "Monate", "Jahre"
+                        );
                 ausgabeEinheit.setItems(ausgabeOptions);
-            }else if(auswahl.equals("Wochen")){
+            } else if (auswahl.equals("Wochen")) {
                 ObservableList<String> ausgabeOptions =
-                FXCollections.observableArrayList(
-                        "Sekunden", "Minuten", "Stunden", "Tage", "Monate", "Jahre"
-                );
+                        FXCollections.observableArrayList(
+                                "Sekunden", "Minuten", "Stunden", "Tage", "Monate", "Jahre"
+                        );
                 ausgabeEinheit.setItems(ausgabeOptions);
-            }else if(auswahl.equals("Monate")){
+            } else if (auswahl.equals("Monate")) {
                 ObservableList<String> ausgabeOptions =
-                FXCollections.observableArrayList(
-                        "Sekunden", "Minuten", "Stunden", "Tage", "Wochen", "Jahre"
-                );
+                        FXCollections.observableArrayList(
+                                "Sekunden", "Minuten", "Stunden", "Tage", "Wochen", "Jahre"
+                        );
                 ausgabeEinheit.setItems(ausgabeOptions);
-            }else if(auswahl.equals("Jahre")){
+            } else if (auswahl.equals("Jahre")) {
                 ObservableList<String> ausgabeOptions =
-                FXCollections.observableArrayList(
-                        "Sekunden", "Minuten", "Stunden", "Tage", "Wochen", "Monate"
-                );
+                        FXCollections.observableArrayList(
+                                "Sekunden", "Minuten", "Stunden", "Tage", "Wochen", "Monate"
+                        );
                 ausgabeEinheit.setItems(ausgabeOptions);
-            }else if(auswahl.equals("inches")){
+            } else if (auswahl.equals("inches")) {
                 ObservableList<String> ausgabeOptions =
                         FXCollections.observableArrayList(
                                 "Meter", "ft"
                         );
                 ausgabeEinheit.setItems(ausgabeOptions);
-            }else if(auswahl.equals("ft")){
+            } else if (auswahl.equals("ft")) {
                 ObservableList<String> ausgabeOptions =
                         FXCollections.observableArrayList(
                                 "Meter", "inches"
@@ -405,35 +408,35 @@ public class EinheitenUmwandler {
         buttons[0].setOnAction(k -> {
             //=
             //muss angepasst werden, weil es ja kein calculate mehr gibt
-                if(!eingabe.getText().equals("") && eingabeEinheit.getValue() != null && ausgabeEinheit.getValue() != null) {
-                    System.out.println("test");
-                    try{
+            if (!eingabe.getText().equals("") && eingabeEinheit.getValue() != null && ausgabeEinheit.getValue() != null) {
+                System.out.println("test");
+                try {
                     int commaCounter = 0;
                     String eingabeText = eingabe.getText();
-                    for(int i = 0; i < eingabeText.length(); i++){
-                        if(eingabe.getText().charAt(i) == ','){
+                    for (int i = 0; i < eingabeText.length(); i++) {
+                        if (eingabe.getText().charAt(i) == ',') {
                             commaCounter++;
-                          eingabeText =  eingabeText.replace(',', '.');
-                        }else if(eingabe.getText().charAt(i) == '.'){
+                            eingabeText = eingabeText.replace(',', '.');
+                        } else if (eingabe.getText().charAt(i) == '.') {
                             commaCounter++;
                         }
                     }
 
 
-                        ausgabe.setText(calculate(String.valueOf(eingabeEinheit.getValue()), Double.parseDouble(eingabeText), String.valueOf(ausgabeEinheit.getValue())));
-                        verlauf.appendText("" + eingabeText + " " + eingabeEinheit.getValue() + " = " + ausgabe.getText() + " " + ausgabeEinheit.getValue() + "\n");
-                    }catch (Exception e){
-                        eingabe.clear();
-                        eingabe.setPromptText("Error! Ungültige Eingabe");
-                    }
-
-                }else if(eingabe.getText().equals("")){
+                    ausgabe.setText(calculate(String.valueOf(eingabeEinheit.getValue()), Double.parseDouble(eingabeText), String.valueOf(ausgabeEinheit.getValue())));
+                    verlauf.appendText("" + eingabeText + " " + eingabeEinheit.getValue() + " = " + ausgabe.getText() + " " + ausgabeEinheit.getValue() + "\n");
+                } catch (Exception e) {
                     eingabe.clear();
-                    eingabe.setPromptText("Bitte Zahlen eingeben!");
-                }else if(eingabeEinheit.getValue() == null && ausgabeEinheit.getValue() == null){
-                    eingabe.setPromptText("Bitte Einheiten auswählen!");
+                    eingabe.setPromptText("Error! Ungültige Eingabe");
                 }
-            });
+
+            } else if (eingabe.getText().equals("")) {
+                eingabe.clear();
+                eingabe.setPromptText("Bitte Zahlen eingeben!");
+            } else if (eingabeEinheit.getValue() == null && ausgabeEinheit.getValue() == null) {
+                eingabe.setPromptText("Bitte Einheiten auswählen!");
+            }
+        });
 
         buttons[1].setOnAction(k -> {
             //C
@@ -506,7 +509,7 @@ public class EinheitenUmwandler {
          */
         scene.setOnKeyPressed(k -> {
             if (k.getCode() == KeyCode.ENTER) {
-                buttons[10].fire();
+                buttons[0].fire();
             }
         });
 
