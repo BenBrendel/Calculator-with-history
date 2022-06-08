@@ -408,7 +408,6 @@ public class EinheitenUmwandler {
             //=
             //muss angepasst werden, weil es ja kein calculate mehr gibt
             if (!eingabe.getText().equals("") && eingabeEinheit.getValue() != null && ausgabeEinheit.getValue() != null) {
-                System.out.println("test");
                 try {
                     int commaCounter = 0;
                     String eingabeText = eingabe.getText();

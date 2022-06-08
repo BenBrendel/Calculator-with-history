@@ -310,10 +310,14 @@ public class Calculator {
 
         buttons[16].setOnAction(k -> {
             //.
-            String[] splitRechnung = ausgabe.getText().split(" ");
-            if (ausgabe.getText().charAt(ausgabe.getText().length() - 1) >= '0' && ausgabe.getText().charAt(ausgabe.getText().length() - 1) <= '9' && !(ausgabe.getText().startsWith("Error")) && !(ausgabe.getText().startsWith("Speichern"))) {
-                if (!(splitRechnung[splitRechnung.length - 1].contains("."))) {
-                    ausgabe.appendText(".");
+            if(ausgabe.getText().length() !=0) {
+                String[] splitRechnung = ausgabe.getText().split(" ");
+                if (!ausgabe.getText().contains("=")) {
+                    if (ausgabe.getText().charAt(ausgabe.getText().length() - 1) >= '0' && ausgabe.getText().charAt(ausgabe.getText().length() - 1) <= '9' && !(ausgabe.getText().startsWith("Error")) && !(ausgabe.getText().startsWith("Speichern"))) {
+                        if (!(splitRechnung[splitRechnung.length - 1].contains("."))) {
+                            ausgabe.appendText(".");
+                        }
+                    }
                 }
             }
             buttons[10].requestFocus();
