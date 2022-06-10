@@ -8,6 +8,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -15,6 +17,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -79,7 +82,7 @@ public class Main extends Application {
         /**
          * creates starting scene
          */
-        stage.setTitle("calculator");
+        stage.setTitle("Calculator");
         stage.setMinWidth(300);
         stage.setMinHeight(100);
 
@@ -87,6 +90,14 @@ public class Main extends Application {
         gridPane.setAlignment(Pos.CENTER);
         Scene scene = new Scene(gridPane, 600, 150);
         stage.setScene(scene);
+        ImageView headerLogo = new ImageView();
+        try {
+            headerLogo = new ImageView(new Image(new FileInputStream("pic\\calc.png")));
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        stage.getIcons().add(headerLogo.getImage());
 
         gridPane.setBackground(new Background(new BackgroundFill(Color.rgb(222, 238, 246), CornerRadii.EMPTY, Insets.EMPTY)));
         gridPane.setHgap(10);
