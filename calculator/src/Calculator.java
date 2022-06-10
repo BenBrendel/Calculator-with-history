@@ -63,10 +63,10 @@ public class Calculator {
             try (
                     BufferedWriter out = Files.newBufferedWriter((history.path), StandardCharsets.UTF_8, StandardOpenOption.APPEND);
             ) {
+                   List<String> allLinesOfHistory = Files.readAllLines(history.path);
+                for (int i = allLinesOfHistory.size(); i < linesOfHistory.size(); i++) {
 
-                for (String s : linesOfHistory) {
-
-                    out.write(s + System.lineSeparator());
+                    out.write(linesOfHistory.get(i) + System.lineSeparator());
 
                 }
             }
@@ -371,7 +371,7 @@ public class Calculator {
         buttons[20].setOnAction(k -> {
             //Save
             List<String> allLineOfHistory = Arrays.asList(verlauf.getText().split("\n"));
-            if (this.history == null) {
+            if (this.history== null) {
                 GridPane saveScreen = new GridPane();
                 saveScreen.setAlignment(Pos.CENTER);
                 Scene saveScene = new Scene(saveScreen, 280, 100);
@@ -393,6 +393,7 @@ public class Calculator {
                 saveScreen.add(save, 1, 1);
 
                 save.setOnAction(e -> {
+
                     File verlaufsDatei = fileChooser.showSaveDialog(saveStage); //File mit Verlauf
                     try {
                         Files.createFile(Paths.get(verlaufsDatei.getPath()));
@@ -402,7 +403,7 @@ public class Calculator {
                             for (String s : allLineOfHistory) {
 
                                 out.write(s + System.lineSeparator());
-                                ausgabe.setText("Speichern erfolgreich!");
+
                             }
 
                         } catch (Exception ignored) {
@@ -411,6 +412,8 @@ public class Calculator {
                     } catch (Exception ignored) {
 
                     }
+                    ausgabe.setText("Speichern erfolgreich!");
+                    this.history = new History(verlaufsDatei);
 
                     saveStage.close();
                 });

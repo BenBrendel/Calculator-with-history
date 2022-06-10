@@ -64,13 +64,14 @@ public class BinaryCalc {
             try (
                     BufferedWriter out = Files.newBufferedWriter((history.path), StandardCharsets.UTF_8, StandardOpenOption.APPEND);
             ) {
+                List<String> allLinesOfHistory = Files.readAllLines(history.path);
+                for (int i = allLinesOfHistory.size(); i < linesOfHistory.size(); i++) {
 
-                for (String s : linesOfHistory) {
-                    out.write(s + System.lineSeparator());
+                    out.write(linesOfHistory.get(i) + System.lineSeparator());
+
                 }
             }
         } catch (Exception ignored) {
-
         }
     }
 
@@ -340,7 +341,6 @@ public class BinaryCalc {
                             for (String s : allLineOfHistory) {
 
                                 out.write(s + System.lineSeparator());
-                                ausgabe.setText("Speichern erfolgreich!");
                             }
 
                         } catch (Exception ignored) {
@@ -349,7 +349,8 @@ public class BinaryCalc {
                     } catch (Exception ignored) {
 
                     }
-
+                    ausgabe.setText("Speichern erfolgreich!");
+                    this.history = new History(verlaufsDatei);
                     saveStage.close();
                 });
 
