@@ -161,6 +161,7 @@ public class Calculator {
         Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
 
         for (int i = 0; i < buttons.length; i++) {
+            buttons[i].getStyleClass().add("button");
             buttons[i].setPrefSize(screenBounds.getWidth(), screenBounds.getHeight());
             buttons[i].setStyle("-fx-font-size:25");
         }
@@ -200,7 +201,7 @@ public class Calculator {
         gridPane.add(buttons[20], 4, 6);
         gridPane.add(verlaufText, 4, 1);
 
-        gridPane.getStyleClass().add("button");
+        gridPane.getStyleClass().add("gridPane");
 
         try {
             for (int i = 0; i < history.linesOfPath.size(); i++) {

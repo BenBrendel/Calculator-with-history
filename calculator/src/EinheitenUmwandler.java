@@ -28,6 +28,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static javafx.scene.paint.Color.rgb;
+
 public class EinheitenUmwandler {
     History history;
     TextArea verlauf = new TextArea();
@@ -241,10 +243,11 @@ public class EinheitenUmwandler {
         GridPane gridPane = new GridPane();
         gridPane.setAlignment(Pos.CENTER);
         Scene scene = new Scene(gridPane, 900, 350);
-        
+
         gridPane.setHgap(15);
         gridPane.setVgap(15);
         gridPane.setPadding(new Insets(15));
+        gridPane.setBackground(new Background(new BackgroundFill(Color.rgb(198, 218, 229), CornerRadii.EMPTY, Insets.EMPTY)));
 
         Label verlaufText = new Label("Verlauf:");
         Button[] buttons = new Button[]{
@@ -456,7 +459,7 @@ public class EinheitenUmwandler {
                 Stage saveStage = new Stage();
                 saveStage.setTitle("save");
                 saveStage.setScene(saveScene);
-                saveScreen.setBackground(new Background(new BackgroundFill(Color.rgb(200, 200, 200), CornerRadii.EMPTY, Insets.EMPTY)));
+                saveScreen.setBackground(new Background(new BackgroundFill(rgb(200, 200, 200), CornerRadii.EMPTY, Insets.EMPTY)));
                 saveScreen.setHgap(5);
                 saveScreen.setVgap(5);
                 saveScreen.setPadding(new Insets(5));

@@ -28,7 +28,7 @@ public class Main extends Application {
         VBox vbox = new VBox();
         Scene modeSelection = new Scene(vbox, 300, 100);
 
-        vbox.setBackground(new Background(new BackgroundFill(Color.rgb(195, 219, 229), CornerRadii.EMPTY, Insets.EMPTY)));
+        vbox.setBackground(new Background(new BackgroundFill(Color.rgb(222, 238, 246), CornerRadii.EMPTY, Insets.EMPTY)));
         vbox.setSpacing(10);
         vbox.setPadding(new Insets(15));
         vbox.setAlignment(Pos.CENTER);
@@ -88,7 +88,7 @@ public class Main extends Application {
         Scene scene = new Scene(gridPane, 600, 150);
         stage.setScene(scene);
 
-        gridPane.setBackground(new Background(new BackgroundFill(Color.rgb(195, 219, 229), CornerRadii.EMPTY, Insets.EMPTY)));
+        gridPane.setBackground(new Background(new BackgroundFill(Color.rgb(222, 238, 246), CornerRadii.EMPTY, Insets.EMPTY)));
         gridPane.setHgap(10);
         gridPane.setVgap(10);
         gridPane.setPadding(new Insets(10));
