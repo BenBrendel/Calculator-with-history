@@ -1,16 +1,12 @@
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
@@ -43,7 +39,8 @@ public class Calculator extends Main {
     }
 
     /**
-     *  Die Methode wird aufgerufen wenn ein Button mit einer "Zahl" gedrückt wird
+     * Die Methode wird aufgerufen wenn ein Button mit einer "Zahl" gedrückt wird
+     *
      * @param Number = Die Zahl die gedrückt wird
      * @param button = der Button der gedrückt wird
      */
@@ -58,7 +55,8 @@ public class Calculator extends Main {
 
     /**
      * Die Methode wird aufgerufen wenn ein Button mit einem "Rechenzeichen" gedrückt wird
-     * @param Sign = das Rechenzeichen welches ausgeführt wird
+     *
+     * @param Sign   = das Rechenzeichen welches ausgeführt wird
      * @param button = Der Button der gedrückt wurde
      */
     public void pressOperationSign(char Sign, Button button) {
@@ -107,11 +105,7 @@ public class Calculator extends Main {
                 splittedRechnung.set(i, zwischenErgebnis + "");
                 splittedRechnung.remove(i + 1);
                 splittedRechnung.remove(i - 1);
-
-
             } else if (splittedRechnung.get(i).contains("/")) {
-
-
                 zwischenErgebnis = Double.parseDouble(splittedRechnung.get(i - 1)) / Double.parseDouble(splittedRechnung.get(i + 1));
                 splittedRechnung.set(i, zwischenErgebnis + "");
                 splittedRechnung.remove(i + 1);
@@ -146,7 +140,6 @@ public class Calculator extends Main {
 
         return erg;
     }
-
 
     /**
      * creates the scene of the calculator
@@ -499,7 +492,7 @@ public class Calculator extends Main {
                         e.printStackTrace();
                     }
                 }
-            }catch (Exception ignored){
+            } catch (Exception ignored) {
 
             }
         });

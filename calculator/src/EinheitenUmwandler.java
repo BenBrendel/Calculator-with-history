@@ -15,6 +15,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;
@@ -23,9 +24,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
 import static javafx.scene.paint.Color.rgb;
 
 public class EinheitenUmwandler extends Main {
@@ -46,8 +47,8 @@ public class EinheitenUmwandler extends Main {
 
     /**
      * @param ausgangsEinheit = Die Einheit die umgewandelt werden soll
-     * @param Wert = Der Wert der ausgangsEinheit
-     * @param endEinheit = Einheit in die Umgewandelt wird
+     * @param Wert            = Der Wert der ausgangsEinheit
+     * @param endEinheit      = Einheit in die Umgewandelt wird
      * @return = das umgewandelte Ergebnis
      */
     public String calculate(String ausgangsEinheit, double Wert, String endEinheit) {
@@ -222,11 +223,12 @@ public class EinheitenUmwandler extends Main {
 
     /**
      * Die Methode speichert die neu hinzugefügten Rechnungen in die Verlaufsdatei falls eine existiert
+     *
      * @param linesOfHistory = Die die sich zum Zeitpunkt des Aufrufens im Verlauf befinden
      * @throws IOException = für File IO
      */
     public void save(List<String> linesOfHistory) throws IOException {
-        try{
+        try {
             try (
                     BufferedWriter out = Files.newBufferedWriter((history.path), StandardCharsets.UTF_8, StandardOpenOption.APPEND);
             ) {
@@ -514,11 +516,11 @@ public class EinheitenUmwandler extends Main {
                     } catch (Exception ignored) {
 
                     }
-                    if(verlaufsDatei != null) {
+                    if (verlaufsDatei != null) {
                         eingabe.setText("Speichern erfolgreich!");
                         this.history = new History(verlaufsDatei);
                         ausgabe.clear();
-                    }else {
+                    } else {
                         ausgabe.setText("Es gab einen Fehler beim Speichern!");
                     }
                     saveStage.close();

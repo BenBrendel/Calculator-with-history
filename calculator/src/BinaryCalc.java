@@ -1,12 +1,9 @@
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.KeyCode;
@@ -336,8 +333,8 @@ public class BinaryCalc extends Main {
             buttons[2].requestFocus();
         });
         /**
-        * eventlistener für button "Save"
-        */
+         * eventlistener für button "Save"
+         */
         buttons[11].setOnAction(k -> {
 
             /**
@@ -385,10 +382,10 @@ public class BinaryCalc extends Main {
                     } catch (Exception ignored) {
 
                     }
-                    if(verlaufsDatei != null) {
+                    if (verlaufsDatei != null) {
                         ausgabe.setText("Speichern erfolgreich!");
                         this.history = new History(verlaufsDatei);
-                    }else {
+                    } else {
                         ausgabe.setText("Es gab einen Fehler beim Speichern!");
                     }
                     saveStage.close();
