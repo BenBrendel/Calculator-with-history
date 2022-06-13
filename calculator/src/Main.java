@@ -49,7 +49,9 @@ public class Main extends Application {
         vbox.getChildren().add(comboBox);
 
         stage.setScene(modeSelection);
-
+        /**
+         * Event Listener für Rechner auswahl
+         */
         comboBox.setOnAction(e -> {
             if (history != null) {
                 if (comboBox.getValue().equals("Standardrechner")) {
