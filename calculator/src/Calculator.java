@@ -179,6 +179,7 @@ public class Calculator extends Main {
         }
         ausgabe.setPrefSize(screenBounds.getWidth(), screenBounds.getHeight());
         ausgabe.setStyle("-fx-font-size:20");
+        verlauf.setText(zwischenVerlauf);
         ausgabe.setEditable(false);
         verlauf.setPrefSize(screenBounds.getWidth(), screenBounds.getHeight());
         verlauf.setStyle("-fx-font-size:20");
@@ -306,7 +307,7 @@ public class Calculator extends Main {
          */
         buttons[10].setOnAction(k -> {
             String Rechnung = ausgabe.getText();
-            if (!(Rechnung.contains("=")) && Rechnung.length() != 0 && Rechnung.charAt(Rechnung.length() - 1) != ' ') {
+            if (!(Rechnung.contains("=")) && Rechnung.length() != 0 && Rechnung.charAt(Rechnung.length() - 1) != ' ' && !Rechnung.contains("Speichern erfolgreich!") && !Rechnung.contains("Es gab einen Fehler beim Speichern!")) {
                 if (this.calculate(Rechnung) == Double.POSITIVE_INFINITY || this.calculate(Rechnung) == Double.NEGATIVE_INFINITY || Double.isNaN(this.calculate(Rechnung))) {
                     verlauf.clear();
                     ausgabe.setText("Error! Division durch 0");
@@ -322,6 +323,7 @@ public class Calculator extends Main {
                         ausgabe.appendText("= " + this.calculate(Rechnung));
                     }
                 }
+                Main.zwischenVerlauf = verlauf.getText();
             }
         });
         /**
@@ -399,8 +401,6 @@ public class Calculator extends Main {
          */
         buttons[18].setOnAction(k -> {
             try {
-
-
                 if (!(ausgabe.getText().startsWith("Error")) && !(ausgabe.getText().contains("=")) && ausgabe.getText().charAt(ausgabe.getText().length() - 1) >= '0' && ausgabe.getText().charAt(ausgabe.getText().length() - 1) <= '9') {
                     String rechnung = ausgabe.getText();
                     String[] numbers = rechnung.split(" ");
@@ -432,64 +432,75 @@ public class Calculator extends Main {
          * eventlistener für button "Save"
          */
         buttons[20].setOnAction(k -> {
-            List<String> allLineOfHistory = Arrays.asList(verlauf.getText().split("\n"));
-            if (this.history == null) {
-                GridPane saveScreen = new GridPane();
-                saveScreen.setAlignment(Pos.CENTER);
-                Scene saveScene = new Scene(saveScreen, 280, 100);
-                Stage saveStage = new Stage();
-                saveStage.setTitle("save");
-                saveStage.setScene(saveScene);
-                saveScreen.setBackground(new Background(new BackgroundFill(Color.rgb(200, 200, 200), CornerRadii.EMPTY, Insets.EMPTY)));
-                saveScreen.setHgap(5);
-                saveScreen.setVgap(5);
-                saveScreen.setPadding(new Insets(5));
-                Label label = new Label("Speichere deinen Verlauf als eine .txt Datei ab:");
-                Button save = new Button("Pfad-Auswahl");
-                FileChooser fileChooser = new FileChooser();
-                fileChooser.getExtensionFilters().addAll(
-                        new FileChooser.ExtensionFilter("Text Files", "*.txt")
-                );
-                fileChooser.setInitialFileName("newHistory.txt");
-                saveScreen.add(label, 1, 0);
-                saveScreen.add(save, 1, 1);
+            try {
 
-                save.setOnAction(e -> {
 
-                    File verlaufsDatei = fileChooser.showSaveDialog(saveStage); //File mit Verlauf
-                    try {
-                        Files.createFile(Paths.get(verlaufsDatei.getPath()));
-                        try (
-                                BufferedWriter out = Files.newBufferedWriter(Path.of(verlaufsDatei.getPath()), StandardCharsets.UTF_8);
-                        ) {
-                            for (String s : allLineOfHistory) {
+                List<String> allLineOfHistory = Arrays.asList(verlauf.getText().split("\n"));
+                if (this.history == null) {
 
-                                out.write(s + System.lineSeparator());
+                    GridPane saveScreen = new GridPane();
+                    saveScreen.setAlignment(Pos.CENTER);
+                    Scene saveScene = new Scene(saveScreen, 280, 100);
+                    Stage saveStage = new Stage();
+                    saveStage.setTitle("save");
+                    saveStage.setScene(saveScene);
+                    saveScreen.setBackground(new Background(new BackgroundFill(Color.rgb(200, 200, 200), CornerRadii.EMPTY, Insets.EMPTY)));
+                    saveScreen.setHgap(5);
+                    saveScreen.setVgap(5);
+                    saveScreen.setPadding(new Insets(5));
+                    Label label = new Label("Speichere deinen Verlauf als eine .txt Datei ab:");
+                    Button save = new Button("Pfad-Auswahl");
+                    FileChooser fileChooser = new FileChooser();
+                    fileChooser.getExtensionFilters().addAll(
+                            new FileChooser.ExtensionFilter("Text Files", "*.txt")
+                    );
+                    fileChooser.setInitialFileName("newHistory.txt");
+                    saveScreen.add(label, 1, 0);
+                    saveScreen.add(save, 1, 1);
+
+                    save.setOnAction(e -> {
+
+                        File verlaufsDatei = fileChooser.showSaveDialog(saveStage); //File mit Verlauf
+                        try {
+                            Files.createFile(Paths.get(verlaufsDatei.getPath()));
+                            try (
+                                    BufferedWriter out = Files.newBufferedWriter(Path.of(verlaufsDatei.getPath()), StandardCharsets.UTF_8);
+                            ) {
+                                for (String s : allLineOfHistory) {
+
+                                    out.write(s + System.lineSeparator());
+
+                                }
+
+                            } catch (Exception ignored) {
 
                             }
-
                         } catch (Exception ignored) {
 
                         }
-                    } catch (Exception ignored) {
+                        if (verlaufsDatei != null) {
+                            ausgabe.setText("Speichern erfolgreich!");
+                            this.history = new History(verlaufsDatei);
+                        } else {
+                            ausgabe.setText("Es gab einen Fehler beim Speichern!");
+                        }
 
+                        saveStage.close();
+                    });
+
+                    saveStage.show();
+                } else {
+                    List<String> linesOfHistory = Arrays.asList(verlauf.getText().split("\n"));
+                    try {
+                        this.save(linesOfHistory);
+                        ausgabe.clear();
+                        ausgabe.setText("Speichern erfolgreich!");
+                    } catch (IOException e) {
+                        e.printStackTrace();
                     }
-                    ausgabe.setText("Speichern erfolgreich!");
-                    this.history = new History(verlaufsDatei);
-
-                    saveStage.close();
-                });
-
-                saveStage.show();
-            } else {
-                List<String> linesOfHistory = Arrays.asList(verlauf.getText().split("\n"));
-                try {
-                    this.save(linesOfHistory);
-                    ausgabe.clear();
-                    ausgabe.setText("Speichern erfolgreich!");
-                } catch (IOException e) {
-                    e.printStackTrace();
                 }
+            }catch (Exception ignored){
+
             }
         });
 

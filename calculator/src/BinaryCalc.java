@@ -113,8 +113,6 @@ public class BinaryCalc extends Main {
                 } catch (ArithmeticException e) {
                     throw new ArithmeticException();
                 }
-
-
             }
 
         }
@@ -180,6 +178,7 @@ public class BinaryCalc extends Main {
         verlauf.setPrefSize(screenBounds.getWidth(), screenBounds.getHeight());
         verlauf.setStyle("-fx-font-size:20");
         verlauf.setEditable(false);
+        verlauf.setText(Main.zwischenVerlauf);
         verlaufText.setStyle("-fx-font-size:25");
         GridPane.setHalignment(verlaufText, HPos.CENTER);
 
@@ -201,7 +200,6 @@ public class BinaryCalc extends Main {
         gridPane.add(buttons[10], 0, 2);
         gridPane.add(buttons[11], 2, 5);
         gridPane.add(verlaufText, 4, 1);
-
         gridPane.getStyleClass().add("gridPane");
 
         try {
@@ -235,11 +233,12 @@ public class BinaryCalc extends Main {
          */
         buttons[2].setOnAction(k -> {
             String Rechnung = ausgabe.getText();
-            if (!(Rechnung.contains("=")) && Rechnung.length() != 0 && Rechnung.charAt(Rechnung.length() - 1) != ' ') {
+            if (!(Rechnung.contains("=")) && Rechnung.length() != 0 && Rechnung.charAt(Rechnung.length() - 1) != ' ' && !Rechnung.contains("Speichern erfolgreich!") && !Rechnung.contains("Es gab einen Fehler beim Speichern!")) {
                 try {
-                    verlauf.appendText(ausgabe.getText() + " = " + this.calculate(Rechnung) + "\n"); //Ergebnis einfügen
+                    verlauf.appendText(ausgabe.getText() + " = " + this.calculate(Rechnung) + "\n");
                     ausgabe.clear();
                     ausgabe.appendText("= " + this.calculate(Rechnung));
+                    Main.zwischenVerlauf = verlauf.getText();
                 } catch (ArithmeticException e) {
                     ausgabe.clear();
                     ausgabe.setText("Error! Division durch 0");
@@ -340,13 +339,14 @@ public class BinaryCalc extends Main {
         * eventlistener für button "Save"
         */
         buttons[11].setOnAction(k -> {
-            List<String> allLineOfHistory = Arrays.asList(verlauf.getText().split("\n"));
+
             /**
              *  wenn der Calculator noch nicht gespeichert wurde dann wird ein neues Fenster aufgerufen
              *  in dem man den Speicherort auswählen kann. Wurde schonmal gespeichert werden die neuen Verlaufszeilen in die
              *  vorhandene Datei angehängt.
              */
             if (this.history == null) {
+                List<String> allLineOfHistory = Arrays.asList(verlauf.getText().split("\n"));
                 GridPane saveScreen = new GridPane();
                 saveScreen.setAlignment(Pos.CENTER);
                 Scene saveScene = new Scene(saveScreen, 280, 100);
@@ -385,8 +385,12 @@ public class BinaryCalc extends Main {
                     } catch (Exception ignored) {
 
                     }
-                    ausgabe.setText("Speichern erfolgreich!");
-                    this.history = new History(verlaufsDatei);
+                    if(verlaufsDatei != null) {
+                        ausgabe.setText("Speichern erfolgreich!");
+                        this.history = new History(verlaufsDatei);
+                    }else {
+                        ausgabe.setText("Es gab einen Fehler beim Speichern!");
+                    }
                     saveStage.close();
                 });
 

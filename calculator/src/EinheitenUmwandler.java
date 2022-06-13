@@ -326,7 +326,7 @@ public class EinheitenUmwandler extends Main {
         gridPane.add(einheit2, 3, 1);
         gridPane.add(eingabeLabel, 0, 1);
         gridPane.add(ausgabeLabel, 2, 1);
-
+        verlauf.setText(Main.zwischenVerlauf);
         try {
             for (int i = 0; i < history.linesOfPath.size(); i++) {
                 verlauf.appendText(history.linesOfPath.get(i) + "\n");
@@ -437,10 +437,9 @@ public class EinheitenUmwandler extends Main {
                             commaCounter++;
                         }
                     }
-
-
                     ausgabe.setText(calculate(String.valueOf(eingabeEinheit.getValue()), Double.parseDouble(eingabeText), String.valueOf(ausgabeEinheit.getValue())));
                     verlauf.appendText("" + eingabeText + " " + eingabeEinheit.getValue() + " = " + ausgabe.getText() + " " + ausgabeEinheit.getValue() + "\n");
+                    Main.zwischenVerlauf = verlauf.getText();
                 } catch (Exception e) {
                     eingabe.clear();
                     eingabe.setPromptText("Error! Ungültige Eingabe");
@@ -460,13 +459,15 @@ public class EinheitenUmwandler extends Main {
         buttons[1].setOnAction(k -> {
 
             ausgabe.clear();
+            eingabe.clear();
+            eingabe.setPromptText("");
+
         });
 
         /**
          * eventlistener für button "CE"
          */
         buttons[2].setOnAction(k -> {
-
             verlauf.clear();
         });
 
@@ -474,7 +475,6 @@ public class EinheitenUmwandler extends Main {
          * eventlistener für button "Save"
          */
         buttons[3].setOnAction(k -> {
-
             List<String> allLineOfHistory = Arrays.asList(verlauf.getText().split("\n"));
             if (this.history == null) {
                 GridPane saveScreen = new GridPane();
@@ -514,14 +514,21 @@ public class EinheitenUmwandler extends Main {
                     } catch (Exception ignored) {
 
                     }
-                    ausgabe.setText("Speichern erfolgreich!");
-                    this.history = new History(verlaufsDatei);
+                    if(verlaufsDatei != null) {
+                        eingabe.setText("Speichern erfolgreich!");
+                        this.history = new History(verlaufsDatei);
+                        ausgabe.clear();
+                    }else {
+                        ausgabe.setText("Es gab einen Fehler beim Speichern!");
+                    }
                     saveStage.close();
                 });
 
                 saveStage.show();
             } else {
                 List<String> linesOfHistory = Arrays.asList(verlauf.getText().split("\n"));
+                eingabe.setText("Speichern erfolgreich!");
+                ausgabe.clear();
                 try {
                     this.save(linesOfHistory);
                 } catch (IOException e) {

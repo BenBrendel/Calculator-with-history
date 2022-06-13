@@ -23,6 +23,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 public class Main extends Application {
+    static String zwischenVerlauf;
     public static void main(String[] args) {
         launch(args);
     }
@@ -93,7 +94,7 @@ public class Main extends Application {
         stage.setScene(scene);
         ImageView headerLogo = new ImageView();
         try {
-            headerLogo = new ImageView(new Image(new FileInputStream("pic\\calc.png")));
+            headerLogo = new ImageView(new Image(new FileInputStream("C:\\Git\\Calculator-with-history\\calculator\\pic\\calc.png")));
 
         } catch (Exception e) {
             e.printStackTrace();
