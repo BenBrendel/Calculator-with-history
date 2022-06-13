@@ -30,7 +30,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
-public class Calculator {
+public class Calculator extends Main {
     History history;
     TextArea ausgabe = new TextArea();
     TextArea verlauf = new TextArea();
@@ -74,7 +74,7 @@ public class Calculator {
             try (
                     BufferedWriter out = Files.newBufferedWriter((history.path), StandardCharsets.UTF_8, StandardOpenOption.APPEND);
             ) {
-                   List<String> allLinesOfHistory = Files.readAllLines(history.path);
+                List<String> allLinesOfHistory = Files.readAllLines(history.path);
                 for (int i = allLinesOfHistory.size(); i < linesOfHistory.size(); i++) {
 
                     out.write(linesOfHistory.get(i) + System.lineSeparator());
@@ -153,7 +153,7 @@ public class Calculator {
      *
      * @return scene for the calculator
      */
-    public Scene newCalc() {
+    public Scene newCalc(Stage stage) {
         GridPane gridPane = new GridPane();
         gridPane.setAlignment(Pos.CENTER);
         Scene scene = new Scene(gridPane, 820, 500);
@@ -168,6 +168,7 @@ public class Calculator {
         Button[] buttons = new Button[]{new Button("0"), new Button("1"), new Button("2"), new Button("3"), new Button("4"), new Button("5"), new Button("6"), new Button("7"), new Button("8"), new Button("9"),
                 new Button("="), new Button("+"), new Button("-"), new Button("/"), new Button("*"), new Button("C"), new Button("."), new Button("Back"), new Button("+/-"), new Button("CE"), new Button("Save")
         };
+        comboBox.getSelectionModel().select(0);
 
         Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
 
@@ -187,6 +188,7 @@ public class Calculator {
 
         gridPane.requestFocus();
 
+        gridPane.add(comboBox, 0, 0);
         gridPane.add(ausgabe, 0, 1, 4, 1);
         gridPane.add(verlauf, 4, 2, 1, 4);
         gridPane.add(buttons[0], 1, 6);
@@ -362,7 +364,7 @@ public class Calculator {
          * eventlistener für button "."
          */
         buttons[16].setOnAction(k -> {
-            if(ausgabe.getText().length() !=0) {
+            if (ausgabe.getText().length() != 0) {
                 String[] splitRechnung = ausgabe.getText().split(" ");
                 if (!ausgabe.getText().contains("=")) {
                     if (ausgabe.getText().charAt(ausgabe.getText().length() - 1) >= '0' && ausgabe.getText().charAt(ausgabe.getText().length() - 1) <= '9' && !(ausgabe.getText().startsWith("Error")) && !(ausgabe.getText().startsWith("Speichern"))) {
@@ -431,7 +433,7 @@ public class Calculator {
          */
         buttons[20].setOnAction(k -> {
             List<String> allLineOfHistory = Arrays.asList(verlauf.getText().split("\n"));
-            if (this.history== null) {
+            if (this.history == null) {
                 GridPane saveScreen = new GridPane();
                 saveScreen.setAlignment(Pos.CENTER);
                 Scene saveScene = new Scene(saveScreen, 280, 100);
@@ -545,6 +547,32 @@ public class Calculator {
                     buttons[10].requestFocus();
                 }
         );
+
+        comboBox.setOnAction(e -> {
+            if (history != null) {
+                if (comboBox.getValue().equals("Standardrechner")) {
+                    Calculator calc = new Calculator(history);
+                    stage.setScene(calc.newCalc(stage));
+                } else if (comboBox.getValue().equals("Binärrechner")) {
+                    BinaryCalc binaryCalc = new BinaryCalc(history);
+                    stage.setScene(binaryCalc.newCalc(stage));
+                } else if (comboBox.getValue().equals("Einheiten-Umwandler")) {
+                    EinheitenUmwandler einheitenUmwandler = new EinheitenUmwandler(history);
+                    stage.setScene(einheitenUmwandler.newCalc(stage));
+                }
+            } else {
+                if (comboBox.getValue().equals("Standardrechner")) {
+                    Calculator calc = new Calculator();
+                    stage.setScene(calc.newCalc(stage));
+                } else if (comboBox.getValue().equals("Binärrechner")) {
+                    BinaryCalc binaryCalc = new BinaryCalc();
+                    stage.setScene(binaryCalc.newCalc(stage));
+                } else if (comboBox.getValue().equals("Einheiten-Umwandler")) {
+                    EinheitenUmwandler einheitenUmwandler = new EinheitenUmwandler();
+                    stage.setScene(einheitenUmwandler.newCalc(stage));
+                }
+            }
+        });
 
         return scene;
     }

@@ -28,7 +28,7 @@ import java.util.Arrays;
 import java.util.List;
 import static javafx.scene.paint.Color.rgb;
 
-public class EinheitenUmwandler {
+public class EinheitenUmwandler extends Main {
     History history;
     TextArea verlauf = new TextArea();
 
@@ -247,7 +247,7 @@ public class EinheitenUmwandler {
      *
      * @return scene for the calculator
      */
-    public Scene newCalc() {
+    public Scene newCalc(Stage stage) {
         GridPane gridPane = new GridPane();
         gridPane.setAlignment(Pos.CENTER);
         Scene scene = new Scene(gridPane, 900, 350);
@@ -261,6 +261,7 @@ public class EinheitenUmwandler {
         Button[] buttons = new Button[]{
                 new Button("="), new Button("C"), new Button("CE"), new Button("Save")
         };
+        comboBox.getSelectionModel().select(2);
 
         ObservableList<String> EingabeOptions =
                 FXCollections.observableArrayList(
@@ -310,6 +311,7 @@ public class EinheitenUmwandler {
 
         gridPane.requestFocus();
 
+        gridPane.add(comboBox, 0, 0);
         gridPane.add(verlauf, 4, 2, 1, 4);
         gridPane.add(buttons[0], 0, 5);
         gridPane.add(buttons[1], 1, 5);
@@ -534,6 +536,32 @@ public class EinheitenUmwandler {
         scene.setOnKeyPressed(k -> {
             if (k.getCode() == KeyCode.ENTER) {
                 buttons[0].fire();
+            }
+        });
+
+        comboBox.setOnAction(e -> {
+            if (history != null) {
+                if (comboBox.getValue().equals("Standardrechner")) {
+                    Calculator calc = new Calculator(history);
+                    stage.setScene(calc.newCalc(stage));
+                } else if (comboBox.getValue().equals("Binärrechner")) {
+                    BinaryCalc binaryCalc = new BinaryCalc(history);
+                    stage.setScene(binaryCalc.newCalc(stage));
+                } else if (comboBox.getValue().equals("Einheiten-Umwandler")) {
+                    EinheitenUmwandler einheitenUmwandler = new EinheitenUmwandler(history);
+                    stage.setScene(einheitenUmwandler.newCalc(stage));
+                }
+            } else {
+                if (comboBox.getValue().equals("Standardrechner")) {
+                    Calculator calc = new Calculator();
+                    stage.setScene(calc.newCalc(stage));
+                } else if (comboBox.getValue().equals("Binärrechner")) {
+                    BinaryCalc binaryCalc = new BinaryCalc();
+                    stage.setScene(binaryCalc.newCalc(stage));
+                } else if (comboBox.getValue().equals("Einheiten-Umwandler")) {
+                    EinheitenUmwandler einheitenUmwandler = new EinheitenUmwandler();
+                    stage.setScene(einheitenUmwandler.newCalc(stage));
+                }
             }
         });
 
