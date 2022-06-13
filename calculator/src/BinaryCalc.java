@@ -212,18 +212,26 @@ public class BinaryCalc {
         /**
          * evenListener for buttons
          */
+
+        /**
+         * eventlistener für button "0"
+         */
         buttons[0].setOnAction(k -> {
-            //0
+
             pressNumber('0', buttons[2]);
         });
 
+        /**
+         * eventlistener für button "1"
+         */
         buttons[1].setOnAction(k -> {
-            //1
             pressNumber('1', buttons[2]);
         });
 
+        /**
+         * eventlistener für button "="
+         */
         buttons[2].setOnAction(k -> {
-            //=
             String Rechnung = ausgabe.getText();
             if (!(Rechnung.contains("=")) && Rechnung.length() != 0 && Rechnung.charAt(Rechnung.length() - 1) != ' ') {
                 try {
@@ -237,35 +245,50 @@ public class BinaryCalc {
 
             }
         });
+
+        /**
+         * eventlistener für button "+"
+         */
         buttons[3].setOnAction(k -> {
-            //+
+
             pressOperationSign('+', buttons[2]);
         });
 
+        /**
+         * eventlistener für button "-"
+         */
         buttons[4].setOnAction(k -> {
-            //-
+
             pressOperationSign('-', buttons[2]);
         });
 
+        /**
+         * eventlistener für button "/"
+         */
         buttons[5].setOnAction(k -> {
-            ///
             pressOperationSign('/', buttons[2]);
         });
 
+        /**
+         * eventlistener für button "*"
+         */
         buttons[6].setOnAction(k -> {
-            //*
             pressOperationSign('*', buttons[2]);
         });
 
+        /**
+         * eventlistener für button "C"
+         */
         buttons[7].setOnAction(k -> {
-            //C
             ausgabe.clear();
             buttons[2].requestFocus();
         });
 
 
+        /**
+         * eventlistener für button "Back"
+         */
         buttons[8].setOnAction(k -> {
-            //Back
             if (ausgabe.getText().length() != 0 && !(ausgabe.getText().startsWith("Error")) && !(ausgabe.getText().startsWith("Speichern"))) {
                 if (ausgabe.getText().charAt(ausgabe.getText().length() - 1) != ' ' && !(ausgabe.getText().contains("="))) {
 
@@ -277,8 +300,10 @@ public class BinaryCalc {
             buttons[2].requestFocus();
         });
 
+        /**
+         * eventlistener für button "+/-"
+         */
         buttons[9].setOnAction(k -> {
-            //+/-
             try {
 
 
@@ -301,16 +326,24 @@ public class BinaryCalc {
             buttons[2].requestFocus();
         });
 
+        /**
+         * eventlistener für button "CE"
+         */
         buttons[10].setOnAction(k -> {
-            //CE
             ausgabe.clear();
             verlauf.clear();
             buttons[2].requestFocus();
         });
-
+        /**
+        * eventlistener für button "Save"
+        */
         buttons[11].setOnAction(k -> {
-            //Save
             List<String> allLineOfHistory = Arrays.asList(verlauf.getText().split("\n"));
+            /**
+             *  wenn der Calculator noch nicht gespeichert wurde dann wird ein neues Fenster aufgerufen
+             *  in dem man den Speicherort auswählen kann. Wurde schonmal gespeichert werden die neuen Verlaufszeilen in die
+             *  vorhandene Datei angehängt.
+             */
             if (this.history == null) {
                 GridPane saveScreen = new GridPane();
                 saveScreen.setAlignment(Pos.CENTER);

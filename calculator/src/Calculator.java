@@ -42,6 +42,12 @@ public class Calculator {
         this.history = history;
     }
 
+    /**
+     *  Die Methode wird aufgerufen wenn ein Button mit einer "Zahl" gedrückt wird
+     * @param Number = Die Zahl die gedrückt wird
+     * @param button = der Button der gedrückt wird
+     */
+
     public void pressNumber(char Number, Button button) {
         if (ausgabe.getText().startsWith("=") || ausgabe.getText().startsWith("Error") || ausgabe.getText().startsWith("Speichern")) {
             ausgabe.clear();
@@ -50,6 +56,11 @@ public class Calculator {
         button.requestFocus();
     }
 
+    /**
+     * Die Methode wird aufgerufen wenn ein Button mit einem "Rechenzeichen" gedrückt wird
+     * @param Sign = das Rechenzeichen welches ausgeführt wird
+     * @param button = Der Button der gedrückt wurde
+     */
     public void pressOperationSign(char Sign, Button button) {
 
         if (ausgabe.getText().length() != 0 && ausgabe.getText().charAt(ausgabe.getText().length() - 1) != ' ' && !(ausgabe.getText().startsWith("Error")) && !(ausgabe.getText().startsWith("Speichern")) && !ausgabe.getText().contains("=")) {
@@ -213,58 +224,85 @@ public class Calculator {
         /**
          * evenListener for buttons
          */
+
+        /**
+         * eventlistener für button "0"
+         */
         buttons[0].setOnAction(k -> {
-            //0
             pressNumber('0', buttons[10]);
         });
 
+        /**
+         * eventlistener für button "1"
+         */
         buttons[1].setOnAction(k -> {
-            //1
+
             pressNumber('1', buttons[10]);
         });
 
+        /**
+         * eventlistener für button "2"
+         */
         buttons[2].setOnAction(k -> {
-            //2
             pressNumber('2', buttons[10]);
         });
 
+        /**
+         * eventlistener für button "3"
+         */
         buttons[3].setOnAction(k -> {
-            //3
+
             pressNumber('3', buttons[10]);
         });
 
+        /**
+         * eventlistener für button "4"
+         */
         buttons[4].setOnAction(k -> {
-            //4
             pressNumber('4', buttons[10]);
         });
 
+        /**
+         * eventlistener für button "5"
+         */
         buttons[5].setOnAction(k -> {
-            //5
+
             pressNumber('5', buttons[10]);
         });
 
+        /**
+         * eventlistener für button "6"
+         */
         buttons[6].setOnAction(k -> {
-            //6
             pressNumber('6', buttons[10]);
         });
 
+        /**
+         * eventlistener für button "7"
+         */
         buttons[7].setOnAction(k -> {
-            //7
             pressNumber('7', buttons[10]);
         });
 
+        /**
+         * eventlistener für button "8"
+         */
         buttons[8].setOnAction(k -> {
-            //8
+
             pressNumber('8', buttons[10]);
         });
 
+        /**
+         * eventlistener für button "9"
+         */
         buttons[9].setOnAction(k -> {
-            //9
             pressNumber('9', buttons[10]);
         });
 
+        /**
+         * eventlistener für button "="
+         */
         buttons[10].setOnAction(k -> {
-            //=
             String Rechnung = ausgabe.getText();
             if (!(Rechnung.contains("=")) && Rechnung.length() != 0 && Rechnung.charAt(Rechnung.length() - 1) != ' ') {
                 if (this.calculate(Rechnung) == Double.POSITIVE_INFINITY || this.calculate(Rechnung) == Double.NEGATIVE_INFINITY || Double.isNaN(this.calculate(Rechnung))) {
@@ -284,34 +322,46 @@ public class Calculator {
                 }
             }
         });
+        /**
+         * eventlistener für button "+"
+         */
         buttons[11].setOnAction(k -> {
-            //+
             pressOperationSign('+', buttons[10]);
         });
 
+        /**
+         * eventlistener für button "-"
+         */
         buttons[12].setOnAction(k -> {
-            //-
             pressOperationSign('-', buttons[10]);
         });
 
+        /**
+         * eventlistener für button "/"
+         */
         buttons[13].setOnAction(k -> {
-            ///
             pressOperationSign('/', buttons[10]);
         });
 
+        /**
+         * eventlistener für button "*"
+         */
         buttons[14].setOnAction(k -> {
-            //*
             pressOperationSign('*', buttons[10]);
         });
 
+        /**
+         * eventlistener für button "C"
+         */
         buttons[15].setOnAction(k -> {
-            //C
             ausgabe.clear();
             buttons[10].requestFocus();
         });
 
+        /**
+         * eventlistener für button "."
+         */
         buttons[16].setOnAction(k -> {
-            //.
             if(ausgabe.getText().length() !=0) {
                 String[] splitRechnung = ausgabe.getText().split(" ");
                 if (!ausgabe.getText().contains("=")) {
@@ -326,6 +376,9 @@ public class Calculator {
         });
 
 
+        /**
+         * eventlistener für button "Back"
+         */
         buttons[17].setOnAction(k -> {
             //Back
             if (ausgabe.getText().length() != 0 && !(ausgabe.getText().startsWith("Error")) && !(ausgabe.getText().startsWith("Speichern"))) {
@@ -339,8 +392,10 @@ public class Calculator {
             buttons[10].requestFocus();
         });
 
+        /**
+         * eventlistener für button "+/-"
+         */
         buttons[18].setOnAction(k -> {
-            //+/-
             try {
 
 
@@ -362,15 +417,19 @@ public class Calculator {
             buttons[10].requestFocus();
         });
 
+        /**
+         * eventlistener für button "CE"
+         */
         buttons[19].setOnAction(k -> {
-            //CE
             ausgabe.clear();
             verlauf.clear();
             buttons[10].requestFocus();
         });
 
+        /**
+         * eventlistener für button "Save"
+         */
         buttons[20].setOnAction(k -> {
-            //Save
             List<String> allLineOfHistory = Arrays.asList(verlauf.getText().split("\n"));
             if (this.history== null) {
                 GridPane saveScreen = new GridPane();

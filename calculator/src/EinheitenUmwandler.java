@@ -15,7 +15,6 @@ import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;
@@ -27,7 +26,6 @@ import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
 import static javafx.scene.paint.Color.rgb;
 
 public class EinheitenUmwandler {
@@ -46,6 +44,12 @@ public class EinheitenUmwandler {
         }
     }
 
+    /**
+     * @param ausgangsEinheit = Die Einheit die umgewandelt werden soll
+     * @param Wert = Der Wert der ausgangsEinheit
+     * @param endEinheit = Einheit in die Umgewandelt wird
+     * @return = das umgewandelte Ergebnis
+     */
     public String calculate(String ausgangsEinheit, double Wert, String endEinheit) {
         String erg = "";
         if (ausgangsEinheit.equals("kg")) {
@@ -216,6 +220,11 @@ public class EinheitenUmwandler {
         this.history = history;
     }
 
+    /**
+     * Die Methode speichert die neu hinzugefügten Rechnungen in die Verlaufsdatei falls eine existiert
+     * @param linesOfHistory = Die die sich zum Zeitpunkt des Aufrufens im Verlauf befinden
+     * @throws IOException = für File IO
+     */
     public void save(List<String> linesOfHistory) throws IOException {
         try{
             try (
@@ -327,10 +336,14 @@ public class EinheitenUmwandler {
          * evenListener for buttons
          */
 
+        /**
+         * Der Listener bewirkt, dass man z.B. nicht Minuten in kg umwandeln auswählen kann
+         */
         eingabeEinheit.setOnAction(k -> {
             ausgabe.clear();
-            ;
+
             String auswahl = (String) eingabeEinheit.getValue();
+
             if (auswahl.equals("kg")) {
                 ObservableList<String> ausgabeOptions =
                         FXCollections.observableArrayList(
@@ -406,9 +419,10 @@ public class EinheitenUmwandler {
             }
         });
 
+        /**
+         * eventlistener für button "="
+         */
         buttons[0].setOnAction(k -> {
-            //=
-            //muss angepasst werden, weil es ja kein calculate mehr gibt
             if (!eingabe.getText().equals("") && eingabeEinheit.getValue() != null && ausgabeEinheit.getValue() != null) {
                 try {
                     int commaCounter = 0;
@@ -438,18 +452,27 @@ public class EinheitenUmwandler {
             }
         });
 
+        /**
+         * eventlistener für button "C"
+         */
         buttons[1].setOnAction(k -> {
-            //C
+
             ausgabe.clear();
         });
 
+        /**
+         * eventlistener für button "CE"
+         */
         buttons[2].setOnAction(k -> {
-            //CE
+
             verlauf.clear();
         });
 
+        /**
+         * eventlistener für button "Save"
+         */
         buttons[3].setOnAction(k -> {
-            //Save
+
             List<String> allLineOfHistory = Arrays.asList(verlauf.getText().split("\n"));
             if (this.history == null) {
                 GridPane saveScreen = new GridPane();
